@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 /// information about a specific home item.
 @injectable
 class GetHomeDetailUseCase {
+  /// Creates a new instance of GetHomeDetailUseCase
   const GetHomeDetailUseCase(this._repository);
 
   final HomeRepository _repository;

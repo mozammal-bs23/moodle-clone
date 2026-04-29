@@ -184,13 +184,13 @@ class AppTheme {
       ),
       radioTheme: const RadioThemeData(),
       switchTheme: const SwitchThemeData(),
-      sliderTheme: SliderThemeData(
+      sliderTheme: const SliderThemeData(
         trackHeight: 4,
-        thumbShape: const RoundSliderThumbShape(),
-        overlayShape: const RoundSliderOverlayShape(),
-        tickMarkShape: const RoundSliderTickMarkShape(),
-        trackShape: const RoundedRectSliderTrackShape(),
-        valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+        thumbShape: RoundSliderThumbShape(),
+        overlayShape: RoundSliderOverlayShape(),
+        tickMarkShape: RoundSliderTickMarkShape(),
+        trackShape: RoundedRectSliderTrackShape(),
+        valueIndicatorShape: PaddleSliderValueIndicatorShape(),
       ),
       chipTheme: ChipThemeData(
         shape: RoundedRectangleBorder(
@@ -286,7 +286,6 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
             color: darkColorScheme.error,
-            width: 1,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
@@ -328,13 +327,13 @@ class AppTheme {
       ),
       radioTheme: const RadioThemeData(),
       switchTheme: const SwitchThemeData(),
-      sliderTheme: SliderThemeData(
+      sliderTheme: const SliderThemeData(
         trackHeight: 4,
-        thumbShape: const RoundSliderThumbShape(),
-        overlayShape: const RoundSliderOverlayShape(),
-        tickMarkShape: const RoundSliderTickMarkShape(),
-        trackShape: const RoundedRectSliderTrackShape(),
-        valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+        thumbShape: RoundSliderThumbShape(),
+        overlayShape: RoundSliderOverlayShape(),
+        tickMarkShape: RoundSliderTickMarkShape(),
+        trackShape: RoundedRectSliderTrackShape(),
+        valueIndicatorShape: PaddleSliderValueIndicatorShape(),
       ),
       chipTheme: ChipThemeData(
         shape: RoundedRectangleBorder(

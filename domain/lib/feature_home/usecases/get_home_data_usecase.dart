@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 /// Takes a repository as dependency and returns a [Result<HomeEntity>].
 @injectable
 class GetHomeDataUseCase {
+  /// Creates a new instance of GetHomeDataUseCase
   const GetHomeDataUseCase(this._repository);
 
   final HomeRepository _repository;

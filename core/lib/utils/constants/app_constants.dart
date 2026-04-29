@@ -109,22 +109,22 @@ class AppStrings {
 class AppSpacing {
   const AppSpacing._();
 
-  // Extra small spacing (4)
+  /// Extra small spacing (4)
   static const double xs = 4;
 
-  // Small spacing (8)
+  /// Small spacing (8)
   static const double sm = 8;
 
-  // Medium spacing (16)
+  /// Medium spacing (16)
   static const double md = 16;
 
-  // Large spacing (24)
+  /// Large spacing (24)
   static const double lg = 24;
 
-  // Extra large spacing (32)
+  /// Extra large spacing (32)
   static const double xl = 32;
 
-  // Extra extra large spacing (48)
+  /// Extra extra large spacing (48)
   static const double xxl = 48;
 }
 
@@ -132,21 +132,39 @@ class AppSpacing {
 class AppSize {
   const AppSize._();
 
-  // Icon sizes
+  /// Small icon size (16)
   static const double iconSm = 16;
+
+  /// Medium icon size (24)
   static const double iconMd = 24;
+
+  /// Large icon size (32)
   static const double iconLg = 32;
+
+  /// Extra large icon size (48)
   static const double iconXl = 48;
 
-  // Border radius
+  /// Small border radius (4)
   static const double radiusSm = 4;
+
+  /// Medium border radius (8)
   static const double radiusMd = 8;
+
+  /// Large border radius (12)
   static const double radiusLg = 12;
+
+  /// Extra large border radius (16)
   static const double radiusXl = 16;
+
+  /// Full border radius (9999)
   static const double radiusFull = 9999;
 
-  // Elevation
+  /// Small elevation (2)
   static const double elevationSm = 2;
+
+  /// Medium elevation (4)
   static const double elevationMd = 4;
+
+  /// Large elevation (8)
   static const double elevationLg = 8;
 }

@@ -28,8 +28,8 @@ class AppNavigator {
   /// Push a named route and remove all previous routes
   static Future<T?>? pushNamedAndRemoveUntil<T extends Object?>(
     String routeName, {
-    Object? arguments,
     required bool Function(Route<dynamic>) predicate,
+    Object? arguments,
   }) =>
       navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
         routeName,
