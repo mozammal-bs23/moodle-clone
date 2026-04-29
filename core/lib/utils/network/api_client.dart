@@ -6,7 +6,7 @@ import '../constants/app_constants.dart';
 import '../failure/app_failure.dart';
 import 'interceptors/auth_interceptor.dart';
 import 'interceptors/logging_interceptor.dart';
-import 'result.dart';
+import 'result.dart' show Result, ResultHelper;
 
 /// HTTP client implementation using Dio
 /// Handles all network operations with proper error handling
@@ -96,11 +96,11 @@ class ApiClient {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-      return Result.success(response.data);
+      return ResultHelper.success(response.data);
     } on DioError catch (e) {
-      return Result.failure(_mapError(e));
+      return ResultHelper.failure(_mapError(e));
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         UnknownFailure(
           message: e.toString(),
           exception: e,
@@ -130,11 +130,11 @@ class ApiClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return Result.success(response.data);
+      return ResultHelper.success(response.data);
     } on DioError catch (e) {
-      return Result.failure(_mapError(e));
+      return ResultHelper.failure(_mapError(e));
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         UnknownFailure(
           message: e.toString(),
           exception: e,
@@ -164,11 +164,11 @@ class ApiClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return Result.success(response.data);
+      return ResultHelper.success(response.data);
     } on DioError catch (e) {
-      return Result.failure(_mapError(e));
+      return ResultHelper.failure(_mapError(e));
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         UnknownFailure(
           message: e.toString(),
           exception: e,
@@ -198,11 +198,11 @@ class ApiClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return Result.success(response.data);
+      return ResultHelper.success(response.data);
     } on DioError catch (e) {
-      return Result.failure(_mapError(e));
+      return ResultHelper.failure(_mapError(e));
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         UnknownFailure(
           message: e.toString(),
           exception: e,
@@ -228,11 +228,11 @@ class ApiClient {
         options: options,
         cancelToken: cancelToken,
       );
-      return Result.success(response.data);
+      return ResultHelper.success(response.data);
     } on DioError catch (e) {
-      return Result.failure(_mapError(e));
+      return ResultHelper.failure(_mapError(e));
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         UnknownFailure(
           message: e.toString(),
           exception: e,
@@ -260,11 +260,11 @@ class ApiClient {
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
       );
-      return Result.success(response.data);
+      return ResultHelper.success(response.data);
     } on DioError catch (e) {
-      return Result.failure(_mapError(e));
+      return ResultHelper.failure(_mapError(e));
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         UnknownFailure(
           message: e.toString(),
           exception: e,
@@ -296,9 +296,9 @@ class ApiClient {
       );
       return Result.success(savePath);
     } on DioError catch (e) {
-      return Result.failure(_mapError(e));
+      return ResultHelper.failure(_mapError(e));
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         UnknownFailure(
           message: e.toString(),
           exception: e,

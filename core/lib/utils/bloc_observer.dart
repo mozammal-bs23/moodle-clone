@@ -17,11 +17,6 @@ class SimpleBlocObserver extends BlocObserver {
   }
 
   @override
-  void onChangeWithOrigin(BlocBase bloc, Change change, StackTrace stackTrace) {
-    super.onChangeWithOrigin(bloc, change, stackTrace);
-  }
-
-  @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
     // Can add logging or analytics here

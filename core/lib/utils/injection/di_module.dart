@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:dio/dio.dart';
 import '../constants/app_constants.dart';
-import '../../features/home/data/datasources/home_remote_datasource.dart';
 
 @module
 abstract class DIModule {
@@ -31,8 +30,4 @@ abstract class DIModule {
   @preResolve
   @Named('home_cache')
   Future<Box<String>> get homeBox => Hive.openBox<String>('home_cache');
-
-  @lazySingleton
-  HomeRemoteDatasource getHomeRemoteDatasource(Dio dio, @Named('baseUrl') String baseUrl) => 
-      HomeRemoteDatasource(dio, baseUrl: baseUrl);
 }
