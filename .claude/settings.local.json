@@ -21,7 +21,8 @@
       "Bash(rtk gh *)",
       "Bash(flutter --version)",
       "Bash(/Users/bs1101/fvm/versions/3.41.5/bin/flutter pub *)",
-      "Bash(/Users/bs1101/fvm/versions/3.41.5/bin/flutter analyze *)"
+      "Bash(/Users/bs1101/fvm/versions/3.41.5/bin/flutter analyze *)",
+      "Bash(git commit *)"
     ]
   }
 }
