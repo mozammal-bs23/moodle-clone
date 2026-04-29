@@ -154,9 +154,9 @@ GetPostsUseCase getPostsUseCase(PostRepository repo) =>
 final useCase = getIt<GetPostsUseCase>();
 ```
 
-## 🏆 Quality Score: 62/100
+## 🏆 Quality Score: 79/100
 
-Strong architecture, critical test failures blocking release. Fix required before production.
+Strong architecture & patterns. Test failures & code quality issues blocking production release.
 
 | Category | Score | Status |
 |----------|-------|--------|
