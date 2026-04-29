@@ -48,8 +48,12 @@ extension ContextExtensions on BuildContext {
   }
 
   /// Navigate and replace current route
-  Future<T?> navigateToReplacement<T>(String routeName, {T? result, Object? arguments}) {
-    return Navigator.of(this).pushReplacementNamed<T>(
+  Future<T?> navigateToReplacement<T extends Object?, TO extends Object?>(
+    String routeName, {
+    TO? result,
+    Object? arguments,
+  }) {
+    return Navigator.of(this).pushReplacementNamed<T, TO>(
       routeName,
       result: result,
       arguments: arguments,
@@ -134,7 +138,7 @@ extension ContextExtensions on BuildContext {
     required String title,
     required String content,
     String confirmText = 'OK',
-    String cancelText,
+    String? cancelText,
   }) {
     return showDialog<bool>(
       context: this,
@@ -157,11 +161,11 @@ extension ContextExtensions on BuildContext {
   }
 
   /// Get a dependency from the nearest inherited widget
-  T dependOnInheritedWidget<T extends InheritedWidget>({
+  T? dependOnInheritedWidget<T extends InheritedWidget>({
     required String aspect,
     T Function()? builder,
   }) {
-    return dependOnInheritedElementOfExactType<T>() as T;
+    return getElementForInheritedWidgetOfExactType<T>()?.widget as T?;
   }
 
   /// Reads a dependency from the nearest inherited widget

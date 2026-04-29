@@ -15,18 +15,18 @@ class AppNavigator {
   static BuildContext? get context => navigatorKey.currentContext;
 
   /// Push a new route onto the navigator
-  static Future<T?> push<T extends Object?>(Route<T> route) =>
+  static Future<T?>? push<T extends Object?>(Route<T> route) =>
       navigatorKey.currentState?.push<T>(route);
 
   /// Push a named route onto the navigator
-  static Future<T?> pushNamed<T extends Object?>(
+  static Future<T?>? pushNamed<T extends Object?>(
     String routeName, {
     Object? arguments,
   }) =>
       navigatorKey.currentState?.pushNamed<T>(routeName, arguments: arguments);
 
   /// Push a named route and remove all previous routes
-  static Future<T?> pushNamedAndRemoveUntil<T extends Object?>(
+  static Future<T?>? pushNamedAndRemoveUntil<T extends Object?>(
     String routeName, {
     Object? arguments,
     required bool Function(Route<dynamic>) predicate,
@@ -35,7 +35,7 @@ class AppNavigator {
           ?.pushNamedAndRemoveUntil<T>(routeName, predicate, arguments: arguments);
 
   /// Push a named route and remove all previous routes until a specific route
-  static Future<T?> pushNamedAndRemoveUntilUntil<T extends Object?>(
+  static Future<T?>? pushNamedAndRemoveUntilUntil<T extends Object?>(
     String newRouteName,
     String removeUntilRouteName, {
     Object? arguments,
@@ -47,16 +47,16 @@ class AppNavigator {
       );
 
   /// Replace the current route with a new route
-  static Future<T?> pushReplacementNamed<T extends Object?, TO extends Object?>(
+  static Future<T?>? pushReplacementNamed<T extends Object?, TO extends Object?>(
     String routeName, {
     TO? result,
     Object? arguments,
   }) =>
       navigatorKey.currentState
-          ?.pushReplacementNamed<T, TO>(routeName, arguments: arguments);
+          ?.pushReplacementNamed<T, TO>(routeName, result: result, arguments: arguments);
 
   /// Pop all routes and push a new route
-  static Future<T?> pushNamedAndRemoveAll<T extends Object?>(
+  static Future<T?>? pushNamedAndRemoveAll<T extends Object?>(
     String routeName, {
     Object? arguments,
   }) =>
