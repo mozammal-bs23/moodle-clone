@@ -25,6 +25,8 @@ class ResultHelper {
 
 /// Extension to make Result available with static methods
 extension ResultX<T> on Result<T> {
+  /// Creates a success result with the given data
   static Result<U> success<U>(U data) => (data, null);
+  /// Creates a failure result with the given error
   static Result<U> failure<U>(AppFailure error) => (null, error);
 }

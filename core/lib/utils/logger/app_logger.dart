@@ -4,14 +4,15 @@ import 'package:logger/logger.dart';
 /// Application logger configuration
 /// Centralized logging utility for the app
 class AppLogger {
+  /// Private constructor to prevent instantiation
+  AppLogger._();
+
   /// Logger instance
   static late Logger _logger;
 
   /// Whether logging is enabled
   static bool _isEnabled = true;
 
-  /// Private constructor to prevent instantiation
-  AppLogger._();
 
   /// Initializes the logger with custom configuration
   static void init({
@@ -27,7 +28,6 @@ class AppLogger {
             methodCount: 0,
             errorMethodCount: 5,
             lineLength: 80,
-            colors: true,
             printEmojis: false,
           ),
         );

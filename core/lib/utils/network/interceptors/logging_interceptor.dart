@@ -3,15 +3,6 @@ import 'package:logger/logger.dart';
 
 /// Interceptor for logging network requests and responses
 class LoggingInterceptor extends Interceptor {
-  /// Logger instance
-  final Logger logger;
-
-  /// Whether to log request bodies
-  final bool logRequestBody;
-
-  /// Whether to log response bodies
-  final bool logResponseBody;
-
   /// Creates a [LoggingInterceptor]
   LoggingInterceptor({
     Logger? logger,
@@ -23,10 +14,19 @@ class LoggingInterceptor extends Interceptor {
             methodCount: 0,
             errorMethodCount: 5,
             lineLength: 80,
-            colors: true,
             printEmojis: false,
           ),
         );
+        
+  /// Logger instance
+  final Logger logger;
+
+  /// Whether to log request bodies
+  final bool logRequestBody;
+
+  /// Whether to log response bodies
+  final bool logResponseBody;
+
 
   @override
   void onRequest(

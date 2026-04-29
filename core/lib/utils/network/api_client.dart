@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import '../constants/app_constants.dart';
 import '../failure/app_failure.dart';
@@ -14,10 +13,10 @@ import 'result.dart' show Result, ResultHelper;
 class ApiClient {
   /// Creates an [ApiClient]
   ApiClient({
-    @Named('baseUrl') final String? baseUrl,
-    required final Dio dio,
-    final Duration? connectTimeout,
-    final Duration? receiveTimeout,
+    required Dio dio,
+    @Named('baseUrl') String? baseUrl,
+    Duration? connectTimeout,
+    Duration? receiveTimeout,
     this.maxRetries = 3,
   }) : baseUrl = baseUrl ?? AppConstants.baseUrl,
        _dio = dio,
@@ -55,10 +54,7 @@ class ApiClient {
         },
       )
       ..interceptors.add(
-        LoggingInterceptor(
-          logRequestBody: !kReleaseMode,
-          logResponseBody: !kReleaseMode,
-        ),
+        LoggingInterceptor(),
       );
   }
 
@@ -89,7 +85,7 @@ class ApiClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final response = await _dio.get(
+      final response = await _dio.get<T>(
         path,
         queryParameters: queryParameters,
         options: options,
@@ -102,14 +98,6 @@ class ApiClient {
         return ResultHelper.failure(_mapError(e as dynamic));
       }
       rethrow;
-    } catch (e, stackTrace) {
-      return ResultHelper.failure(
-        UnknownFailure(
-          message: e.toString(),
-          exception: e,
-          stackTrace: stackTrace,
-        ),
-      );
     }
   }
 
@@ -124,7 +112,7 @@ class ApiClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final response = await _dio.post(
+      final response = await _dio.post<T>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -139,14 +127,6 @@ class ApiClient {
         return ResultHelper.failure(_mapError(e as dynamic));
       }
       rethrow;
-    } catch (e, stackTrace) {
-      return ResultHelper.failure(
-        UnknownFailure(
-          message: e.toString(),
-          exception: e,
-          stackTrace: stackTrace,
-        ),
-      );
     }
   }
 
@@ -161,7 +141,7 @@ class ApiClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final response = await _dio.put(
+      final response = await _dio.put<T>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -176,14 +156,6 @@ class ApiClient {
         return ResultHelper.failure(_mapError(e as dynamic));
       }
       rethrow;
-    } catch (e, stackTrace) {
-      return ResultHelper.failure(
-        UnknownFailure(
-          message: e.toString(),
-          exception: e,
-          stackTrace: stackTrace,
-        ),
-      );
     }
   }
 
@@ -198,7 +170,7 @@ class ApiClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final response = await _dio.patch(
+      final response = await _dio.patch<T>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -213,14 +185,6 @@ class ApiClient {
         return ResultHelper.failure(_mapError(e as dynamic));
       }
       rethrow;
-    } catch (e, stackTrace) {
-      return ResultHelper.failure(
-        UnknownFailure(
-          message: e.toString(),
-          exception: e,
-          stackTrace: stackTrace,
-        ),
-      );
     }
   }
 
@@ -233,7 +197,7 @@ class ApiClient {
     CancelToken? cancelToken,
   }) async {
     try {
-      final response = await _dio.delete(
+      final response = await _dio.delete<T>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -246,14 +210,6 @@ class ApiClient {
         return ResultHelper.failure(_mapError(e as dynamic));
       }
       rethrow;
-    } catch (e, stackTrace) {
-      return ResultHelper.failure(
-        UnknownFailure(
-          message: e.toString(),
-          exception: e,
-          stackTrace: stackTrace,
-        ),
-      );
     }
   }
 
@@ -267,7 +223,7 @@ class ApiClient {
     ProgressCallback? onSendProgress,
   }) async {
     try {
-      final response = await _dio.post(
+      final response = await _dio.post<T>(
         path,
         data: formData,
         queryParameters: queryParameters,
@@ -281,14 +237,6 @@ class ApiClient {
         return ResultHelper.failure(_mapError(e as dynamic));
       }
       rethrow;
-    } catch (e, stackTrace) {
-      return ResultHelper.failure(
-        UnknownFailure(
-          message: e.toString(),
-          exception: e,
-          stackTrace: stackTrace,
-        ),
-      );
     }
   }
 
@@ -318,91 +266,87 @@ class ApiClient {
         return ResultHelper.failure(_mapError(e as dynamic));
       }
       rethrow;
-    } catch (e, stackTrace) {
-      return ResultHelper.failure(
-        UnknownFailure(
-          message: e.toString(),
-          exception: e,
-          stackTrace: stackTrace,
-        ),
-      );
     }
   }
 
-  /// Checks if exception is a Dio error (compatible with both DioError and DioException)
+  /// Checks if exception is a Dio error
+  /// Compatible with both DioError and DioException
   bool _isDioError(dynamic e) {
-    final typeName = e.runtimeType.toString();
+    final typeName = (e as dynamic).runtimeType.toString();
+    final response = (e as dynamic).response;
+    final type = (e as dynamic).type;
     return typeName.contains('DioError') ||
            typeName.contains('DioException') ||
-           (e.response != null || e.type != null);
+           (response != null || type != null);
   }
 
-  /// Maps Dio error to AppFailure (compatible with Dio 4.x)
+  /// Maps Dio error to AppFailure
+  /// Compatible with Dio 4.x
   AppFailure _mapError(dynamic error) {
-    final response = error.response as Response?;
-    final errorType = error.type;
+    final response = (error as dynamic).response as Response?;
+    final errorType = (error as dynamic).type;
 
     // Handle HTTP response errors
     if (response != null) {
       final statusCode = response.statusCode ?? 0;
-      final responseBody = response.data?.toString();
+      final responseBody = (response.data as dynamic)?.toString();
 
       switch (statusCode) {
         case 400:
           return NetworkFailure(
-            message: AppStrings.errorBadRequest,
+            message: 'Bad request',
             statusCode: statusCode,
             responseBody: responseBody,
-            stackTrace: error.stackTrace as StackTrace?,
+            stackTrace: (error as dynamic).stackTrace as StackTrace?,
           );
         case 401:
           return NetworkFailure(
-            message: AppStrings.errorUnauthorized,
+            message: 'Unauthorized',
             statusCode: statusCode,
             responseBody: responseBody,
-            stackTrace: error.stackTrace as StackTrace?,
+            stackTrace: (error as dynamic).stackTrace as StackTrace?,
           );
         case 403:
           return NetworkFailure(
             message: 'Forbidden',
             statusCode: statusCode,
             responseBody: responseBody,
-            stackTrace: error.stackTrace as StackTrace?,
+            stackTrace: (error as dynamic).stackTrace as StackTrace?,
           );
         case 404:
           return NetworkFailure(
             message: 'Not found',
             statusCode: statusCode,
             responseBody: responseBody,
-            stackTrace: error.stackTrace as StackTrace?,
+            stackTrace: (error as dynamic).stackTrace as StackTrace?,
           );
         case 500:
         case 502:
         case 503:
         case 504:
           return NetworkFailure(
-            message: AppStrings.errorServer,
+            message: 'Server error',
             statusCode: statusCode,
             responseBody: responseBody,
-            stackTrace: error.stackTrace as StackTrace?,
+            stackTrace: (error as dynamic).stackTrace as StackTrace?,
           );
         default:
           return NetworkFailure(
             message: 'HTTP Error: $statusCode',
             statusCode: statusCode,
             responseBody: responseBody,
-            stackTrace: error.stackTrace as StackTrace?,
+            stackTrace: (error as dynamic).stackTrace as StackTrace?,
           );
       }
     }
 
     // Handle timeout errors (compatible with both old DioErrorType and new)
-    final typeStr = errorType.toString();
-    final stackTrace = error.stackTrace as StackTrace?;
+    final typeStr = (errorType as dynamic).toString();
+    final stackTrace = (error as dynamic).stackTrace as StackTrace?;
 
     if (typeStr.contains('timeout')) {
       return NetworkFailure(
-        message: AppStrings.errorTimeout,
+        message: 'Request timeout',
         stackTrace: stackTrace,
       );
     }
@@ -420,14 +364,14 @@ class ApiClient {
         typeStr.contains('connectionError') ||
         typeStr.contains('unknown')) {
       return NetworkFailure(
-        message: AppStrings.errorNetwork,
+        message: 'Network error',
         stackTrace: stackTrace,
       );
     }
 
     // Default error
     return NetworkFailure(
-      message: AppStrings.errorGeneral,
+      message: 'An error occurred',
       stackTrace: stackTrace,
     );
   }

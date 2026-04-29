@@ -1,8 +1,13 @@
-import 'dart:async';
-
 /// Base class for all application failures
 /// This sealed class hierarchy represents all possible failures in the app
 abstract class AppFailure implements Exception {
+  /// Creates a new AppFailure
+  const AppFailure({
+    required this.code,
+    required this.message,
+    this.stackTrace,
+  });
+
   /// Unique error code for identification
   final String code;
 
@@ -11,13 +16,6 @@ abstract class AppFailure implements Exception {
 
   /// Optional stack trace for debugging
   final StackTrace? stackTrace;
-
-  /// Creates a new AppFailure
-  const AppFailure({
-    required this.code,
-    required this.message,
-    this.stackTrace,
-  });
 
   /// Convert to JSON map
   Map<String, dynamic> toJson();
@@ -28,23 +26,19 @@ abstract class AppFailure implements Exception {
 
 /// Failure that occurs during network operations
 class NetworkFailure extends AppFailure {
+  /// Creates a NetworkFailure
+  const NetworkFailure({
+    required super.message,
+    this.statusCode,
+    this.responseBody,
+    super.stackTrace,
+  }) : super(code: 'NETWORK_FAILURE');
+
   /// HTTP status code if available
   final int? statusCode;
 
   /// Response body from the server
   final String? responseBody;
-
-  /// Creates a NetworkFailure
-  const NetworkFailure({
-    required String message,
-    this.statusCode,
-    this.responseBody,
-    StackTrace? stackTrace,
-  }) : super(
-          code: 'NETWORK_FAILURE',
-          message: message,
-          stackTrace: stackTrace,
-        );
 
   @override
   Map<String, dynamic> toJson() => {
@@ -57,19 +51,15 @@ class NetworkFailure extends AppFailure {
 
 /// Failure that occurs during local storage operations
 class CacheFailure extends AppFailure {
-  /// Key that caused the failure
-  final String? key;
-
   /// Creates a CacheFailure
   const CacheFailure({
-    required String message,
+    required super.message,
     this.key,
-    StackTrace? stackTrace,
-  }) : super(
-          code: 'CACHE_FAILURE',
-          message: message,
-          stackTrace: stackTrace,
-        );
+    super.stackTrace,
+  }) : super(code: 'CACHE_FAILURE');
+
+  /// Key that caused the failure
+  final String? key;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -81,24 +71,20 @@ class CacheFailure extends AppFailure {
 
 /// Failure for validation errors
 class ValidationFailure extends AppFailure {
+  /// Creates a ValidationFailure
+  const ValidationFailure({
+    required super.message,
+    this.field,
+    List<String>? errors,
+    super.stackTrace,
+  })  : errors = errors ?? const [],
+        super(code: 'VALIDATION_FAILURE');
+
   /// Field that failed validation
   final String? field;
 
   /// List of validation error messages
   final List<String> errors;
-
-  /// Creates a ValidationFailure
-  const ValidationFailure({
-    required String message,
-    this.field,
-    List<String>? errors,
-    StackTrace? stackTrace,
-  })  : errors = errors ?? const [],
-        super(
-          code: 'VALIDATION_FAILURE',
-          message: message,
-          stackTrace: stackTrace,
-        );
 
   @override
   Map<String, dynamic> toJson() => {
@@ -111,19 +97,15 @@ class ValidationFailure extends AppFailure {
 
 /// Failure for authentication/authorization errors
 class AuthFailure extends AppFailure {
-  /// Whether token refresh is possible
-  final bool canRefresh;
-
   /// Creates an AuthFailure
   const AuthFailure({
-    required String message,
+    required super.message,
     this.canRefresh = false,
-    StackTrace? stackTrace,
-  }) : super(
-          code: 'AUTH_FAILURE',
-          message: message,
-          stackTrace: stackTrace,
-        );
+    super.stackTrace,
+  }) : super(code: 'AUTH_FAILURE');
+
+  /// Whether token refresh is possible
+  final bool canRefresh;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -135,19 +117,15 @@ class AuthFailure extends AppFailure {
 
 /// Unknown/unexpected failure
 class UnknownFailure extends AppFailure {
-  /// Original exception that caused this failure
-  final dynamic exception;
-
   /// Creates an UnknownFailure
   const UnknownFailure({
-    required String message,
+    required super.message,
     this.exception,
-    StackTrace? stackTrace,
-  }) : super(
-          code: 'UNKNOWN_FAILURE',
-          message: message,
-          stackTrace: stackTrace,
-        );
+    super.stackTrace,
+  }) : super(code: 'UNKNOWN_FAILURE');
+
+  /// Original exception that caused this failure
+  final dynamic exception;
 
   @override
   Map<String, dynamic> toJson() => {

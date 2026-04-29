@@ -9,9 +9,11 @@ import 'package:flutter_boilerplate_data/feature_home/datasources/home_remote_da
 /// DI Module for core dependencies
 @module
 abstract class DIModule {
+  /// Base URL for API calls
   @Named('baseUrl')
   String get baseUrl => AppConstants.baseUrl;
 
+  /// Dio client configuration
   @lazySingleton
   Logger get logger => Logger(
         level: Level.debug,
@@ -23,16 +25,20 @@ abstract class DIModule {
         ),
       );
 
+  /// Shared Preferences instance
   @preResolve
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
+  /// Dio client configuration
   @lazySingleton
   Dio get dio => Dio();
 
+  /// Hive box for home feature caching
   @preResolve
   @Named('home_cache')
   Future<Box<String>> get homeBox => Hive.openBox<String>('home_cache');
 
+  /// Home remote datasource
   @lazySingleton
   HomeRemoteDatasource getHomeRemoteDatasource(
     Dio dio,

@@ -18,7 +18,7 @@ Future<void> configureDependencies([String? environment]) async {
   await Hive.initFlutter();
 
   // Initialize core dependencies from generated config
-  getIt.init(environment: environment);
+  await getIt.init(environment: environment);
 }
 
 /// Helper to reset dependencies (useful for testing)

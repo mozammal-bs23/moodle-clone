@@ -3,20 +3,21 @@ import 'package:dio/dio.dart';
 
 /// Interceptor for adding authentication tokens to requests
 class AuthInterceptor extends Interceptor {
-  /// Function that retrieves the current auth token
-  final Future<String?> Function() getToken;
-
-  /// Function to refresh the auth token
-  final Future<String?> Function()? refreshToken;
-
   /// Creates an [AuthInterceptor]
   AuthInterceptor({
     required this.getToken,
     this.refreshToken,
   });
 
+  /// Function that retrieves the current auth token
+  final Future<String?> Function() getToken;
+
+  /// Function to refresh the auth token
+  final Future<String?> Function()? refreshToken;
+
+
   @override
-  void onRequest(
+  Future<void> onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
@@ -28,7 +29,7 @@ class AuthInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     // Handle 401 Unauthorized errors
     if (err.response?.statusCode == 401) {
       if (refreshToken != null) {
