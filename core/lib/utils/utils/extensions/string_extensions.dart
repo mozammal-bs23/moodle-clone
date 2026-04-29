@@ -63,7 +63,7 @@ extension StringExtensions on String {
   String get toSnakeCase {
     if (isNullOrEmpty) return this;
     return toCamelCase.replaceAllMapped(
-      RegExp(r'[A-Z]'),
+      RegExp('[A-Z]'),
       (match) => '_${match.group(0)!.toLowerCase()}',
     );
   }
@@ -78,7 +78,7 @@ extension StringExtensions on String {
   }
 
   /// Removes all HTML tags from the string
-  String get stripHtml => replaceAll(RegExp(r'<[^>]*>'), '');
+  String get stripHtml => replaceAll(RegExp('<[^>]*>'), '');
 
   /// Converts the string to a safe filename
   String get toSafeFilename {

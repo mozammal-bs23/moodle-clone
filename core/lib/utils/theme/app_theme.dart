@@ -143,7 +143,6 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
             color: lightColorScheme.error,
-            width: 1,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
@@ -188,7 +187,7 @@ class AppTheme {
       sliderTheme: SliderThemeData(
         trackHeight: 4,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
-        overlayShape: const RoundSliderOverlayShape(overlayRadius: 16),
+        overlayShape: const RoundSliderOverlayShape(),
         tickMarkShape: const RoundSliderTickMarkShape(),
         trackShape: const RoundedRectSliderTrackShape(),
         valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
@@ -333,7 +332,7 @@ class AppTheme {
       sliderTheme: SliderThemeData(
         trackHeight: 4,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
-        overlayShape: const RoundSliderOverlayShape(overlayRadius: 16),
+        overlayShape: const RoundSliderOverlayShape(),
         tickMarkShape: const RoundSliderTickMarkShape(),
         trackShape: const RoundedRectSliderTrackShape(),
         valueIndicatorShape: const PaddleSliderValueIndicatorShape(),

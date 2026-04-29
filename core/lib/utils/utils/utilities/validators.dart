@@ -23,9 +23,9 @@ class Validators {
   /// At least 8 characters, 1 uppercase, 1 lowercase, 1 number
   static bool isValidPassword(String password) {
     if (password.length < 8) return false;
-    if (!password.contains(RegExp(r'[A-Z]'))) return false;
-    if (!password.contains(RegExp(r'[a-z]'))) return false;
-    if (!password.contains(RegExp(r'[0-9]'))) return false;
+    if (!password.contains(RegExp('[A-Z]'))) return false;
+    if (!password.contains(RegExp('[a-z]'))) return false;
+    if (!password.contains(RegExp('[0-9]'))) return false;
     return true;
   }
 

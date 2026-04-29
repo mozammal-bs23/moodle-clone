@@ -1,4 +1,4 @@
-import '../failure/app_failure.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 /// Generic result type for representing success or failure outcomes
 ///
