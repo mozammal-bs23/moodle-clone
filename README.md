@@ -154,9 +154,9 @@ GetPostsUseCase getPostsUseCase(PostRepository repo) =>
 final useCase = getIt<GetPostsUseCase>();
 ```
 
-## 🏆 Quality Score: 18/20
+## 🏆 Quality Score: 62/100
 
-Solid foundation for production. Near-complete feature set, only CI/CD pipelines pending.
+Strong architecture, critical test failures blocking release. Fix required before production.
 
 | Category | Score | Status |
 |----------|-------|--------|
@@ -164,8 +164,78 @@ Solid foundation for production. Near-complete feature set, only CI/CD pipelines
 | State Management | 4/4 | ✅ BLoC, Cubit, DI auto-wired, SimpleBlocObserver |
 | Networking | 4/4 | ✅ Dio + interceptors, error mapping, caching strategy |
 | Routing | 2/2 | ✅ go_router with error handling, route observers |
-| Testing | 3/4 | ⚠️ Unit & data tests complete, needs BLoC test patterns |
-| **Ops & Config** | 0/1 | ❌ Missing: CI/CD pipeline, app flavors, signing config |
+| Code Quality | 2/5 | ⚠️ 11 lint violations (constructor ordering, type safety) |
+| Testing | 1/5 | ❌ 6 broken tests, 11% coverage (5 files vs 46 src files) |
+| **Ops & Config** | 1/1 | ✅ App flavors (dev/staging/prod) implemented |
+
+### Known Issues & Fixes
+
+**Test Failures (CRITICAL)** — 6 tests broken in use case layer
+- `GetHomeDetailUseCase` & `GetHomeDataUseCase` incompatible with mockito records
+- **Fix:** Replace record return `(Entity, Failure?)` with `Either<Failure, Entity>` in domain layer
+- Details: [Audit Report](#audit-details)
+
+**Lint Warnings** — 11 violations
+- FlavorConfig constructor ordering (4 issues)
+- Test type safety: `List<dynamic>` without explicit types (7 issues)
+- Auto-fixable with `fvm flutter format .`
+
+**Test Coverage** — Only 5 test files for full codebase
+- Missing: Core utilities, Dio interceptors, storage, navigation guards
+- Target: 70%+ for domain + use cases before production
+
+See [Audit Details](#audit-details) below.
+
+## Audit Details
+
+### Test Failures
+
+```
+GetHomeDetailUseCase (3 failures)
+├── calls repository.getHomeDetail with correct id ❌
+├── returns failure when repository fails ❌
+└── propagates correct id parameter ❌
+
+GetHomeDataUseCase (3 failures)
+├── calls repository.getHomeData and returns data on success ❌
+├── returns failure when repository fails ❌
+└── passes forceRefresh parameter to repository ❌
+
+Root Cause:
+  Record return type (Entity, Failure?) incompatible with mockito stubs.
+  Error: "Cannot call `when` within a stub response" when mocking.
+```
+
+**Fix Priority:**
+1. Convert domain repository signatures from `(T?, Failure?)` to `Future<Either<Failure, T>>`
+2. Update all use cases to return `Future<Either<Failure, T>>`
+3. Update repository mocks to use Either stubs
+4. Re-run `fvm flutter test` — all 5 files should pass
+
+### Lint Issues
+
+- **core/lib/utils/flavor/flavor_config.dart** (4 issues)
+  - Factory constructors must come *after* field declarations but *before* getters
+  - Move lines 34-51 before lines 55-61
+  
+- **test/** (7 issues)
+  - Add explicit type args: `List<String>` not `List`
+  - Run `fvm flutter format .` to auto-fix
+
+### Coverage Analysis
+
+| Layer | Files | Tests | Gap |
+|-------|-------|-------|-----|
+| Domain | 8 | 2 (broken) | ❌ Blocked by test failures |
+| Data | 10 | 1 | ⚠️ Models only, no datasources |
+| Presentation | 12 | 1 | ⚠️ Widget test only, no cubits |
+| Core | 16 | 0 | ❌ Network, storage, DI untested |
+
+Next steps after fixing tests:
+- Add core utility tests (network interceptors, storage, theme)
+- Add cubit tests for home feature
+- Add navigation integration tests
+- Target: 70%+ line coverage
 
 ## Advanced Patterns (Coming Soon)
 
@@ -185,26 +255,25 @@ Future<Either<Failure, List<Post>>> getPosts() async {
 }
 ```
 
-### App Flavors (Environments)
+### App Flavors (Environments) — Already Implemented ✅
 
-Add `flutter_flavors` or use `--dart-define`:
+Three entry points preconfigured: dev, staging, prod.
 
 ```bash
-# .dev environment (hot reload, verbose logging)
-fvm flutter run --dart-define=FLAVOR=dev
+# Dev environment (hot reload, verbose logging, test API)
+fvm flutter run -t lib/main_dev.dart
 
-# .prod environment (optimized, analytics on)
-fvm flutter build apk --dart-define=FLAVOR=prod
+# Staging (integration tests, staging API, analytics)
+fvm flutter run -t lib/main_staging.dart
+
+# Production (release mode, prod API, full analytics)
+fvm flutter run -t lib/main_prod.dart
 ```
 
-Configure in `main.dart`:
-```dart
-void main() async {
-  final flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
-  configureDependencies(flavor: flavor);
-  runApp(const MyApp());
-}
-```
+Configuration stored in `core/lib/utils/flavor/flavor_config.dart`:
+- Each flavor has custom app name, baseUrl, feature flags
+- Configured automatically via entry point selection
+- No `--dart-define` needed — type-safe enum-based setup
 
 ### State Persistence (Optional)
 
@@ -284,12 +353,19 @@ fvm flutter build apk --release        # Standalone APK
 
 ## Next Steps
 
+**BLOCKING (Fix before any new features):**
+1. Fix 6 broken use case tests — see [Audit Details](#audit-details)
+2. Run `fvm flutter format .` to fix lint issues
+3. Add core utility tests (network, storage, DI)
+4. Verify `fvm flutter test` passes all tests
+
+**After Tests Pass:**
 - Read [CLAUDE.md](./CLAUDE.md) for complete feature patterns
 - Add your first feature using `create-feature` skill (if available)
 - Set up CI/CD with GitHub Actions (see Advanced Patterns above)
-- Configure app flavors for dev/staging/prod
+- App flavors already configured (dev/staging/prod) — just use them
 - Enable state persistence with `hydrated_bloc` (optional)
-- Run `fvm flutter test --coverage` to check coverage
+- Run `fvm flutter test --coverage` to verify 70%+ coverage
 - Start building — boilerplate handles the rest
 
 ## Requirements
