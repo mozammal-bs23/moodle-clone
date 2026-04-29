@@ -30,7 +30,8 @@
       "Bash(rtk ps *)",
       "Bash(unzip -p build/app/outputs/flutter-apk/app-prod-release.apk AndroidManifest.xml)",
       "Bash(unzip -p build/app/outputs/flutter-apk/app-dev-release.apk AndroidManifest.xml)",
-      "Bash(aapt dump *)"
+      "Bash(aapt dump *)",
+      "Skill(update-config)"
     ]
   }
 }

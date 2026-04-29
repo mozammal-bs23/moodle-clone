@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "TaskCompleted": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/analyze-on-task-complete.sh",
+            "statusMessage": "Checking if all tasks complete...",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}
