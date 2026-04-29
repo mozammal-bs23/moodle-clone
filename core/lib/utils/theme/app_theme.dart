@@ -25,11 +25,9 @@ class AppTheme {
     onError: Color(0xFFFFFFFF),
     errorContainer: Color(0xFFFFDAD6),
     onErrorContainer: Color(0xFF410002),
-    background: Color(0xFFFFFBFE),
-    onBackground: Color(0xFF1C1B1F),
     surface: Color(0xFFFFFBFE),
     onSurface: Color(0xFF1C1B1F),
-    surfaceVariant: Color(0xFFE7E0EC),
+    surfaceContainerHighest: Color(0xFFE7E0EC),
     onSurfaceVariant: Color(0xFF49454F),
     outline: Color(0xFF79747E),
     outlineVariant: Color(0xFFCAC4D0),
@@ -59,11 +57,9 @@ class AppTheme {
     onError: Color(0xFF690005),
     errorContainer: Color(0xFF93000A),
     onErrorContainer: Color(0xFFFFB4AB),
-    background: Color(0xFF1C1B1F),
-    onBackground: Color(0xFFE6E1E5),
     surface: Color(0xFF1C1B1F),
     onSurface: Color(0xFFE6E1E5),
-    surfaceVariant: Color(0xFF49454F),
+    surfaceContainerHighest: Color(0xFF49454F),
     onSurfaceVariant: Color(0xFFCAC4D0),
     outline: Color(0xFF938F99),
     outlineVariant: Color(0xFF49454F),
@@ -120,7 +116,8 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: lightColorScheme.surfaceVariant.withOpacity(0.3),
+        fillColor: lightColorScheme.surfaceContainerHighest
+            .withValues(alpha: 0.3),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,
@@ -133,7 +130,6 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
             color: lightColorScheme.outlineVariant,
-            width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -264,7 +260,8 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: darkColorScheme.surfaceVariant.withOpacity(0.2),
+        fillColor: darkColorScheme.surfaceContainerHighest
+            .withValues(alpha: 0.2),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,

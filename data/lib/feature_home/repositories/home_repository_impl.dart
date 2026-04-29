@@ -3,12 +3,11 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_boilerplate_data/feature_home/datasources/home_remote_datasource.dart';
+import 'package:flutter_boilerplate_data/feature_home/models/home_model.dart';
 import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-
-import '../datasources/home_remote_datasource.dart';
-import '../models/home_model.dart';
 
 /// Implementation of [HomeRepository]
 ///

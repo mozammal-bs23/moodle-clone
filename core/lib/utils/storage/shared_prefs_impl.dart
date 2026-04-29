@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:injectable/injectable.dart';
-import '../failure/app_failure.dart';
-import 'local_storage.dart';
-import '../network/result.dart' show Result, ResultHelper;
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Implementation of [LocalStorage] using SharedPreferences
 @LazySingleton(as: LocalStorage)

@@ -1,11 +1,8 @@
 import 'dart:async';
+
 import 'package:dio/dio.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:injectable/injectable.dart';
-import '../constants/app_constants.dart';
-import '../failure/app_failure.dart';
-import 'interceptors/auth_interceptor.dart';
-import 'interceptors/logging_interceptor.dart';
-import 'result.dart' show Result, ResultHelper;
 
 /// HTTP client implementation using Dio
 /// Handles all network operations with proper error handling

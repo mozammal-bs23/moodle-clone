@@ -1,4 +1,4 @@
-import '../extensions/string_extensions.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 /// Utility functions for formatting data
 class Formatters {

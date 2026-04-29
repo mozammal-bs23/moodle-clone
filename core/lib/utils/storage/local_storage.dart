@@ -1,6 +1,6 @@
 import 'dart:async';
-import '../failure/app_failure.dart';
-import '../network/result.dart';
+
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 /// Abstract interface for local storage operations
 /// 
