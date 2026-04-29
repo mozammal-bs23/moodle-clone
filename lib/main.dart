@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/core/error_boundary/error_boundary_export.dart';
 import 'package:flutter_boilerplate/routes/app_router.dart';
 import 'package:flutter_boilerplate/src/injection/di.dart' as di;
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
@@ -25,35 +26,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp.router(
-          title: 'Flutter Boilerplate',
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          routerConfig: AppRouter.getRouter(
-            isLoggedIn: () async {
-              // Check authentication state
-              final (token, _) = await di.getIt<LocalStorage>().get<String>(
-                'auth_token',
-              );
-              return token != null && token.isNotEmpty;
-            },
-          ),
-          builder: (context, child) {
-            // Override ScreenUtil context
-            return MediaQuery(
-              data: MediaQuery.of(
-                context,
-              ).copyWith(textScaler: TextScaler.noScaling),
-              child: child!,
-            );
-          },
-        );
+    return ErrorBoundary(
+      onError: (error, stackTrace) {
+        debugPrint('Uncaught error: $error\n$stackTrace');
       },
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp.router(
+            title: 'Flutter Boilerplate',
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            routerConfig: AppRouter.getRouter(
+              isLoggedIn: () async {
+                final (token, _) = await di.getIt<LocalStorage>()
+                    .get<String>('auth_token');
+                return token != null && token.isNotEmpty;
+              },
+            ),
+            builder: (context, child) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: TextScaler.noScaling,
+                ),
+                child: child!,
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
