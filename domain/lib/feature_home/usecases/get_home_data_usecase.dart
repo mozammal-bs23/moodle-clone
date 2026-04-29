@@ -1,8 +1,7 @@
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_boilerplate_domain/feature_home/entities/home_entity.dart';
+import 'package:flutter_boilerplate_domain/feature_home/repositories/home_repository.dart';
 import 'package:injectable/injectable.dart';
-
-import '../entities/home_entity.dart';
-import '../repositories/home_repository.dart';
 
 /// Use case for fetching home data
 ///
@@ -17,7 +16,6 @@ class GetHomeDataUseCase {
   /// Execute the use case
   ///
   /// [forceRefresh] - If true, bypass cache and fetch from network
-  Future<Result<HomeEntity>> call({final bool forceRefresh = false}) async {
-    return await _repository.getHomeData();
-  }
+  Future<Result<HomeEntity>> call({bool forceRefresh = false}) =>
+      _repository.getHomeData();
 }

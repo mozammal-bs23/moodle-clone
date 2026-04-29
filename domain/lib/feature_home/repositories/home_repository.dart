@@ -1,6 +1,5 @@
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
-
-import '../entities/home_entity.dart';
+import 'package:flutter_boilerplate_domain/feature_home/entities/home_entity.dart';
 
 /// Repository interface for Home feature
 ///
@@ -17,7 +16,7 @@ abstract class HomeRepository {
   ///
   /// [id] - Unique identifier for the home data item
   /// Returns [Result<HomeEntity>] with data on success or failure on error
-  Future<Result<HomeEntity>> getHomeDetail(final String id);
+  Future<Result<HomeEntity>> getHomeDetail(String id);
 
   /// Check if cached data exists and is valid
   Future<bool> hasCachedData();

@@ -1,10 +1,10 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_boilerplate_data/feature_home/datasources/home_remote_datasource.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:dio/dio.dart';
-import '../constants/app_constants.dart';
-import 'package:flutter_boilerplate_data/feature_home/datasources/home_remote_datasource.dart';
 
 /// DI Module for core dependencies
 @module

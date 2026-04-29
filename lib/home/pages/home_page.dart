@@ -1,44 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/home/home_page.dart';
+import 'package:flutter_boilerplate/src/injection/di.dart' as di;
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
-import '../presentation.dart';
-import '../../src/injection/di.dart' as di;
 
 /// Home page - main dashboard screen
-/// 
+///
 /// Displays home data with pull-to-refresh and error handling.
 class HomePage extends StatelessWidget {
   /// Creates an instance of [HomePage]
   const HomePage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => di.getIt<HomeCubit>()..fetchHomeData(),
-      child: const Scaffold(
-        body: SafeArea(
-          child: _HomePageBody(),
-        ),
-      ),
+      child: const Scaffold(body: SafeArea(child: _HomePageBody())),
     );
   }
 }
 
 class _HomePageBody extends StatelessWidget {
   const _HomePageBody();
-  
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () => context.read<HomeCubit>().refresh(),
       child: const SingleChildScrollView(
-        physics:  AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            _HomeAppBar(),
-            _HomeContent(),
-          ],
-        ),
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(children: [_HomeAppBar(), _HomeContent()]),
       ),
     );
   }
@@ -47,11 +38,11 @@ class _HomePageBody extends StatelessWidget {
 /// App bar with title and refresh button
 class _HomeAppBar extends StatelessWidget {
   const _HomeAppBar();
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -86,7 +77,7 @@ class _HomeAppBar extends StatelessWidget {
 /// Main content area that responds to cubit state changes
 class _HomeContent extends StatelessWidget {
   const _HomeContent();
-  
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
@@ -94,13 +85,9 @@ class _HomeContent extends StatelessWidget {
         return state.when(
           initial: () => const SizedBox.shrink(),
           loading: () => const HomeLoadingWidget(),
-          loaded: (home, lastRefresh) => HomeContentWidget(
-            home: home,
-            lastRefresh: lastRefresh,
-          ),
-          detailLoading: () => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          loaded: (home, lastRefresh) =>
+              HomeContentWidget(home: home, lastRefresh: lastRefresh),
+          detailLoading: () => const Center(child: CircularProgressIndicator()),
           detailLoaded: (detail) => HomeContentWidget(home: detail),
           error: (message, canRetry, errorCode) => HomeErrorWidget(
             message: message,

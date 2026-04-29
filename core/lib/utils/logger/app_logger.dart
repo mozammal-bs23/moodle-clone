@@ -85,7 +85,7 @@ class AppLogger {
   /// Logs a JSON object (pretty printed)
   static void logJson(Map<String, dynamic> json, {String? name}) {
     if (_isEnabled) {
-      const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+      const encoder = JsonEncoder.withIndent('  ');
       _logger.i('${name ?? 'JSON'}:\n${encoder.convert(json)}');
     }
   }

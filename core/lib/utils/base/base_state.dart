@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 /// Base state class for all BLoC states
 /// All states in the app should extend this class
 abstract class BaseState extends Equatable {
+  /// Default constructor
   const BaseState();
 
   @override
@@ -20,10 +21,11 @@ abstract class LoadingState extends BaseState {}
 /// Error state marker interface
 /// States that represent an error should implement this
 abstract class ErrorState extends BaseState {
+  /// Creates an instance of [ErrorState] with the given error message
+  const ErrorState(this.message);
+
   /// Error message
   final String message;
-
-  const ErrorState(this.message);
 
   @override
   List<Object?> get props => [message];

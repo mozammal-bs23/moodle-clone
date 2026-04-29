@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/home/pages/home_detail_page.dart';
+import 'package:flutter_boilerplate/home/pages/home_page.dart';
+import 'package:flutter_boilerplate/routes/app_routes.dart';
+import 'package:flutter_boilerplate/routes/route_observer.dart';
 import 'package:go_router/go_router.dart';
-
-import '../home/pages/home_detail_page.dart';
-import '../home/pages/home_page.dart';
-import 'app_routes.dart';
-import 'route_observer.dart';
 
 /// GoRouter configuration for the application
 ///

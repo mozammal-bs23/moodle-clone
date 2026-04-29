@@ -29,7 +29,8 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
     if (newRoute != null && oldRoute != null) {
       _logger.i(
-        'Route replaced: ${_getRouteName(oldRoute)} -> ${_getRouteName(newRoute)}',
+        'Route replaced: ${_getRouteName(oldRoute)} -> '
+        '${_getRouteName(newRoute)}',
       );
     }
   }

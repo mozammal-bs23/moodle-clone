@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/routes/app_router.dart';
+import 'package:flutter_boilerplate/src/injection/di.dart' as di;
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'routes/app_router.dart';
-import 'src/injection/di.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
