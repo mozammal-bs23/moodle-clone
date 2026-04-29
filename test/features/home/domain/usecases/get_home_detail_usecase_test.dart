@@ -3,10 +3,11 @@ import 'package:flutter_boilerplate_domain/feature_home/entities/home_entity.dar
 import 'package:flutter_boilerplate_domain/feature_home/repositories/home_repository.dart';
 import 'package:flutter_boilerplate_domain/feature_home/usecases/get_home_detail_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'get_home_detail_usecase_test.mocks.dart';
 
-class MockHomeRepository extends Mock implements HomeRepository {}
-
+@GenerateMocks([HomeRepository])
 void main() {
   late GetHomeDetailUseCase usecase;
   late MockHomeRepository mockRepository;
