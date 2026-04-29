@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/lib/flutter_boilerplate_core.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 /// Error widget shown when home data fails to load
 class HomeErrorWidget extends StatelessWidget {

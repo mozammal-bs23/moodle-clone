@@ -2,11 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../../../core/lib/flutter_boilerplate_core.dart';
-import '../../../../domain/lib/flutter_boilerplate_domain.dart';
 
 import '../datasources/home_remote_datasource.dart';
 import '../models/home_model.dart';
@@ -35,7 +34,7 @@ class HomeRepositoryImpl implements HomeRepository {
       final cachedData = _cacheBox.get(_cacheKey);
       if (cachedData != null) {
         final cachedModel = HomeModel.fromJson(
-          Map<String, dynamic>.from(jsonDecode(cachedData)),
+          jsonDecode(cachedData) as Map<String, dynamic>,
         );
         if (!cachedModel.isCached) {
           return (cachedModel.toEntity(), null);
@@ -62,7 +61,9 @@ class HomeRepositoryImpl implements HomeRepository {
       // Try to return cached data on network failure
       final cachedJson = _cacheBox.get(_cacheKey);
       if (cachedJson != null) {
-        final cachedModel = HomeModel.fromJson(jsonDecode(cachedJson));
+        final cachedModel = HomeModel.fromJson(
+          jsonDecode(cachedJson) as Map<String, dynamic>,
+        );
         return (cachedModel.toEntity(), null);
       }
       return (
@@ -86,7 +87,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<Result<HomeEntity>> getHomeDetail(final String id) async {
+  Future<Result<HomeEntity>> getHomeDetail(String id) async {
     try {
       final response = await _remoteDatasource.getHomeDetail(id);
       final homeModel = HomeModel(
@@ -107,7 +108,9 @@ class HomeRepositoryImpl implements HomeRepository {
       // Try cached data
       final cachedJson = _cacheBox.get('home_detail_$id');
       if (cachedJson != null) {
-        final cachedModel = HomeModel.fromJson(jsonDecode(cachedJson));
+        final cachedModel = HomeModel.fromJson(
+          jsonDecode(cachedJson) as Map<String, dynamic>,
+        );
         return (cachedModel.toEntity(), null);
       }
       return (
@@ -159,11 +162,13 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Stream<Result<HomeEntity>> watchHomeData() async* {
     // Watch the cache box for changes
-    yield* _cacheBox.watch(key: _cacheKey).asyncMap((final event) {
-      final jsonString = event.value;
+    yield* _cacheBox.watch(key: _cacheKey).asyncMap((event) {
+      final jsonString = event.value as String?;
       if (jsonString != null) {
         try {
-          final model = HomeModel.fromJson(jsonDecode(jsonString));
+          final model = HomeModel.fromJson(
+            jsonDecode(jsonString) as Map<String, dynamic>,
+          );
           return (model.toEntity(), null);
         } catch (e, st) {
           return (

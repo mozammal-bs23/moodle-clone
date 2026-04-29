@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_boilerplate_data/feature_home/models/home_model.dart';
 import 'package:retrofit/retrofit.dart';
-import '../models/home_model.dart';
 
 part 'home_remote_datasource.g.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/lib/flutter_boilerplate_core.dart';
-import '../../../domain/lib/flutter_boilerplate_domain.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
 import '../presentation.dart';
 import 'home_header_widget.dart';
 import 'home_loading_widget.dart';

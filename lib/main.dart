@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../core/lib/flutter_boilerplate_core.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'src/injection/di.dart' as di;
 import 'routes/app_router.dart';
 

@@ -1,6 +1,5 @@
+import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../../../domain/lib/flutter_boilerplate_domain.dart';
 
 part 'home_model.freezed.dart';
 part 'home_model.g.dart';
@@ -10,16 +9,26 @@ part 'home_model.g.dart';
 /// Used for JSON serialization/deserialization.
 @freezed
 class HomeItemModel with _$HomeItemModel {
+  /// Creates an instance of [HomeItemModel]
+  /// 
+  /// [id] - unique identifier for the item
+  /// [title] - display title
+  /// [description] - optional description
+  /// [thumbnailUrl] - optional thumbnail image URL
+  /// [category] - optional category
+  /// [rank] - display rank/order
+  /// [isFeatured] - whether the item is featured
   const factory HomeItemModel({
     required String id,
     required String title,
+    required int rank,
     String? description,
     String? thumbnailUrl,
     String? category,
-    required int rank,
     @Default(false) bool isFeatured,
   }) = _HomeItemModel;
   
+  /// Creates a [HomeItemModel] from JSON map
   factory HomeItemModel.fromJson(Map<String, dynamic> json) =>
       _$HomeItemModelFromJson(json);
 }
@@ -30,43 +39,55 @@ class HomeItemModel with _$HomeItemModel {
 /// Used for network responses and local storage.
 @freezed
 class HomeModel with _$HomeModel {
+  /// Creates an instance of [HomeModel]
+  /// 
+  /// [id] - unique identifier for the home data
+  /// [title] - display title
+  /// [subtitle] - optional subtitle
+  /// [imageUrl] - optional header image URL
+  /// [items] - list of home items
+  /// [totalCount] - total number of items
+  /// [lastUpdated] - ISO 8601 timestamp of last update
+  /// [isCached] - whether the data is cached
   const factory HomeModel({
     required String id,
     required String title,
-    String? subtitle,
-    String? imageUrl,
     required List<HomeItemModel> items,
     required int totalCount,
     required String lastUpdated,
+    String? subtitle,
+    String? imageUrl,
     @Default(false) bool isCached,
   }) = _HomeModel;
   
+  /// Creates a [HomeModel] from JSON map
   factory HomeModel.fromJson(Map<String, dynamic> json) =>
       _$HomeModelFromJson(json);
-  
-  Map<String, dynamic> toJson() => _$HomeModelToJson(this);
 }
 
 /// Data model for home detail - extends HomeModel with additional fields
 @freezed
 class HomeDetailModel with _$HomeDetailModel {
+  /// Creates an instance of [HomeDetailModel]
+  /// 
+  /// [description] - optional detailed description
+  /// [metadata] - optional additional metadata
   const factory HomeDetailModel({
     required String id,
     required String title,
-    String? subtitle,
-    String? imageUrl,
     required List<HomeItemModel> items,
     required int totalCount,
     required String lastUpdated,
+    String? subtitle,
+    String? imageUrl,
     @Default(false) bool isCached,
     String? description,
     Map<String, dynamic>? metadata,
   }) = _HomeDetailModel;
   
+  /// Creates a [HomeDetailModel] from JSON map
   factory HomeDetailModel.fromJson(Map<String, dynamic> json) =>
       _$HomeDetailModelFromJson(json);
-  
-  Map<String, dynamic> toJson() => _$HomeDetailModelToJson(this);
 }
 
 /// Extension methods to convert between data models and domain entities
@@ -86,6 +107,7 @@ extension HomeModelX on HomeModel {
   }
 }
 
+/// Extension methods to convert between data models and domain entities
 extension HomeItemModelX on HomeItemModel {
   /// Convert data model to domain entity
   HomeItemEntity toEntity() {
@@ -101,6 +123,7 @@ extension HomeItemModelX on HomeItemModel {
   }
 }
 
+/// Extension methods to convert between data models and domain entities
 extension HomeDetailModelX on HomeDetailModel {
   /// Convert data model to domain entity
   HomeEntity toEntity() {

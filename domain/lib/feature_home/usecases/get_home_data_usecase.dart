@@ -1,4 +1,4 @@
-import '../../../../core/lib/flutter_boilerplate_core.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:injectable/injectable.dart';
 
 import '../entities/home_entity.dart';

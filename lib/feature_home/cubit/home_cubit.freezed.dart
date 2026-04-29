@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'home_state.dart';
+part of 'home_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -372,11 +372,11 @@ class __$$HomeLoadedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? home = freezed,
+    Object? home = null,
     Object? lastRefresh = null,
   }) {
     return _then(_$HomeLoaded(
-      home: freezed == home
+      home: null == home
           ? _value.home
           : home // ignore: cast_nullable_to_non_nullable
               as HomeEntity,
@@ -408,14 +408,13 @@ class _$HomeLoaded implements HomeLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeLoaded &&
-            const DeepCollectionEquality().equals(other.home, home) &&
+            (identical(other.home, home) || other.home == home) &&
             (identical(other.lastRefresh, lastRefresh) ||
                 other.lastRefresh == lastRefresh));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(home), lastRefresh);
+  int get hashCode => Object.hash(runtimeType, home, lastRefresh);
 
   @JsonKey(ignore: true)
   @override
@@ -670,10 +669,10 @@ class __$$HomeDetailLoadedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? detail = freezed,
+    Object? detail = null,
   }) {
     return _then(_$HomeDetailLoaded(
-      detail: freezed == detail
+      detail: null == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as HomeEntity,
@@ -699,12 +698,11 @@ class _$HomeDetailLoaded implements HomeDetailLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeDetailLoaded &&
-            const DeepCollectionEquality().equals(other.detail, detail));
+            (identical(other.detail, detail) || other.detail == detail));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(detail));
+  int get hashCode => Object.hash(runtimeType, detail);
 
   @JsonKey(ignore: true)
   @override
