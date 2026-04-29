@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class DIModule {
   /// Base URL for API calls
   @Named('baseUrl')
-  String get baseUrl => AppConstants.baseUrl;
+  String get baseUrl => FlavorConfig.instance.baseUrl;
 
   /// Dio client configuration
   @lazySingleton

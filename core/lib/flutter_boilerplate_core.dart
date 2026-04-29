@@ -7,6 +7,8 @@ export 'utils/bloc_observer.dart';
 // Constants
 export 'utils/constants/app_constants.dart';
 export 'utils/failure/app_failure.dart';
+// Flavor
+export 'utils/flavor/flavor_config.dart';
 // Dependency Injection
 export 'utils/injection/di.dart';
 // Logger

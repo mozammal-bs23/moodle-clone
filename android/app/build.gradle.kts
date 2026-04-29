@@ -19,6 +19,32 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            resValue("string", "app_name", "Flutter Boilerplate Dev")
+            buildConfigField("String", "FLAVOR", "\"dev\"")
+        }
+        create("staging") {
+            dimension = "environment"
+            applicationIdSuffix = ".staging"
+            resValue("string", "app_name", "Flutter Boilerplate Staging")
+            buildConfigField("String", "FLAVOR", "\"staging\"")
+        }
+        create("prod") {
+            dimension = "environment"
+            resValue("string", "app_name", "Flutter Boilerplate")
+            buildConfigField("String", "FLAVOR", "\"prod\"")
+        }
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.flutter_boilerplate"
