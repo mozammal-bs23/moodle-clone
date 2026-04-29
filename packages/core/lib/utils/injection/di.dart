@@ -1,0 +1,49 @@
+import 'dart:async';
+import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import 'di.config.dart';
+
+/// Global service locator instance
+final GetIt getIt = GetIt.instance;
+
+/// Alternative name for service locator (common in Clean Architecture)
+final GetIt sl = getIt;
+
+/// Main entry point for configuring dependencies
+/// 
+/// Call this function in `main()` before `runApp()`
+@InjectableInit(
+  preferRelativeImports: true, // default
+)
+Future<void> configureDependencies([String? environment]) async {
+  // Initialize Hive for local storage
+  await Hive.initFlutter();
+  
+  // Let injectable generate registrations for other dependencies
+  // This will also resolve @preResolve dependencies like SharedPreferences and Box<String>
+  await getIt.init(environment: environment);
+}
+
+/// Helper to reset dependencies (useful for testing)
+Future<void> resetDependencies() async {
+  await getIt.reset();
+}
+
+/// Scope management helpers
+/// 
+/// Use these to manage feature-specific dependency lifecycles
+extension DependencyScopeX on GetIt {
+  /// Pushes a new scope for a feature
+  void pushFeatureScope(String scopeName) {
+    if (!getIt.currentScopeName.contains(scopeName)) {
+      getIt.pushNewScope(scopeName: scopeName);
+    }
+  }
+
+  /// Pops the current scope
+  Future<void> popScope() async {
+    await getIt.popScope();
+  }
+}

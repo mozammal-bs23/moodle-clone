@@ -1,0 +1,33 @@
+name: flutter_boilerplate_domain
+description: Domain entities, repositories, and usecases for Flutter boilerplate features.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.11.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Core dependency
+  flutter_boilerplate_core:
+    path: ../core
+
+  # Dependency Injection
+  get_it: ^7.6.7
+  injectable: ^2.1.0
+
+  # Freezed & JSON
+  freezed_annotation: ^2.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^5.1.0
+  injectable_generator: ^2.0.0
+
+flutter:
+  uses-material-design: true

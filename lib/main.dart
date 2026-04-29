@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'src/injection/di.dart' as di;
-import 'src/storage/local_storage.dart';
 import 'routes/app_router.dart';
-import 'src/theme/app_theme.dart';
-import 'src/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,10 +12,8 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
   
   // Initialize dependency injection
+  // This also initializes Hive and pre-resolves SharedPreferences
   await di.configureDependencies();
-  
-  // Initialize local storage
-  await di.getIt<LocalStorage>().init();
   
   runApp(const MyApp());
 }
@@ -40,11 +36,8 @@ class MyApp extends StatelessWidget {
           routerConfig: AppRouter.getRouter(
             isLoggedIn: () async {
               // Check authentication state
-              final result = await di.getIt<LocalStorage>().get<String>('auth_token');
-              return result.when(
-                success: (token) => token != null && token.isNotEmpty,
-                failure: (_) => false,
-              );
+              final (token, _) = await di.getIt<LocalStorage>().get<String>('auth_token');
+              return token != null && token.isNotEmpty;
             },
           ),
           builder: (context, child) {

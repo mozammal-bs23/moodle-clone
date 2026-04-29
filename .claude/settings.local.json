@@ -3,7 +3,20 @@
     "allow": [
       "Bash(rtk read *)",
       "Bash(rtk find *)",
-      "Bash(rtk grep *)"
+      "Bash(rtk grep *)",
+      "Bash(rtk ls *)",
+      "Bash(fvm flutter *)",
+      "Bash(flutter analyze *)",
+      "Bash(flutter pub *)",
+      "Bash(flutter test *)",
+      "Bash(cp -r /Users/bs1101/Personal/1.projects/flutter_boilerplate/lib/src/* /Users/bs1101/Personal/1.projects/flutter_boilerplate/packages/core/lib/utils/)",
+      "Bash(cp -r /Users/bs1101/Personal/1.projects/flutter_boilerplate/lib/features/home/domain/* /Users/bs1101/Personal/1.projects/flutter_boilerplate/packages/domain/lib/feature_home/)",
+      "Bash(cp -r /Users/bs1101/Personal/1.projects/flutter_boilerplate/lib/features/home/data/* /Users/bs1101/Personal/1.projects/flutter_boilerplate/packages/data/lib/feature_home/)",
+      "Bash(cp -r /Users/bs1101/Personal/1.projects/flutter_boilerplate/lib/features/home/presentation/* /Users/bs1101/Personal/1.projects/flutter_boilerplate/lib/feature_home/)",
+      "Bash(grep -E \"^[^.]*$\")",
+      "Bash(rtk git *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

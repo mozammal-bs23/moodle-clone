@@ -12,6 +12,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Local packages
+  flutter_boilerplate_core:
+    path: packages/core
+  flutter_boilerplate_domain:
+    path: packages/domain
+  flutter_boilerplate_data:
+    path: packages/data
+
   # UI & Utilities
   cupertino_icons: ^1.0.8
   flutter_screenutil: ^5.9.0
@@ -48,12 +56,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  very_good_analysis: ^5.1.0
   build_runner: ^2.4.0
   hive_generator: ^2.0.0
   json_serializable: ^6.7.0
   retrofit_generator: ^4.0.0+1
   injectable_generator: ^2.0.0
+  mockito: ^5.4.0
 
 flutter:
   uses-material-design: true
