@@ -16,7 +16,12 @@
       "Bash(grep -E \"^[^.]*$\")",
       "Bash(rtk git *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(rtk tree *)",
+      "Bash(rtk gh *)",
+      "Bash(flutter --version)",
+      "Bash(/Users/bs1101/fvm/versions/3.41.5/bin/flutter pub *)",
+      "Bash(/Users/bs1101/fvm/versions/3.41.5/bin/flutter analyze *)"
     ]
   }
 }

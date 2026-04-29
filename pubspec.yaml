@@ -14,11 +14,11 @@ dependencies:
 
   # Local packages
   flutter_boilerplate_core:
-    path: packages/core
+    path: core
   flutter_boilerplate_domain:
-    path: packages/domain
+    path: domain
   flutter_boilerplate_data:
-    path: packages/data
+    path: data
 
   # UI & Utilities
   cupertino_icons: ^1.0.8

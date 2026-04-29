@@ -257,21 +257,21 @@ packages:
   flutter_boilerplate_core:
     dependency: "direct main"
     description:
-      path: "packages/core"
+      path: core
       relative: true
     source: path
     version: "1.0.0+1"
   flutter_boilerplate_data:
     dependency: "direct main"
     description:
-      path: "packages/data"
+      path: data
       relative: true
     source: path
     version: "1.0.0+1"
   flutter_boilerplate_domain:
     dependency: "direct main"
     description:
-      path: "packages/domain"
+      path: domain
       relative: true
     source: path
     version: "1.0.0+1"
