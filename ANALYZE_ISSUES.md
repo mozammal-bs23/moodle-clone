@@ -2,17 +2,36 @@
 
 ## Progress
 - **Started:** 160 issues
-- **Current:** 95 issues
-- **Fixed:** 65 issues (40.6%)
+- **Current:** 69 issues
+- **Fixed:** 91 issues (56.9%)
+- **Remaining:** 69 issues (43.1%)
 
 ## Recently Fixed
-- ✅ Import style (always_use_package_imports) - 30 issues
+- ✅ Import style (always_use_package_imports) - 30+ issues
 - ✅ Dependency sorting in pubspec files - 4 issues  
 - ✅ Directive ordering - 3 issues
 - ✅ Double to int literals - 13 issues
 - ✅ Documentation in constants - 11 issues
 - ✅ Omit local variable type - 1 issue
 - ✅ Const constructors - 1 issue
+- ✅ Deprecated Flutter members - 10 issues (background, onBackground, surfaceVariant, withOpacity)
+- ✅ Redundant argument values - 6 issues (width: 1)
+
+## Remaining Issues (69)
+- **25** Missing documentation for public members (public_member_api_docs)
+- **13** Lines longer than 80 characters
+- **5** Unnecessary raw strings
+- **5** Parameter ordering (always_put_required_named_parameters_first)
+- **4** Constructor ordering (sort_constructors_first)
+- **4** Mutable classes with equals/hashCode (avoid_equals_and_hash_code_on_mutable_classes)
+- **3** Dependency sorting
+- **2** Const constructors
+- **1** Each: omit_local_variable_types, directives_ordering, always_use_package_imports
+
+## Notes on Remaining Issues
+- **Documentation (25):** Low priority - add doc comments to public members for API documentation
+- **Line length (13):** Mostly in entity files and themes - can break long lines or reformat
+- **Other style (14):** Parameter ordering, constructor ordering, raw strings - relatively low impact
 
 ## Summary by Type
 
