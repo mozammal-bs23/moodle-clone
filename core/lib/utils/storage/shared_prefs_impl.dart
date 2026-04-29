@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:injectable/injectable.dart';
 import '../failure/app_failure.dart';
 import 'local_storage.dart';
-import '../network/result.dart';
+import '../network/result.dart' show Result, ResultHelper;
 
 /// Implementation of [LocalStorage] using SharedPreferences
 @LazySingleton(as: LocalStorage)
@@ -24,27 +24,27 @@ class SharedPrefsImpl implements LocalStorage {
     try {
       final value = _prefs.get(key);
       if (value == null) {
-        return Result.success<T?>(null);
+        return ResultHelper.success<T?>(null);
       }
 
       // Type conversion logic
       if (T == String) {
-        return Result.success(value as T);
+        return ResultHelper.success(value as T);
       } else if (T == int) {
-        return Result.success(value as T);
+        return ResultHelper.success(value as T);
       } else if (T == double) {
-        return Result.success(value as T);
+        return ResultHelper.success(value as T);
       } else if (T == bool) {
-        return Result.success(value as T);
+        return ResultHelper.success(value as T);
       } else if (T == List<String>) {
-        return Result.success(value as T);
+        return ResultHelper.success(value as T);
       } else {
         // For custom objects, you would need to deserialize
         // This is a basic implementation - for complex objects use Hive or other solutions
         throw UnimplementedError('Type $T not supported for direct retrieval from SharedPreferences');
       }
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         CacheFailure(
           message: 'Failed to get value for key: $key',
           key: key,
@@ -71,25 +71,25 @@ class SharedPrefsImpl implements LocalStorage {
       // Type-specific storage
       if (value is String) {
         final success = await _prefs.setString(key, value);
-        return Result.success(success);
+        return ResultHelper.success(success);
       } else if (value is int) {
         final success = await _prefs.setInt(key, value);
-        return Result.success(success);
+        return ResultHelper.success(success);
       } else if (value is double) {
         final success = await _prefs.setDouble(key, value);
-        return Result.success(success);
+        return ResultHelper.success(success);
       } else if (value is bool) {
         final success = await _prefs.setBool(key, value);
-        return Result.success(success);
+        return ResultHelper.success(success);
       } else if (value is List<String>) {
         final success = await _prefs.setStringList(key, value);
-        return Result.success(success);
+        return ResultHelper.success(success);
       } else {
         // For custom objects, serialize to JSON string first
         throw UnimplementedError('Type $T not supported for direct storage in SharedPreferences');
       }
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         CacheFailure(
           message: 'Failed to set value for key: $key',
           key: key,
@@ -103,9 +103,9 @@ class SharedPrefsImpl implements LocalStorage {
   Future<Result<bool>> remove(String key) async {
     try {
       final success = await _prefs.remove(key);
-      return Result.success(success);
+      return ResultHelper.success(success);
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         CacheFailure(
           message: 'Failed to remove key: $key',
           key: key,
@@ -119,9 +119,9 @@ class SharedPrefsImpl implements LocalStorage {
   Future<Result<bool>> clear() async {
     try {
       final success = await _prefs.clear();
-      return Result.success(success);
+      return ResultHelper.success(success);
     } catch (e, stackTrace) {
-      return Result.failure(
+      return ResultHelper.failure(
         CacheFailure(
           message: 'Failed to clear storage',
           stackTrace: stackTrace,

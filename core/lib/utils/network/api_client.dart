@@ -96,9 +96,12 @@ class ApiClient {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-      return ResultHelper.success(response.data);
-    } on DioError catch (e) {
-      return ResultHelper.failure(_mapError(e));
+      return ResultHelper.success(response.data as T);
+    } catch (e) {
+      if (_isDioError(e)) {
+        return ResultHelper.failure(_mapError(e as dynamic));
+      }
+      rethrow;
     } catch (e, stackTrace) {
       return ResultHelper.failure(
         UnknownFailure(
@@ -130,9 +133,12 @@ class ApiClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return ResultHelper.success(response.data);
-    } on DioError catch (e) {
-      return ResultHelper.failure(_mapError(e));
+      return ResultHelper.success(response.data as T);
+    } catch (e) {
+      if (_isDioError(e)) {
+        return ResultHelper.failure(_mapError(e as dynamic));
+      }
+      rethrow;
     } catch (e, stackTrace) {
       return ResultHelper.failure(
         UnknownFailure(
@@ -164,9 +170,12 @@ class ApiClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return ResultHelper.success(response.data);
-    } on DioError catch (e) {
-      return ResultHelper.failure(_mapError(e));
+      return ResultHelper.success(response.data as T);
+    } catch (e) {
+      if (_isDioError(e)) {
+        return ResultHelper.failure(_mapError(e as dynamic));
+      }
+      rethrow;
     } catch (e, stackTrace) {
       return ResultHelper.failure(
         UnknownFailure(
@@ -198,9 +207,12 @@ class ApiClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return ResultHelper.success(response.data);
-    } on DioError catch (e) {
-      return ResultHelper.failure(_mapError(e));
+      return ResultHelper.success(response.data as T);
+    } catch (e) {
+      if (_isDioError(e)) {
+        return ResultHelper.failure(_mapError(e as dynamic));
+      }
+      rethrow;
     } catch (e, stackTrace) {
       return ResultHelper.failure(
         UnknownFailure(
@@ -228,9 +240,12 @@ class ApiClient {
         options: options,
         cancelToken: cancelToken,
       );
-      return ResultHelper.success(response.data);
-    } on DioError catch (e) {
-      return ResultHelper.failure(_mapError(e));
+      return ResultHelper.success(response.data as T);
+    } catch (e) {
+      if (_isDioError(e)) {
+        return ResultHelper.failure(_mapError(e as dynamic));
+      }
+      rethrow;
     } catch (e, stackTrace) {
       return ResultHelper.failure(
         UnknownFailure(
@@ -260,9 +275,12 @@ class ApiClient {
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
       );
-      return ResultHelper.success(response.data);
-    } on DioError catch (e) {
-      return ResultHelper.failure(_mapError(e));
+      return ResultHelper.success(response.data as T);
+    } catch (e) {
+      if (_isDioError(e)) {
+        return ResultHelper.failure(_mapError(e as dynamic));
+      }
+      rethrow;
     } catch (e, stackTrace) {
       return ResultHelper.failure(
         UnknownFailure(
@@ -294,9 +312,12 @@ class ApiClient {
         cancelToken: cancelToken,
         deleteOnError: deleteOnError,
       );
-      return Result.success(savePath);
-    } on DioError catch (e) {
-      return ResultHelper.failure(_mapError(e));
+      return ResultHelper.success(savePath);
+    } catch (e) {
+      if (_isDioError(e)) {
+        return ResultHelper.failure(_mapError(e as dynamic));
+      }
+      rethrow;
     } catch (e, stackTrace) {
       return ResultHelper.failure(
         UnknownFailure(
@@ -308,93 +329,105 @@ class ApiClient {
     }
   }
 
-  /// Maps a DioError to an AppFailure
-  AppFailure _mapError(DioError error) {
-    switch (error.type) {
-      case DioErrorType.connectTimeout:
-      case DioErrorType.sendTimeout:
-      case DioErrorType.receiveTimeout:
-        return NetworkFailure(
-          message: AppStrings.errorTimeout,
-          stackTrace: error.stackTrace,
-        );
+  /// Checks if exception is a Dio error (compatible with both DioError and DioException)
+  bool _isDioError(dynamic e) {
+    final typeName = e.runtimeType.toString();
+    return typeName.contains('DioError') ||
+           typeName.contains('DioException') ||
+           (e.response != null || e.type != null);
+  }
 
-      case DioErrorType.badResponse:
-        final statusCode = error.response?.statusCode ?? 0;
-        final responseBody = error.response?.data?.toString();
-        
-        switch (statusCode) {
-          case 400:
-            return NetworkFailure(
-              message: AppStrings.errorBadRequest,
-              statusCode: statusCode,
-              responseBody: responseBody,
-              stackTrace: error.stackTrace,
-            );
-          case 401:
-            return NetworkFailure(
-              message: AppStrings.errorUnauthorized,
-              statusCode: statusCode,
-              responseBody: responseBody,
-              stackTrace: error.stackTrace,
-            );
-          case 403:
-            return NetworkFailure(
-              message: 'Forbidden',
-              statusCode: statusCode,
-              responseBody: responseBody,
-              stackTrace: error.stackTrace,
-            );
-          case 404:
-            return NetworkFailure(
-              message: 'Not found',
-              statusCode: statusCode,
-              responseBody: responseBody,
-              stackTrace: error.stackTrace,
-            );
-          case 500:
-          case 502:
-          case 503:
-          case 504:
-            return NetworkFailure(
-              message: AppStrings.errorServer,
-              statusCode: statusCode,
-              responseBody: responseBody,
-              stackTrace: error.stackTrace,
-            );
-          default:
-            return NetworkFailure(
-              message: 'HTTP Error: $statusCode',
-              statusCode: statusCode,
-              responseBody: responseBody,
-              stackTrace: error.stackTrace,
-            );
-        }
+  /// Maps Dio error to AppFailure (compatible with Dio 4.x)
+  AppFailure _mapError(dynamic error) {
+    final response = error.response as Response?;
+    final errorType = error.type;
 
-      case DioErrorType.cancel:
-        return NetworkFailure(
-          message: 'Request cancelled',
-          stackTrace: error.stackTrace,
-        );
+    // Handle HTTP response errors
+    if (response != null) {
+      final statusCode = response.statusCode ?? 0;
+      final responseBody = response.data?.toString();
 
-      case DioErrorType.connectionError:
-        return NetworkFailure(
-          message: AppStrings.errorNetwork,
-          stackTrace: error.stackTrace,
-        );
-
-      case DioErrorType.badCertificate:
-        return NetworkFailure(
-          message: 'Bad certificate',
-          stackTrace: error.stackTrace,
-        );
-
-      case DioErrorType.unknown:
-        return NetworkFailure(
-          message: AppStrings.errorGeneral,
-          stackTrace: error.stackTrace,
-        );
+      switch (statusCode) {
+        case 400:
+          return NetworkFailure(
+            message: AppStrings.errorBadRequest,
+            statusCode: statusCode,
+            responseBody: responseBody,
+            stackTrace: error.stackTrace as StackTrace?,
+          );
+        case 401:
+          return NetworkFailure(
+            message: AppStrings.errorUnauthorized,
+            statusCode: statusCode,
+            responseBody: responseBody,
+            stackTrace: error.stackTrace as StackTrace?,
+          );
+        case 403:
+          return NetworkFailure(
+            message: 'Forbidden',
+            statusCode: statusCode,
+            responseBody: responseBody,
+            stackTrace: error.stackTrace as StackTrace?,
+          );
+        case 404:
+          return NetworkFailure(
+            message: 'Not found',
+            statusCode: statusCode,
+            responseBody: responseBody,
+            stackTrace: error.stackTrace as StackTrace?,
+          );
+        case 500:
+        case 502:
+        case 503:
+        case 504:
+          return NetworkFailure(
+            message: AppStrings.errorServer,
+            statusCode: statusCode,
+            responseBody: responseBody,
+            stackTrace: error.stackTrace as StackTrace?,
+          );
+        default:
+          return NetworkFailure(
+            message: 'HTTP Error: $statusCode',
+            statusCode: statusCode,
+            responseBody: responseBody,
+            stackTrace: error.stackTrace as StackTrace?,
+          );
+      }
     }
+
+    // Handle timeout errors (compatible with both old DioErrorType and new)
+    final typeStr = errorType.toString();
+    if (typeStr.contains('timeout')) {
+      return NetworkFailure(
+        message: AppStrings.errorTimeout,
+        stackTrace: error.stackTrace,
+      );
+    }
+
+    // Handle request cancellation
+    if (typeStr.contains('cancel')) {
+      return NetworkFailure(
+        message: 'Request cancelled',
+        stackTrace: error.stackTrace,
+      );
+    }
+
+    // Handle connection errors
+    if (typeStr.contains('connection') ||
+        typeStr.contains('connectionError') ||
+        typeStr.contains('unknown')) {
+      return NetworkFailure(
+        message: AppStrings.errorNetwork,
+        stackTrace: error.stackTrace,
+      );
+    }
+
+    // Default error
+    return NetworkFailure(
+      message: AppStrings.errorGeneral,
+      stackTrace: error.stackTrace,
+    );
   }
 
   /// Returns the underlying Dio instance for advanced usage
