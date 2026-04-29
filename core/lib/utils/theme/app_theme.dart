@@ -186,7 +186,7 @@ class AppTheme {
       switchTheme: const SwitchThemeData(),
       sliderTheme: SliderThemeData(
         trackHeight: 4,
-        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
+        thumbShape: const RoundSliderThumbShape(),
         overlayShape: const RoundSliderOverlayShape(),
         tickMarkShape: const RoundSliderTickMarkShape(),
         trackShape: const RoundedRectSliderTrackShape(),
@@ -273,7 +273,6 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
             color: darkColorScheme.outlineVariant,
-            width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -331,7 +330,7 @@ class AppTheme {
       switchTheme: const SwitchThemeData(),
       sliderTheme: SliderThemeData(
         trackHeight: 4,
-        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
+        thumbShape: const RoundSliderThumbShape(),
         overlayShape: const RoundSliderOverlayShape(),
         tickMarkShape: const RoundSliderTickMarkShape(),
         trackShape: const RoundedRectSliderTrackShape(),
