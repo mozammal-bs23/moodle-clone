@@ -9,9 +9,13 @@ class Formatters {
   static String formatPhone(String phone) {
     final cleaned = phone.replaceAll(RegExp(r'\D'), '');
     if (cleaned.length == 10) {
-      return '${cleaned.substring(0, 3)} ${cleaned.substring(3, 6)} ${cleaned.substring(6)}';
+      return '${cleaned.substring(0, 3)} '
+          '${cleaned.substring(3, 6)} '
+          '${cleaned.substring(6)}';
     } else if (cleaned.length == 12 && cleaned.startsWith('91')) {
-      return '+91 ${cleaned.substring(2, 5)} ${cleaned.substring(5, 8)} ${cleaned.substring(8)}';
+      return '+91 ${cleaned.substring(2, 5)} '
+          '${cleaned.substring(5, 8)} '
+          '${cleaned.substring(8)}';
     }
     return phone;
   }
@@ -40,9 +44,12 @@ class Formatters {
 
   /// Formats a DateTime to a time string
   static String formatTime(DateTime time, {bool use24HourFormat = false}) {
-    final hour = use24HourFormat ? time.hour : (time.hour > 12 ? time.hour - 12 : time.hour);
+    final hour = use24HourFormat
+        ? time.hour
+        : (time.hour > 12 ? time.hour - 12 : time.hour);
     final minute = time.minute.toString().padLeft(2, '0');
-    final period = use24HourFormat ? '' : (time.hour >= 12 ? ' PM' : ' AM');
+    final period =
+        use24HourFormat ? '' : (time.hour >= 12 ? ' PM' : ' AM');
     return '$hour:$minute$period';
   }
 
@@ -101,7 +108,8 @@ class Formatters {
       suffixIndex++;
     }
 
-    return '${size.toStringAsFixed(suffixIndex == 0 ? 0 : 2)} ${suffixes[suffixIndex]}';
+    final fixed = size.toStringAsFixed(suffixIndex == 0 ? 0 : 2);
+    return '$fixed ${suffixes[suffixIndex]}';
   }
 
   /// Formats a name with proper capitalization

@@ -13,7 +13,8 @@ extension ContextExtensions on BuildContext {
   TextTheme get textTheme => Theme.of(this).textTheme;
 
   /// Checks if the current brightness is dark
-  bool get isDarkMode => MediaQuery.of(this).platformBrightness == Brightness.dark;
+  bool get isDarkMode =>
+      MediaQuery.of(this).platformBrightness == Brightness.dark;
 
   /// Returns the screen width
   double get screenWidth => MediaQuery.of(this).size.width;
@@ -24,7 +25,7 @@ extension ContextExtensions on BuildContext {
   /// Returns the status bar height
   double get statusBarHeight => MediaQuery.of(this).padding.top;
 
-  /// Returns the bottom padding (home indicator on iOS, navigation bar on Android)
+  /// Returns the bottom padding (home indicator or nav bar)
   double get bottomPadding => MediaQuery.of(this).padding.bottom;
 
   /// Hides the keyboard

@@ -38,9 +38,11 @@ class SharedPrefsImpl implements LocalStorage {
       } else if (T == List<String>) {
         return ResultHelper.success(value as T);
       } else {
-        // For custom objects, you would need to deserialize
-        // This is a basic implementation - for complex objects use Hive or other solutions
-        throw UnimplementedError('Type $T not supported for direct retrieval from SharedPreferences');
+        // For custom objects, you would need to deserialize.
+        // For complex objects use Hive or other solutions.
+        throw UnimplementedError(
+          'Type $T not supported for direct retrieval from SharedPreferences',
+        );
       }
     } catch (e, stackTrace) {
       return ResultHelper.failure(
@@ -85,7 +87,9 @@ class SharedPrefsImpl implements LocalStorage {
         return ResultHelper.success(success);
       } else {
         // For custom objects, serialize to JSON string first
-        throw UnimplementedError('Type $T not supported for direct storage in SharedPreferences');
+        throw UnimplementedError(
+          'Type $T not supported for direct storage in SharedPreferences',
+        );
       }
     } catch (e, stackTrace) {
       return ResultHelper.failure(

@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 /// Abstract interface for local storage operations
-/// 
-/// Implementations can use SharedPreferences, Hive, or any other storage mechanism
+///
+/// Implementations can use SharedPreferences, Hive, or other storage
 abstract class LocalStorage {
   /// Retrieves a value by [key]
   /// Returns [CacheFailure] if key doesn't exist or deserialization fails

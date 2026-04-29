@@ -31,8 +31,11 @@ class AppNavigator {
     Object? arguments,
     required bool Function(Route<dynamic>) predicate,
   }) =>
-      navigatorKey.currentState
-          ?.pushNamedAndRemoveUntil<T>(routeName, predicate, arguments: arguments);
+      navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
+        routeName,
+        predicate,
+        arguments: arguments,
+      );
 
   /// Push a named route and remove all previous routes until a specific route
   static Future<T?>? pushNamedAndRemoveUntilUntil<T extends Object?>(
@@ -47,13 +50,17 @@ class AppNavigator {
       );
 
   /// Replace the current route with a new route
-  static Future<T?>? pushReplacementNamed<T extends Object?, TO extends Object?>(
+  static Future<T?>? pushReplacementNamed<T extends Object?,
+      TO extends Object?>(
     String routeName, {
     TO? result,
     Object? arguments,
   }) =>
-      navigatorKey.currentState
-          ?.pushReplacementNamed<T, TO>(routeName, result: result, arguments: arguments);
+      navigatorKey.currentState?.pushReplacementNamed<T, TO>(
+        routeName,
+        result: result,
+        arguments: arguments,
+      );
 
   /// Pop all routes and push a new route
   static Future<T?>? pushNamedAndRemoveAll<T extends Object?>(
