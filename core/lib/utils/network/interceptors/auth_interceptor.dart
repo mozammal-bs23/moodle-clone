@@ -40,7 +40,7 @@ class AuthInterceptor extends Interceptor {
             final requestOptions = err.requestOptions;
             requestOptions.headers['Authorization'] = 'Bearer $newToken';
             
-            final response = await Dio().fetch(requestOptions);
+            final response = await Dio().fetch<dynamic>(requestOptions);
             handler.resolve(response);
             return;
           }

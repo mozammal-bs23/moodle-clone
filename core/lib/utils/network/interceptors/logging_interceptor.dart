@@ -17,7 +17,7 @@ class LoggingInterceptor extends Interceptor {
             printEmojis: false,
           ),
         );
-        
+
   /// Logger instance
   final Logger logger;
 
@@ -41,7 +41,9 @@ class LoggingInterceptor extends Interceptor {
     if (logRequestBody && options.data != null) {
       if (options.data is FormData) {
         final formData = options.data as FormData;
-        buffer.writeln('  Body: FormData with ${formData.fields.length} fields');
+        buffer.writeln(
+          '  Body: FormData with ${formData.fields.length} fields',
+        );
         for (final field in formData.fields) {
           buffer.writeln('    ${field.key}: ${field.value}');
         }
@@ -56,11 +58,15 @@ class LoggingInterceptor extends Interceptor {
 
   @override
   void onResponse(
-    Response response,
+    Response<dynamic> response,
     ResponseInterceptorHandler handler,
   ) {
     final buffer = StringBuffer()
-      ..writeln('← ${response.statusCode} ${response.requestOptions.method.toUpperCase()} ${response.requestOptions.uri}')
+      ..writeln(
+        '← ${response.statusCode} '
+        '${response.requestOptions.method.toUpperCase()} '
+        '${response.requestOptions.uri}',
+      )
       ..writeln('  Headers: ${response.headers.map}');
 
     if (logResponseBody && response.data != null) {
@@ -76,7 +82,11 @@ class LoggingInterceptor extends Interceptor {
     final buffer = StringBuffer()
       ..writeln('✗ Error: ${err.message}')
       ..writeln('  Type: ${err.type}')
-      ..writeln('  Request: ${err.requestOptions.method.toUpperCase()} ${err.requestOptions.uri}');
+      ..writeln(
+        '  Request: '
+        '${err.requestOptions.method.toUpperCase()} '
+        '${err.requestOptions.uri}',
+      );
 
     if (err.response != null) {
       buffer
