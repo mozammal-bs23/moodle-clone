@@ -75,7 +75,7 @@ class MockLogger extends Mock implements Logger {}
 
 /// Test data fixtures
 class TestData {
-  static final tNow = DateTime(2024, 1, 1, 12, 0, 0);
+  static final tNow = DateTime(2024, 1, 1, 12);
 
   static const tHomeItemEntity = HomeItemEntity(
     id: '1',

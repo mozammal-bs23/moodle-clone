@@ -12,18 +12,6 @@ enum Flavor {
 
 /// Global flavor configuration for the app
 class FlavorConfig {
-  /// Singleton instance of FlavorConfig
-  static late FlavorConfig instance;
-
-  /// Current flavor
-  final Flavor flavor;
-
-  /// App display name for the current flavor
-  final String appName;
-
-  /// API base URL for the current flavor
-  final String baseUrl;
-
   FlavorConfig._({
     required this.flavor,
     required this.appName,
@@ -50,6 +38,18 @@ class FlavorConfig {
     appName: 'Flutter Boilerplate',
     baseUrl: 'https://api.example.com',
   );
+
+  /// Singleton instance of FlavorConfig
+  static late FlavorConfig instance;
+
+  /// Current flavor
+  final Flavor flavor;
+
+  /// App display name for the current flavor
+  final String appName;
+
+  /// API base URL for the current flavor
+  final String baseUrl;
 
   /// Returns true if current flavor is dev
   bool get isDev => flavor == Flavor.dev;

@@ -32,7 +32,8 @@
       "Bash(unzip -p build/app/outputs/flutter-apk/app-dev-release.apk AndroidManifest.xml)",
       "Bash(aapt dump *)",
       "Skill(update-config)",
-      "Bash(rtk flutter *)"
+      "Bash(rtk flutter *)",
+      "Bash(rtk fvm *)"
     ]
   }
 }

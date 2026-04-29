@@ -12,7 +12,7 @@ void main() {
       category: 'test',
     );
 
-    final tNow = DateTime(2024, 1, 1, 12, 0, 0);
+    final tNow = DateTime(2024, 1, 1, 12);
 
     final tHomeEntity = HomeEntity(
       id: '1',
@@ -89,7 +89,7 @@ void main() {
       expect(json['imageUrl'], 'https://example.com/image.jpg');
       expect(json['totalCount'], 1);
       expect(json['isCached'], false);
-      expect(json['items'], isA<List>());
+      expect(json['items'], isA<List<dynamic>>());
     });
 
     test('fromJson creates correct entity', () {

@@ -71,7 +71,7 @@ void main() {
   });
 
   group('HomeModel', () {
-    final tNow = DateTime(2024, 1, 1, 12, 0, 0);
+    final tNow = DateTime(2024, 1, 1, 12);
     final tHomeModel = HomeModel(
       id: '1',
       title: 'Test Home',
@@ -123,7 +123,7 @@ void main() {
       expect(json['subtitle'], 'Test Subtitle');
       expect(json['imageUrl'], 'https://example.com/image.jpg');
       expect(json['totalCount'], 1);
-      expect(json['items'], isA<List>());
+      expect(json['items'], isA<List<dynamic>>());
       expect(json['lastUpdated'], tNow.toIso8601String());
     });
 
@@ -184,13 +184,13 @@ void main() {
   });
 
   group('HomeDetailModel', () {
-    final tNow = DateTime(2024, 1, 1, 12, 0, 0);
+    final tNow = DateTime(2024, 1, 1, 12);
 
     test('fromJson creates correct model with metadata', () {
       final json = <String, dynamic>{
         'id': '1',
         'title': 'Test Detail',
-        'items': [],
+        'items': <dynamic>[],
         'totalCount': 0,
         'lastUpdated': tNow.toIso8601String(),
         'description': 'Detail description',
