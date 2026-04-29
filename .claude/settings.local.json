@@ -33,7 +33,8 @@
       "Bash(aapt dump *)",
       "Skill(update-config)",
       "Bash(rtk flutter *)",
-      "Bash(rtk fvm *)"
+      "Bash(rtk fvm *)",
+      "Bash(lcov *)"
     ]
   }
 }
