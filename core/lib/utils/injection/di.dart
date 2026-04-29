@@ -1,10 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter_boilerplate_core/utils/injection/di.config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:injectable/injectable.dart';
-
-import 'package:flutter_boilerplate_core/utils/injection/di.config.dart';
 
 /// Global service locator instance
 final GetIt getIt = GetIt.instance;
