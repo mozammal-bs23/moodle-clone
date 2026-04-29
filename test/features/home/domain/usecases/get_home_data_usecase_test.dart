@@ -1,7 +1,7 @@
+import 'package:flutter_boilerplate_core/utils/failure/app_failure.dart';
 import 'package:flutter_boilerplate_domain/feature_home/entities/home_entity.dart';
 import 'package:flutter_boilerplate_domain/feature_home/repositories/home_repository.dart';
 import 'package:flutter_boilerplate_domain/feature_home/usecases/get_home_data_usecase.dart';
-import 'package:flutter_boilerplate_core/utils/failure/app_failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -29,8 +29,9 @@ void main() {
 
     test('calls repository.getHomeData and returns data on success', () async {
       // Arrange
-      when(mockRepository.getHomeData())
-          .thenAnswer((_) async => (tHomeEntity, null));
+      when(
+        mockRepository.getHomeData(),
+      ).thenAnswer((_) async => (tHomeEntity, null));
 
       // Act
       final (data, error) = await usecase();
@@ -43,9 +44,10 @@ void main() {
 
     test('returns failure when repository fails', () async {
       // Arrange
-      final tFailure = NetworkFailure(message: 'Connection error');
-      when(mockRepository.getHomeData())
-          .thenAnswer((_) async => (null, tFailure));
+      const tFailure = NetworkFailure(message: 'Connection error');
+      when(
+        mockRepository.getHomeData(),
+      ).thenAnswer((_) async => (null, tFailure));
 
       // Act
       final (data, error) = await usecase();
@@ -58,8 +60,9 @@ void main() {
 
     test('passes forceRefresh parameter to repository', () async {
       // Arrange
-      when(mockRepository.getHomeData())
-          .thenAnswer((_) async => (tHomeEntity, null));
+      when(
+        mockRepository.getHomeData(),
+      ).thenAnswer((_) async => (tHomeEntity, null));
 
       // Act
       await usecase(forceRefresh: true);
