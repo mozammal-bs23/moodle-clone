@@ -398,10 +398,12 @@ class ApiClient {
 
     // Handle timeout errors (compatible with both old DioErrorType and new)
     final typeStr = errorType.toString();
+    final stackTrace = error.stackTrace as StackTrace?;
+
     if (typeStr.contains('timeout')) {
       return NetworkFailure(
         message: AppStrings.errorTimeout,
-        stackTrace: error.stackTrace,
+        stackTrace: stackTrace,
       );
     }
 
@@ -409,7 +411,7 @@ class ApiClient {
     if (typeStr.contains('cancel')) {
       return NetworkFailure(
         message: 'Request cancelled',
-        stackTrace: error.stackTrace,
+        stackTrace: stackTrace,
       );
     }
 
@@ -419,14 +421,14 @@ class ApiClient {
         typeStr.contains('unknown')) {
       return NetworkFailure(
         message: AppStrings.errorNetwork,
-        stackTrace: error.stackTrace,
+        stackTrace: stackTrace,
       );
     }
 
     // Default error
     return NetworkFailure(
       message: AppStrings.errorGeneral,
-      stackTrace: error.stackTrace,
+      stackTrace: stackTrace,
     );
   }
 

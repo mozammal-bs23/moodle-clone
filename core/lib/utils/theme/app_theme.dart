@@ -86,7 +86,7 @@ class AppTheme {
         elevation: 0,
         scrolledUnderElevation: 1,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -187,15 +187,8 @@ class AppTheme {
           borderRadius: BorderRadius.circular(4),
         ),
       ),
-      radioTheme: RadioThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-      switchTheme: SwitchThemeData(
-        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
-        trackShape: const RoundedRectSliderTrackShape(),
-      ),
+      radioTheme: const RadioThemeData(),
+      switchTheme: const SwitchThemeData(),
       sliderTheme: SliderThemeData(
         trackHeight: 4,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
@@ -210,7 +203,7 @@ class AppTheme {
         ),
         side: BorderSide.none,
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -237,7 +230,7 @@ class AppTheme {
         elevation: 0,
         scrolledUnderElevation: 1,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -338,15 +331,8 @@ class AppTheme {
           borderRadius: BorderRadius.circular(4),
         ),
       ),
-      radioTheme: RadioThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-      switchTheme: SwitchThemeData(
-        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
-        trackShape: const RoundedRectSliderTrackShape(),
-      ),
+      radioTheme: const RadioThemeData(),
+      switchTheme: const SwitchThemeData(),
       sliderTheme: SliderThemeData(
         trackHeight: 4,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
@@ -361,7 +347,7 @@ class AppTheme {
         ),
         side: BorderSide.none,
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
