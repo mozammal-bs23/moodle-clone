@@ -12,6 +12,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Local packages
+  flutter_boilerplate_domain:
+    path: ../domain
+  flutter_boilerplate_data:
+    path: ../data
+
   # UI & Utilities
   cupertino_icons: ^1.0.8
   logger: ^1.4.0

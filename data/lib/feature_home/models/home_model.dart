@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
+import '../../../../domain/lib/flutter_boilerplate_domain.dart';
 
 part 'home_model.freezed.dart';
 part 'home_model.g.dart';

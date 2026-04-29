@@ -24,7 +24,8 @@
       "Bash(/Users/bs1101/fvm/versions/3.41.5/bin/flutter analyze *)",
       "Bash(git commit *)",
       "Bash(/usr/bin/find lib *)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(rtk wc *)"
     ]
   }
 }

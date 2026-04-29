@@ -1,4 +1,4 @@
-import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import '../../../../core/lib/flutter_boilerplate_core.dart';
 
 import '../entities/home_entity.dart';
 

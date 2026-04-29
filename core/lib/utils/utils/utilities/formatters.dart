@@ -1,4 +1,4 @@
-import '../../utils/extensions/string_extensions.dart';
+import '../extensions/string_extensions.dart';
 
 /// Utility functions for formatting data
 class Formatters {

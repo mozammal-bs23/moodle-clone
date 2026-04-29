@@ -372,11 +372,11 @@ class __$$HomeLoadedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? home = null,
+    Object? home = freezed,
     Object? lastRefresh = null,
   }) {
     return _then(_$HomeLoaded(
-      home: null == home
+      home: freezed == home
           ? _value.home
           : home // ignore: cast_nullable_to_non_nullable
               as HomeEntity,
@@ -408,13 +408,14 @@ class _$HomeLoaded implements HomeLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeLoaded &&
-            (identical(other.home, home) || other.home == home) &&
+            const DeepCollectionEquality().equals(other.home, home) &&
             (identical(other.lastRefresh, lastRefresh) ||
                 other.lastRefresh == lastRefresh));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, home, lastRefresh);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(home), lastRefresh);
 
   @JsonKey(ignore: true)
   @override
@@ -669,10 +670,10 @@ class __$$HomeDetailLoadedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? detail = null,
+    Object? detail = freezed,
   }) {
     return _then(_$HomeDetailLoaded(
-      detail: null == detail
+      detail: freezed == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as HomeEntity,
@@ -698,11 +699,12 @@ class _$HomeDetailLoaded implements HomeDetailLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeDetailLoaded &&
-            (identical(other.detail, detail) || other.detail == detail));
+            const DeepCollectionEquality().equals(other.detail, detail));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, detail);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(detail));
 
   @JsonKey(ignore: true)
   @override

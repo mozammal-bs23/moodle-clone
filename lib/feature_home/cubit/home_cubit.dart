@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
+import '../../../domain/lib/flutter_boilerplate_domain.dart';
 import 'package:injectable/injectable.dart';
 
 part 'home_state.dart';

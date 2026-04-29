@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import '../../core/lib/flutter_boilerplate_core.dart';
 import 'app_routes.dart';
 import 'route_observer.dart';
 import '../feature_home/pages/home_page.dart';

@@ -5,8 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
-import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
+import '../../../../core/lib/flutter_boilerplate_core.dart';
+import '../../../../domain/lib/flutter_boilerplate_domain.dart';
 
 import '../datasources/home_remote_datasource.dart';
 import '../models/home_model.dart';
