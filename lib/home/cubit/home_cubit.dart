@@ -5,23 +5,29 @@ import 'package:injectable/injectable.dart';
 
 part 'home_cubit.freezed.dart';
 
+/// State for home screen
 @freezed
 class HomeState with _$HomeState {
+  /// Initial state
   const factory HomeState.initial() = HomeInitial;
 
+  /// Loading state
   const factory HomeState.loading() = HomeLoading;
 
+  /// Loaded state with home data
   const factory HomeState.loaded({
     required HomeEntity home,
     required DateTime lastRefresh,
   }) = HomeLoaded;
 
+  /// Loading state for detail
   const factory HomeState.detailLoading() = HomeDetailLoading;
 
-  const factory HomeState.detailLoaded({
-    required HomeEntity detail,
-  }) = HomeDetailLoaded;
+  /// Loaded state with home detail data
+  const factory HomeState.detailLoaded({required HomeEntity detail}) =
+      HomeDetailLoaded;
 
+  /// Error state
   const factory HomeState.error({
     required String message,
     @Default(false) bool canRetry,
@@ -30,20 +36,21 @@ class HomeState with _$HomeState {
 }
 
 /// Cubit for managing home screen state
-/// 
+///
 /// Handles data fetching, loading states, and errors.
 @injectable
 class HomeCubit extends Cubit<HomeState> {
-  final GetHomeDataUseCase _getHomeDataUseCase;
-  final GetHomeDetailUseCase _getHomeDetailUseCase;
-  
+  /// Creates a new [HomeCubit] instance
   HomeCubit({
     required GetHomeDataUseCase getHomeDataUseCase,
     required GetHomeDetailUseCase getHomeDetailUseCase,
-  })  : _getHomeDataUseCase = getHomeDataUseCase,
-        _getHomeDetailUseCase = getHomeDetailUseCase,
-        super(const HomeInitial());
-  
+  }) : _getHomeDataUseCase = getHomeDataUseCase,
+       _getHomeDetailUseCase = getHomeDetailUseCase,
+       super(const HomeInitial());
+
+  final GetHomeDataUseCase _getHomeDataUseCase;
+  final GetHomeDetailUseCase _getHomeDetailUseCase;
+
   /// Fetch home data
   Future<void> fetchHomeData({bool forceRefresh = false}) async {
     emit(const HomeLoading());
@@ -51,20 +58,14 @@ class HomeCubit extends Cubit<HomeState> {
     final (data, error) = await _getHomeDataUseCase(forceRefresh: forceRefresh);
 
     if (data != null) {
-      emit(HomeLoaded(
-        home: data,
-        lastRefresh: DateTime.now(),
-      ));
+      emit(HomeLoaded(home: data, lastRefresh: DateTime.now()));
     } else if (error != null) {
-      emit(HomeError(
-        message: error.message,
-        canRetry: true,
-      ));
+      emit(HomeError(message: error.message, canRetry: true));
     }
   }
 
   /// Fetch home detail by ID
-  Future<void> fetchHomeDetail(final String id) async {
+  Future<void> fetchHomeDetail(String id) async {
     emit(const HomeDetailLoading());
 
     final (data, error) = await _getHomeDetailUseCase(id);
@@ -72,18 +73,15 @@ class HomeCubit extends Cubit<HomeState> {
     if (data != null) {
       emit(HomeDetailLoaded(detail: data));
     } else if (error != null) {
-      emit(HomeError(
-        message: error.message,
-        canRetry: true,
-      ));
+      emit(HomeError(message: error.message, canRetry: true));
     }
   }
-  
+
   /// Refresh data (force refresh from network)
   Future<void> refresh() async {
     return fetchHomeData(forceRefresh: true);
   }
-  
+
   @override
   Future<void> close() async {
     // Dispose any resources

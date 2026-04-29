@@ -1,7 +1,7 @@
-import 'package:flutter_boilerplate/features/home/domain/entities/home_entity.dart';
-import 'package:flutter_boilerplate/features/home/domain/repositories/home_repository.dart';
-import 'package:flutter_boilerplate/features/home/domain/usecases/get_home_data_usecase.dart';
-import 'package:flutter_boilerplate/src/failure/app_failure.dart';
+import 'package:flutter_boilerplate_domain/feature_home/entities/home_entity.dart';
+import 'package:flutter_boilerplate_domain/feature_home/repositories/home_repository.dart';
+import 'package:flutter_boilerplate_domain/feature_home/usecases/get_home_data_usecase.dart';
+import 'package:flutter_boilerplate_core/utils/failure/app_failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/mockito.dart';
 import 'package:flutter_boilerplate/src/injection/di.dart' as di;
-import 'package:flutter_boilerplate/src/storage/local_storage.dart';
-import 'package:flutter_boilerplate/src/network/result.dart';
+import 'package:flutter_boilerplate_core/utils/storage/local_storage.dart';
+import 'package:flutter_boilerplate_core/utils/network/result.dart';
 import 'package:flutter_boilerplate/routes/app_router.dart';
-import 'package:flutter_boilerplate/core/theme/app_theme.dart';
-import 'package:flutter_boilerplate/core/bloc_observer.dart';
+import 'package:flutter_boilerplate_core/utils/theme/app_theme.dart';
+import 'package:flutter_boilerplate_core/utils/bloc_observer.dart';
 
 /// Helper function to pump the app with optional dependency overrides
 Future<void> pumpApp(

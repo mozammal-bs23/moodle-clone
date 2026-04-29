@@ -16,16 +16,17 @@ import '../models/home_model.dart';
 /// between remote data source and local cache using Hive.
 @LazySingleton(as: HomeRepository)
 class HomeRepositoryImpl implements HomeRepository {
+  /// Creates a new instance of [HomeRepositoryImpl]
+  HomeRepositoryImpl({
+    required HomeRemoteDatasource remoteDatasource,
+    @Named('home_cache') required Box<String> cacheBox,
+  }) : _remoteDatasource = remoteDatasource,
+       _cacheBox = cacheBox;
+
   static const String _cacheKey = 'home_data';
 
   final HomeRemoteDatasource _remoteDatasource;
   final Box<String> _cacheBox;
-
-  HomeRepositoryImpl({
-    required final HomeRemoteDatasource remoteDatasource,
-    @Named('home_cache') required final Box<String> cacheBox,
-  })  : _remoteDatasource = remoteDatasource,
-        _cacheBox = cacheBox;
 
   @override
   Future<Result<HomeEntity>> getHomeData() async {
@@ -69,7 +70,7 @@ class HomeRepositoryImpl implements HomeRepository {
       return (
         null,
         NetworkFailure(
-          message: e.message ?? 'Failed to fetch home data',
+          message: e.message,
           statusCode: e.response?.statusCode,
           responseBody: e.response?.toString(),
         ),
@@ -116,7 +117,7 @@ class HomeRepositoryImpl implements HomeRepository {
       return (
         null,
         NetworkFailure(
-          message: e.message ?? 'Failed to fetch home detail',
+          message: e.message,
           statusCode: e.response?.statusCode,
           responseBody: e.response?.toString(),
         ),
@@ -144,17 +145,14 @@ class HomeRepositoryImpl implements HomeRepository {
       await _cacheBox.delete(_cacheKey);
       // Also clear detail caches
       final keys = _cacheBox.keys
-          .where((final k) => k.toString().startsWith('home_detail_'))
+          .where((k) => k.toString().startsWith('home_detail_'))
           .toList();
       await _cacheBox.deleteAll(keys);
       return (null, null);
     } catch (e, st) {
       return (
         null,
-        CacheFailure(
-          message: 'Failed to clear cache: $e',
-          stackTrace: st,
-        ),
+        CacheFailure(message: 'Failed to clear cache: $e', stackTrace: st),
       );
     }
   }
@@ -180,12 +178,7 @@ class HomeRepositoryImpl implements HomeRepository {
           );
         }
       }
-      return (
-        null,
-        const CacheFailure(
-          message: 'No cached data available',
-        ),
-      );
+      return (null, const CacheFailure(message: 'No cached data available'));
     });
   }
 }

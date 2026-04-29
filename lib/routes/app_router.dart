@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+
+import '../home/pages/home_detail_page.dart';
+import '../home/pages/home_page.dart';
 import 'app_routes.dart';
 import 'route_observer.dart';
-import '../feature_home/pages/home_page.dart';
-import '../feature_home/pages/home_detail_page.dart';
 
 /// GoRouter configuration for the application
 ///
@@ -29,20 +29,16 @@ class AppRouter {
       observers: [routeObserver],
 
       // Error handling
-      errorBuilder: (context, state) => _buildErrorPage(
-        context,
-        state.error,
-        state.uri.toString(),
-      ),
+      errorBuilder: (context, state) =>
+          _buildErrorPage(context, state.error, state.uri.toString()),
 
       routes: <GoRoute>[
         // Home Routes
         GoRoute(
           path: AppRoutes.home,
           name: AppRoutes.home,
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: HomePage(),
-          ),
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: HomePage()),
           routes: [
             GoRoute(
               path: 'detail/:id',

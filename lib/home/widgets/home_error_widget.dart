@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Error widget shown when home data fails to load
 class HomeErrorWidget extends StatelessWidget {
-  final String message;
-  final bool canRetry;
-  final VoidCallback? onRetry;
-  
+  /// Creates a new instance of [HomeErrorWidget]
   const HomeErrorWidget({
-    super.key,
     required this.message,
+    super.key,
     this.canRetry = true,
     this.onRetry,
   });
-  
+
+  /// Error message to display
+  final String message;
+
+  /// Whether to show retry button
+  final bool canRetry;
+
+  /// Callback when retry button is pressed
+  final VoidCallback? onRetry;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppSpacing.xl),
+      padding: const EdgeInsets.all(AppSpacing.xl),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.error_outline,
-            size: 80.sp,
-            color: Colors.red[300],
-          ),
+          Icon(Icons.error_outline, size: 80.sp, color: Colors.red[300]),
           SizedBox(height: AppSpacing.lg.h),
           Text(
             'Oops! Something went wrong',
@@ -36,9 +38,9 @@ class HomeErrorWidget extends StatelessWidget {
           SizedBox(height: AppSpacing.sm.h),
           Text(
             message,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[600],
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
             textAlign: TextAlign.center,
           ),
           if (canRetry && onRetry != null) ...[

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import '../presentation.dart';
 import '../../src/injection/di.dart' as di;
@@ -9,6 +8,7 @@ import '../../src/injection/di.dart' as di;
 /// 
 /// Displays home data with pull-to-refresh and error handling.
 class HomePage extends StatelessWidget {
+  /// Creates an instance of [HomePage]
   const HomePage({super.key});
   
   @override
@@ -31,10 +31,10 @@ class _HomePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () => context.read<HomeCubit>().refresh(),
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+      child: const SingleChildScrollView(
+        physics:  AlwaysScrollableScrollPhysics(),
         child: Column(
-          children: const [
+          children: [
             _HomeAppBar(),
             _HomeContent(),
           ],

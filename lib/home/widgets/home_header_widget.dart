@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
-import '../presentation.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Header widget for home page
-/// 
+///
 /// Displays title, subtitle, and optional banner image with statistics.
 class HomeHeaderWidget extends StatelessWidget {
+  /// Creates an instance of [HomeHeaderWidget]
+  const HomeHeaderWidget({required this.home, super.key});
+
+  /// Home data to display in the header
   final HomeEntity home;
-  
-  const HomeHeaderWidget({
-    super.key,
-    required this.home,
-  });
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -30,7 +28,7 @@ class HomeHeaderWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -48,10 +46,11 @@ class HomeHeaderWidget extends StatelessWidget {
                   children: [
                     Text(
                       home.title,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -59,9 +58,9 @@ class HomeHeaderWidget extends StatelessWidget {
                       SizedBox(height: AppSpacing.xs.h),
                       Text(
                         home.subtitle!,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.white70,
-                        ),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -70,9 +69,9 @@ class HomeHeaderWidget extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(AppSpacing.md),
+                padding: const EdgeInsets.all(AppSpacing.md),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
                 child: Text(
@@ -97,7 +96,7 @@ class HomeHeaderWidget extends StatelessWidget {
                 errorBuilder: (_, __, ___) => Container(
                   height: 120.h,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: const Icon(Icons.image, color: Colors.white70),
@@ -112,9 +111,9 @@ class HomeHeaderWidget extends StatelessWidget {
               SizedBox(width: AppSpacing.xs.w),
               Text(
                 'Updated: ${_formatDate(home.lastUpdated)}',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.white70,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: Colors.white70),
               ),
               const Spacer(),
               if (home.isCached)
@@ -124,7 +123,7 @@ class HomeHeaderWidget extends StatelessWidget {
                     vertical: AppSpacing.xs.h,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: Row(
@@ -134,9 +133,9 @@ class HomeHeaderWidget extends StatelessWidget {
                       SizedBox(width: 4.w),
                       Text(
                         'Cached',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white70,
-                        ),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodySmall?.copyWith(color: Colors.white70),
                       ),
                     ],
                   ),
@@ -147,11 +146,11 @@ class HomeHeaderWidget extends StatelessWidget {
       ),
     );
   }
-  
+
   String _formatDate(DateTime date) {
     final now = DateTime.now();
     final difference = now.difference(date);
-    
+
     if (difference.inMinutes < 60) {
       return '${difference.inMinutes}m ago';
     } else if (difference.inHours < 24) {
