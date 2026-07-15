@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:flutter_boilerplate_data/feature_home/datasources/home_remote_datasource.dart';
+import 'package:flutter_boilerplate_data/feature_post/datasources/post_remote_datasource.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -45,4 +46,16 @@ abstract class DIModule {
     @Named('baseUrl') String baseUrl,
   ) =>
       HomeRemoteDatasource(dio, baseUrl: baseUrl);
+
+  /// Base URL for the JSONPlaceholder demo API (feature_post only)
+  @Named('jsonPlaceholderBaseUrl')
+  String get jsonPlaceholderBaseUrl => 'https://jsonplaceholder.typicode.com';
+
+  /// Post remote datasource
+  @lazySingleton
+  PostRemoteDatasource getPostRemoteDatasource(
+    Dio dio,
+    @Named('jsonPlaceholderBaseUrl') String baseUrl,
+  ) =>
+      PostRemoteDatasource(dio, baseUrl: baseUrl);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/home/pages/home_detail_page.dart';
 import 'package:flutter_boilerplate/home/pages/home_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
@@ -51,6 +52,14 @@ class AppRouter {
               },
             ),
           ],
+        ),
+
+        // Posts Routes (JSONPlaceholder CRUD demo)
+        GoRoute(
+          path: AppRoutes.posts,
+          name: AppRoutes.posts,
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: PostsPage()),
         ),
       ],
     );

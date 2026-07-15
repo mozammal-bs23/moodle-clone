@@ -25,6 +25,9 @@ abstract class AppRoutes {
   /// Home detail route with dynamic parameter
   static const String homeDetail = '/home/detail';
 
+  /// Posts route (JSONPlaceholder CRUD demo)
+  static const String posts = '/posts';
+
   /// Settings routes
   static const String settings = '/settings';
 

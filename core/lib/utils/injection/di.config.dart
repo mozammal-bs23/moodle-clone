@@ -11,6 +11,8 @@
 import 'package:dio/dio.dart' as _i4;
 import 'package:flutter_boilerplate_data/feature_home/datasources/home_remote_datasource.dart'
     as _i8;
+import 'package:flutter_boilerplate_data/feature_post/datasources/post_remote_datasource.dart'
+    as _i13;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:hive_flutter/hive_flutter.dart' as _i3;
 import 'package:injectable/injectable.dart' as _i2;
@@ -60,6 +62,15 @@ extension GetItInjectableX on _i1.GetIt {
         () => dIModule.getHomeRemoteDatasource(
               gh<_i4.Dio>(),
               gh<String>(instanceName: 'baseUrl'),
+            ));
+    gh.factory<String>(
+      () => dIModule.jsonPlaceholderBaseUrl,
+      instanceName: 'jsonPlaceholderBaseUrl',
+    );
+    gh.lazySingleton<_i13.PostRemoteDatasource>(
+        () => dIModule.getPostRemoteDatasource(
+              gh<_i4.Dio>(),
+              gh<String>(instanceName: 'jsonPlaceholderBaseUrl'),
             ));
     gh.lazySingleton<_i10.LocalStorage>(
         () => _i11.SharedPrefsImpl(gh<_i6.SharedPreferences>()));
