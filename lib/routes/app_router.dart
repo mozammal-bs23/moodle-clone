@@ -36,7 +36,7 @@ class AppRouter {
           path: AppRoutes.notification,
           name: AppRoutes.notification,
           pageBuilder: (context, state) =>
-          const NoTransitionPage(child: NotificationScreen()),
+              const NoTransitionPage(child: NotificationScreen()),
         ),
         // Posts Routes (JSONPlaceholder CRUD demo)
         GoRoute(
