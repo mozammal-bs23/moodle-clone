@@ -3,6 +3,7 @@ import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_boilerplate/feature_notification/pages/notification_screen.dart';
 
 /// GoRouter configuration for the application
 ///
@@ -20,7 +21,7 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: AppRoutes.posts,
+      initialLocation: AppRoutes.notification,
       debugLogDiagnostics: true,
 
       // Route observers for analytics and logging
@@ -31,6 +32,12 @@ class AppRouter {
           _buildErrorPage(context, state.error, state.uri.toString()),
 
       routes: <GoRoute>[
+        GoRoute(
+          path: AppRoutes.notification,
+          name: AppRoutes.notification,
+          pageBuilder: (context, state) =>
+          const NoTransitionPage(child: NotificationScreen()),
+        ),
         // Posts Routes (JSONPlaceholder CRUD demo)
         GoRoute(
           path: AppRoutes.posts,
