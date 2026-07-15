@@ -22,6 +22,9 @@ abstract class AppRoutes {
   /// Posts route (JSONPlaceholder CRUD demo)
   static const String posts = '/posts';
 
+  /// Dashboard route for the student courses view
+  static const String dashboard = '/dashboard';
+
   /// Settings routes
   static const String settings = '/settings';
 

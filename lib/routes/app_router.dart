@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/dashboard_page.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
@@ -36,7 +37,15 @@ class AppRouter {
           path: AppRoutes.posts,
           name: AppRoutes.posts,
           pageBuilder: (context, state) =>
-              const NoTransitionPage(child: PostsPage()),
+          const NoTransitionPage(child: PostsPage()),
+        ),
+
+        /// Dashboard Route - Safe from merge conflicts
+        GoRoute(
+          path: AppRoutes.dashboard,
+          name: AppRoutes.dashboard,
+          pageBuilder: (context, state) =>
+          const NoTransitionPage(child: DashboardPage()),
         ),
       ],
     );
@@ -44,10 +53,10 @@ class AppRouter {
 
   /// Build error page for routing errors
   static Widget _buildErrorPage(
-    BuildContext context,
-    Exception? error,
-    String location,
-  ) {
+      BuildContext context,
+      Exception? error,
+      String location,
+      ) {
     return Scaffold(
       appBar: AppBar(title: const Text('Error')),
       body: Center(
