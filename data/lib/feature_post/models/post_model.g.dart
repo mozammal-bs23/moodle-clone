@@ -19,5 +19,5 @@ Map<String, dynamic> _$$PostModelImplToJson(_$PostModelImpl instance) =>
       'userId': instance.userId,
       'title': instance.title,
       'body': instance.body,
-      'id': instance.id,
+      if (instance.id case final value?) 'id': value,
     };

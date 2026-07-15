@@ -43,8 +43,8 @@ class ApiClient {
     _dio
       ..options = BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: connectTimeout.inMilliseconds,
-        receiveTimeout: receiveTimeout.inMilliseconds,
+        connectTimeout: connectTimeout,
+        receiveTimeout: receiveTimeout,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

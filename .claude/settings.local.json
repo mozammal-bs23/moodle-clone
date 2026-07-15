@@ -34,7 +34,24 @@
       "Skill(update-config)",
       "Bash(rtk flutter *)",
       "Bash(rtk fvm *)",
-      "Bash(lcov *)"
+      "Bash(lcov *)",
+      "Bash(pkill -9 -f \"flutter run\")",
+      "Bash(pkill -9 dart)",
+      "Bash(pkill -f \"flutter run\")",
+      "Bash(wait)",
+      "Bash(fvm dart *)",
+      "Bash(tee /private/tmp/claude-501/-Users-bs1101-Work-1-Projects-moodle-clone/7fa863ce-2292-4877-8f21-24c975cee69c/scratchpad/run_output.log)",
+      "Bash(command git -C /Users/bs1101/Work/1.Projects/moodle-clone add docs/superpowers/specs/2026-07-15-feature-post-crud-design.md)",
+      "Bash(command git -C /Users/bs1101/Work/1.Projects/moodle-clone commit -m \"docs: add design spec for feature_post CRUD \\(JSONPlaceholder\\)\" -q)",
+      "Bash(command git -C /Users/bs1101/Work/1.Projects/moodle-clone log -1 --oneline)",
+      "Bash(command git -C /Users/bs1101/Work/1.Projects/moodle-clone diff data/pubspec.yaml)",
+      "Bash(command git -C /Users/bs1101/Work/1.Projects/moodle-clone diff core/pubspec.yaml)",
+      "Bash(command git -C /Users/bs1101/Work/1.Projects/moodle-clone status --short core/lib)",
+      "Bash(command git -C /Users/bs1101/Work/1.Projects/moodle-clone status --short core/lib/utils/injection/)",
+      "Bash(command git -C /Users/bs1101/Work/1.Projects/moodle-clone checkout -- core/lib/utils/injection/di.config.dart)",
+      "Bash(git rm *)",
+      "Bash(jobs -l)",
+      "Bash(fvm list *)"
     ]
   }
 }

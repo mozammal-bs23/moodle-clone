@@ -19,12 +19,6 @@ abstract class AppRoutes {
   /// Forgot password route
   static const String forgotPassword = '/forgot-password';
 
-  /// Home routes
-  static const String home = '/home';
-
-  /// Home detail route with dynamic parameter
-  static const String homeDetail = '/home/detail';
-
   /// Posts route (JSONPlaceholder CRUD demo)
   static const String posts = '/posts';
 

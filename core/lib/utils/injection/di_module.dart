@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
-import 'package:flutter_boilerplate_data/feature_home/datasources/home_remote_datasource.dart';
 import 'package:flutter_boilerplate_data/feature_post/datasources/post_remote_datasource.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,21 +29,15 @@ abstract class DIModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   /// Dio client configuration
+  ///
+  /// Sets a default JSON content-type so requests with a body (POST/PUT/
+  /// PATCH) are sent as `application/json` even when [ApiClient] - which
+  /// otherwise configures this same shared instance - hasn't been
+  /// instantiated yet by anything else in the dependency graph.
   @lazySingleton
-  Dio get dio => Dio();
-
-  /// Hive box for home feature caching
-  @preResolve
-  @Named('home_cache')
-  Future<Box<String>> get homeBox => Hive.openBox<String>('home_cache');
-
-  /// Home remote datasource
-  @lazySingleton
-  HomeRemoteDatasource getHomeRemoteDatasource(
-    Dio dio,
-    @Named('baseUrl') String baseUrl,
-  ) =>
-      HomeRemoteDatasource(dio, baseUrl: baseUrl);
+  Dio get dio => Dio(
+        BaseOptions(contentType: 'application/json; charset=UTF-8'),
+      );
 
   /// Base URL for the JSONPlaceholder demo API (feature_post only)
   @Named('jsonPlaceholderBaseUrl')

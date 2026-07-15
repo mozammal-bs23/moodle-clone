@@ -24,6 +24,7 @@ mixin _$PostModel {
   int get userId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
+  @JsonKey(includeIfNull: false)
   int? get id => throw _privateConstructorUsedError;
 
   /// Serializes this PostModel to a JSON map.
@@ -41,7 +42,12 @@ abstract class $PostModelCopyWith<$Res> {
   factory $PostModelCopyWith(PostModel value, $Res Function(PostModel) then) =
       _$PostModelCopyWithImpl<$Res, PostModel>;
   @useResult
-  $Res call({int userId, String title, String body, int? id});
+  $Res call({
+    int userId,
+    String title,
+    String body,
+    @JsonKey(includeIfNull: false) int? id,
+  });
 }
 
 /// @nodoc
@@ -97,7 +103,12 @@ abstract class _$$PostModelImplCopyWith<$Res>
   ) = __$$PostModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int userId, String title, String body, int? id});
+  $Res call({
+    int userId,
+    String title,
+    String body,
+    @JsonKey(includeIfNull: false) int? id,
+  });
 }
 
 /// @nodoc
@@ -149,7 +160,7 @@ class _$PostModelImpl implements _PostModel {
     required this.userId,
     required this.title,
     required this.body,
-    this.id,
+    @JsonKey(includeIfNull: false) this.id,
   });
 
   factory _$PostModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -162,6 +173,7 @@ class _$PostModelImpl implements _PostModel {
   @override
   final String body;
   @override
+  @JsonKey(includeIfNull: false)
   final int? id;
 
   @override
@@ -203,7 +215,7 @@ abstract class _PostModel implements PostModel {
     required final int userId,
     required final String title,
     required final String body,
-    final int? id,
+    @JsonKey(includeIfNull: false) final int? id,
   }) = _$PostModelImpl;
 
   factory _PostModel.fromJson(Map<String, dynamic> json) =
@@ -216,6 +228,7 @@ abstract class _PostModel implements PostModel {
   @override
   String get body;
   @override
+  @JsonKey(includeIfNull: false)
   int? get id;
 
   /// Create a copy of PostModel

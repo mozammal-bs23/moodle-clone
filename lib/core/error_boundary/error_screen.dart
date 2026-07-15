@@ -22,44 +22,44 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.red.shade50,
-      appBar: AppBar(
-        title: const Text('Error'),
-        backgroundColor: Colors.red.shade700,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
+    const redColor = Color(0xFFB71C1C);
+    const bgColor = Color(0xFFFFEBEE);
+
+    return Material(
+      color: bgColor,
+      child: SingleChildScrollView(
         padding: EdgeInsets.all(16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 24.h),
-            Icon(
+            const Icon(
               Icons.error_outline,
-              size: 64.w,
-              color: Colors.red.shade700,
+              size: 64,
+              color: redColor,
             ),
             SizedBox(height: 24.h),
             Text(
               'Oops! Something went wrong',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: Colors.red.shade900,
+              style: TextStyle(
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
+                color: const Color(0xFF7F0000),
               ),
             ),
             SizedBox(height: 16.h),
             Text(
               'An unexpected error occurred. Our team has been notified.',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Colors.red.shade700,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: redColor,
               ),
             ),
             SizedBox(height: 24.h),
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: Colors.red.shade100,
+                color: const Color(0xFFFFCDD2),
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: Column(
@@ -67,35 +67,47 @@ class ErrorScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Error Details:',
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    style: TextStyle(
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(height: 8.h),
                   SelectableText(
                     error,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    style: TextStyle(
+                      fontSize: 12.sp,
                       fontFamily: 'monospace',
                     ),
                   ),
                   if (stackTrace != null) ...[
                     SizedBox(height: 16.h),
-                    ExpansionTile(
-                      title: Text(
-                        'Stack Trace',
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: redColor),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
-                      children: [
-                        SelectableText(
-                          stackTrace!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(fontFamily: 'monospace'),
+                      child: ExpansionTile(
+                        title: Text(
+                          'Stack Trace',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ],
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(12.w),
+                            child: SelectableText(
+                              stackTrace!,
+                              style: TextStyle(
+                                fontSize: 10.sp,
+                                fontFamily: 'monospace',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ],
@@ -104,28 +116,56 @@ class ErrorScreen extends StatelessWidget {
             SizedBox(height: 32.h),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: onRetry,
-                icon: const Icon(Icons.refresh),
-                label: const Text('Try Again'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade700,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 12.h),
+              child: Material(
+                color: redColor,
+                borderRadius: BorderRadius.circular(4.r),
+                child: InkWell(
+                  onTap: onRetry,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.refresh, color: Colors.white),
+                        SizedBox(width: 8.w),
+                        const Text(
+                          'Try Again',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 12.h),
             SizedBox(
               width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: const Icon(Icons.home),
-                label: const Text('Go Home'),
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: Colors.red.shade700),
-                  foregroundColor: Colors.red.shade700,
-                  padding: EdgeInsets.symmetric(vertical: 12.h),
+              child: Material(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(4.r),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: redColor),
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.home, color: redColor),
+                          SizedBox(width: 8.w),
+                          const Text(
+                            'Go Home',
+                            style: TextStyle(color: redColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

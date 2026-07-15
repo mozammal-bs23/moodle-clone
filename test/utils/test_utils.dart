@@ -6,7 +6,6 @@ import 'package:flutter_boilerplate_core/utils/bloc_observer.dart';
 import 'package:flutter_boilerplate_core/utils/network/api_client.dart';
 import 'package:flutter_boilerplate_core/utils/storage/local_storage.dart';
 import 'package:flutter_boilerplate_core/utils/theme/app_theme.dart';
-import 'package:flutter_boilerplate_domain/feature_home/entities/home_entity.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -72,54 +71,3 @@ class MockApiClient extends Mock implements ApiClient {}
 
 /// Mock for Logger
 class MockLogger extends Mock implements Logger {}
-
-/// Test data fixtures
-class TestData {
-  static final tNow = DateTime(2024, 1, 1, 12);
-
-  static const tHomeItemEntity = HomeItemEntity(
-    id: '1',
-    title: 'Test Item 1',
-    rank: 1,
-    description: 'Test description',
-    thumbnailUrl: 'https://example.com/thumb.jpg',
-    category: 'test',
-    isFeatured: true,
-  );
-
-  static final tHomeEntity = HomeEntity(
-    id: '1',
-    title: 'Test Home',
-    subtitle: 'Test Subtitle',
-    imageUrl: 'https://example.com/image.jpg',
-    items: const [tHomeItemEntity],
-    totalCount: 1,
-    lastUpdated: tNow,
-  );
-
-  static Map<String, dynamic> tHomeJson() => {
-    'id': '1',
-    'title': 'Test Home',
-    'subtitle': 'Test Subtitle',
-    'imageUrl': 'https://example.com/image.jpg',
-    'items': [
-      {
-        'id': '1',
-        'title': 'Test Item 1',
-        'rank': 1,
-        'description': 'Test description',
-        'thumbnailUrl': 'https://example.com/thumb.jpg',
-        'category': 'test',
-        'isFeatured': true,
-      }
-    ],
-    'totalCount': 1,
-    'lastUpdated': tNow.toIso8601String(),
-    'isCached': false,
-  };
-
-  static Map<String, dynamic> tHomeJsonWithCached() => {
-    ...tHomeJson(),
-    'isCached': true,
-  };
-}

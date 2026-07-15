@@ -9,12 +9,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i4;
-import 'package:flutter_boilerplate_data/feature_home/datasources/home_remote_datasource.dart'
-    as _i8;
 import 'package:flutter_boilerplate_data/feature_post/datasources/post_remote_datasource.dart'
     as _i13;
 import 'package:get_it/get_it.dart' as _i1;
-import 'package:hive_flutter/hive_flutter.dart' as _i3;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:logger/logger.dart' as _i5;
 import 'package:shared_preferences/shared_preferences.dart' as _i6;
@@ -36,11 +33,6 @@ extension GetItInjectableX on _i1.GetIt {
       environmentFilter,
     );
     final dIModule = _$DIModule();
-    await gh.factoryAsync<_i3.Box<String>>(
-      () => dIModule.homeBox,
-      instanceName: 'home_cache',
-      preResolve: true,
-    );
     gh.lazySingleton<_i4.Dio>(() => dIModule.dio);
     gh.lazySingleton<_i5.Logger>(() => dIModule.logger);
     await gh.factoryAsync<_i6.SharedPreferences>(
@@ -58,11 +50,6 @@ extension GetItInjectableX on _i1.GetIt {
           receiveTimeout: gh<Duration>(),
           maxRetries: gh<int>(),
         ));
-    gh.lazySingleton<_i8.HomeRemoteDatasource>(
-        () => dIModule.getHomeRemoteDatasource(
-              gh<_i4.Dio>(),
-              gh<String>(instanceName: 'baseUrl'),
-            ));
     gh.factory<String>(
       () => dIModule.jsonPlaceholderBaseUrl,
       instanceName: 'jsonPlaceholderBaseUrl',

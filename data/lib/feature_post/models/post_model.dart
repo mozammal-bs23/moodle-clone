@@ -1,3 +1,4 @@
+// ignore_for_file: invalid_annotation_target
 import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -21,7 +22,7 @@ class PostModel with _$PostModel {
     required int userId,
     required String title,
     required String body,
-    int? id,
+    @JsonKey(includeIfNull: false) int? id,
   }) = _PostModel;
 
   /// Creates a [PostModel] from JSON map

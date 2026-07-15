@@ -46,3 +46,17 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+# Pubspec lock files
+/data/pubspack.lock
+/domain/pubspack.lock
+/core/pubspack.lock
+pubspack.lock
+
+
+/domain/devtools_options.yaml
+/data/devtools_options.yaml
+/core/devtools_options.yaml
+devtools_options.yaml
+
+.claude

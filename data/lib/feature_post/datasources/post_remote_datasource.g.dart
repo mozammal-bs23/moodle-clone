@@ -78,7 +78,8 @@ class _PostRemoteDatasource implements PostRemoteDatasource {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = post;
+    final _data = <String, dynamic>{};
+    _data.addAll(post.toJson());
     final _options = _setStreamType<PostModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -105,7 +106,8 @@ class _PostRemoteDatasource implements PostRemoteDatasource {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = post;
+    final _data = <String, dynamic>{};
+    _data.addAll(post.toJson());
     final _options = _setStreamType<PostModel>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(

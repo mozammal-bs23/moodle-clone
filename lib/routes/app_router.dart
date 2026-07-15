@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
-import 'package:flutter_boilerplate/home/pages/home_detail_page.dart';
-import 'package:flutter_boilerplate/home/pages/home_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +20,7 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: AppRoutes.home,
+      initialLocation: AppRoutes.posts,
       debugLogDiagnostics: true,
 
       // Route observers for analytics and logging
@@ -33,27 +31,6 @@ class AppRouter {
           _buildErrorPage(context, state.error, state.uri.toString()),
 
       routes: <GoRoute>[
-        // Home Routes
-        GoRoute(
-          path: AppRoutes.home,
-          name: AppRoutes.home,
-          pageBuilder: (context, state) =>
-              const NoTransitionPage(child: HomePage()),
-          routes: [
-            GoRoute(
-              path: 'detail/:id',
-              name: AppRoutes.homeDetail,
-              pageBuilder: (context, state) {
-                final id = state.pathParameters['id']!;
-                return MaterialPage(
-                  key: state.pageKey,
-                  child: HomeDetailPage(id: id),
-                );
-              },
-            ),
-          ],
-        ),
-
         // Posts Routes (JSONPlaceholder CRUD demo)
         GoRoute(
           path: AppRoutes.posts,
@@ -84,7 +61,7 @@ class AppRouter {
             ],
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () => context.go(AppRoutes.home),
+              onPressed: () => context.go(AppRoutes.posts),
               child: const Text('Go Home'),
             ),
           ],

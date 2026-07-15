@@ -25,9 +25,13 @@ class _ErrorBoundaryState extends State<ErrorBoundary> {
   StackTrace? _stackTrace;
 
   void _setError(Object error, StackTrace? stackTrace) {
-    setState(() {
-      _error = error;
-      _stackTrace = stackTrace;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        setState(() {
+          _error = error;
+          _stackTrace = stackTrace;
+        });
+      }
     });
     widget.onError?.call(error, stackTrace ?? StackTrace.current);
   }
