@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:flutter_boilerplate/feature_calendar/pages/calendar_screen.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
-import 'package:go_router/go_router.dart';
 
 /// GoRouter configuration for the application
 ///
@@ -20,7 +22,7 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: AppRoutes.posts,
+      initialLocation: AppRoutes.calendar,
       debugLogDiagnostics: true,
 
       // Route observers for analytics and logging
@@ -36,7 +38,15 @@ class AppRouter {
           path: AppRoutes.posts,
           name: AppRoutes.posts,
           pageBuilder: (context, state) =>
-              const NoTransitionPage(child: PostsPage()),
+          const NoTransitionPage(child: PostsPage()),
+        ),
+
+        // Calendar Route
+        GoRoute(
+          path: AppRoutes.calendar,
+          name: AppRoutes.calendar,
+          pageBuilder: (context, state) =>
+          const NoTransitionPage(child: CalendarScreen()),
         ),
       ],
     );
@@ -44,10 +54,10 @@ class AppRouter {
 
   /// Build error page for routing errors
   static Widget _buildErrorPage(
-    BuildContext context,
-    Exception? error,
-    String location,
-  ) {
+      BuildContext context,
+      Exception? error,
+      String location,
+      ) {
     return Scaffold(
       appBar: AppBar(title: const Text('Error')),
       body: Center(

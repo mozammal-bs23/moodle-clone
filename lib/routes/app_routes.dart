@@ -22,6 +22,9 @@ abstract class AppRoutes {
   /// Posts route (JSONPlaceholder CRUD demo)
   static const String posts = '/posts';
 
+  /// Calendar route
+  static const String calendar = '/calendar';
+
   /// Settings routes
   static const String settings = '/settings';
 
