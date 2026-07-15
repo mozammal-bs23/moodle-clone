@@ -48,10 +48,10 @@ app.*.map.json
 .fvm/
 
 # Pubspec lock files
-/data/pubspack.lock
-/domain/pubspack.lock
-/core/pubspack.lock
-pubspack.lock
+/data/pubspec.lock
+/domain/pubspec.lock
+/core/pubspec.lock
+pubspec.lock
 
 
 /domain/devtools_options.yaml
