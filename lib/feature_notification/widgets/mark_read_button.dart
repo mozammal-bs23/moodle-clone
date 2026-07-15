@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 class MarkReadButton extends StatelessWidget {
   const MarkReadButton({super.key});
@@ -6,28 +9,31 @@ class MarkReadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 95,
+      bottom: AppSpacing.xxl.h * 2,
       left: 0,
       right: 0,
       child: Center(
         child: SizedBox(
-          width: 180,
-          height: 42,
+          width: context.screenWidth * .48,
+          height: 42.h,
           child: ElevatedButton.icon(
             onPressed: () {},
-            icon: const Icon(Icons.visibility_outlined, size: 20),
-            label: const Text(
-              'Mark all as read',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+            icon: Icon(Icons.visibility_outlined, size: AppSize.iconSm.sp),
+            label: Text(
+              AppStrings.markAllAsRead,
+              style: context.textTheme.labelLarge?.copyWith(
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w500,
+                color: context.colorScheme.onPrimary,
+              ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF1976D2),
-              foregroundColor: Colors.white,
-              elevation: 5,
-              minimumSize: Size.zero,
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+              backgroundColor: context.colorScheme.primary,
+              foregroundColor: context.colorScheme.onPrimary,
+              elevation: AppSize.elevationMd,
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.md.w),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(22),
+                borderRadius: BorderRadius.circular(AppSize.radiusXl.r),
               ),
             ),
           ),

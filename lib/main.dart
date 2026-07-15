@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
             title: FlavorConfig.instance.appName,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
+            themeMode: ThemeMode.light,
             routerConfig: AppRouter.getRouter(
               isLoggedIn: () async {
                 final (token, _) = await di.getIt<LocalStorage>()

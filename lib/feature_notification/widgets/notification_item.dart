@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({super.key});
@@ -8,21 +11,28 @@ class NotificationItem extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.md.w,
+            vertical: AppSpacing.md.h,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 50,
-                height: 50,
+                width: 50.w,
+                height: 50.h,
                 decoration: BoxDecoration(
-                  color: const Color(0xffF3F5F7),
-                  borderRadius: BorderRadius.circular(25),
+                  color: context.colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(AppSize.radiusFull.r),
                 ),
-                child: const Icon(Icons.login, color: Color(0xff1F2937)),
+                child: Icon(
+                  Icons.login,
+                  color: context.colorScheme.onSurface,
+                  size: AppSize.iconMd.sp,
+                ),
               ),
 
-              const SizedBox(width: 16),
+              SizedBox(width: AppSpacing.md.w),
 
               Expanded(
                 child: Column(
@@ -33,43 +43,46 @@ class NotificationItem extends StatelessWidget {
                       children: [
                         Expanded(
                           child: RichText(
-                            text: const TextSpan(
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                            text: TextSpan(
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                fontSize: 16.sp,
+                                color: context.colorScheme.onSurface,
                               ),
                               children: [
-                                TextSpan(text: "New sign in to your "),
-
+                                TextSpan(text: AppStrings.signInMessage),
                                 TextSpan(
-                                  text: "Mount Orange",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  text: AppStrings.mountOrange,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-
-                                TextSpan(text: " account"),
+                                TextSpan(text: AppStrings.account),
                               ],
                             ),
                           ),
                         ),
 
-                        const SizedBox(width: 10),
+                        SizedBox(width: AppSpacing.sm.w),
 
                         Container(
-                          width: 10,
-                          height: 10,
-                          decoration: const BoxDecoration(
-                            color: Color(0xffF59E0B),
+                          width: 10.w,
+                          height: 10.h,
+                          decoration: BoxDecoration(
+                            color: context.colorScheme.primary,
                             shape: BoxShape.circle,
                           ),
                         ),
                       ],
                     ),
 
-                    const SizedBox(height: 8),
+                    SizedBox(height: AppSpacing.sm.h),
 
-                    const Text(
-                      "47 min ago",
-                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                    Text(
+                      AppStrings.notificationTime,
+                      style: context.textTheme.bodySmall?.copyWith(
+                        fontSize: 13.sp,
+                        color: context.colorScheme.outline,
+                      ),
                     ),
                   ],
                 ),
@@ -78,7 +91,11 @@ class NotificationItem extends StatelessWidget {
           ),
         ),
 
-        const Divider(height: 1, indent: 86),
+        Divider(
+          height: 1.h,
+          indent: 86.w,
+          color: context.colorScheme.outlineVariant,
+        ),
       ],
     );
   }

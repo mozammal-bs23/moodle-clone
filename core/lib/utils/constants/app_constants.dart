@@ -39,6 +39,13 @@ class AppConstants {
 
 /// String constants used throughout the app
 class AppStrings {
+  static const String signInMessage = 'New sign in to your ';
+  static const String mountOrange = 'Mount Orange';
+  static const String account = ' account';
+  static const String notificationTime = '47 min ago';
+  static const String notifications = 'Notifications';
+  static const String empty = '';
+  static const String markAllAsRead = 'Mark all as read';
   /// Error messages
   static const String errorGeneral = 'An unexpected error occurred';
 

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 class NotificationHeader extends StatelessWidget {
   const NotificationHeader({super.key});
@@ -8,34 +11,43 @@ class NotificationHeader extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.md.w,
+            vertical: AppSpacing.md.h,
+          ),
           child: Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
-                  "Notifications",
-                  style: TextStyle(
-                    fontSize: 30,
+                  AppStrings.notifications,
+                  style: context.textTheme.headlineMedium?.copyWith(
+                    fontSize: 30.sp,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: context.colorScheme.onSurface,
                   ),
                 ),
               ),
-
               InkWell(
                 onTap: () {},
-                borderRadius: BorderRadius.circular(30),
-                child: const CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Color(0xffECECEC),
-                  child: Icon(Icons.person, color: Colors.grey, size: 26),
+                borderRadius: BorderRadius.circular(AppSize.radiusFull.r),
+                child: CircleAvatar(
+                  radius: 20.r,
+                  backgroundColor: context.colorScheme.surfaceContainerHighest,
+                  child: Icon(
+                    Icons.person,
+                    size: 26.sp,
+                    color: context.colorScheme.outline,
+                  ),
                 ),
               ),
             ],
           ),
         ),
-
-        const Divider(height: 1, thickness: 1),
+        Divider(
+          height: 1.h,
+          thickness: 1.h,
+          color: context.colorScheme.outlineVariant,
+        ),
       ],
     );
   }
