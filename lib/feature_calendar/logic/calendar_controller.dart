@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 
-/// Controller to manage state and logic for the calendar.
+/// Controller for the calendar screen.
 class CalendarController extends ChangeNotifier {
-  DateTime _currentMonth = DateTime(2025, 6);
-  DateTime? _selectedDate = DateTime(2025, 6, 27);
+  DateTime _currentMonth = DateTime.now();
+  DateTime? _selectedDate = DateTime.now();
 
-  /// Getter for the current month.
+  /// The month currently being displayed.
   DateTime get currentMonth => _currentMonth;
-  /// Getter for the selected date.
+
+  /// The currently selected date.
   DateTime? get selectedDate => _selectedDate;
 
-  /// Navigates to the previous month.
-  void previousMonth() {
-    _currentMonth = DateTime(_currentMonth.year, _currentMonth.month - 1);
-    notifyListeners();
-  }
-
-  /// Navigates to the next month.
+  /// Moves to the next month.
   void nextMonth() {
     _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + 1);
     notifyListeners();
   }
 
-  /// Updates the selected date.
+  /// Moves to the previous month.
+  void previousMonth() {
+    _currentMonth = DateTime(_currentMonth.year, _currentMonth.month - 1);
+    notifyListeners();
+  }
+
+  /// Handles date selection.
   void onDaySelected(DateTime date) {
     _selectedDate = date;
     notifyListeners();
