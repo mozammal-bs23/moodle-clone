@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:flutter_boilerplate/feature_course_details/widgets/course_progress.dart';
 import 'package:flutter_boilerplate/feature_course_details/widgets/course_date.dart';
+import 'package:flutter_boilerplate/feature_course_details/widgets/course_progress.dart';
 import 'package:flutter_boilerplate/feature_course_details/widgets/course_summary.dart';
 import 'package:flutter_boilerplate/feature_course_details/widgets/teacher_tile.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 class CourseCard extends StatelessWidget {
   const CourseCard({super.key});
@@ -15,38 +17,46 @@ class CourseCard extends StatelessWidget {
       child: Container(
         height: MediaQuery.of(context).size.height * .68,
         width: double.infinity,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+        decoration: BoxDecoration(
+          color: context.colorScheme.onInverseSurface,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(26.r),
+          ),
         ),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(18),
+          padding: EdgeInsets.all(18.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Celebrating Cultures',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+              Text(
+                AppStrings.courseTitle,
+                style: TextStyle(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w500,
+                  color: context.colorScheme.onSurface,
+                ),
               ),
 
-              const SizedBox(height: 10),
+              SizedBox(height: AppSpacing.sm.h),
 
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 12.w,
+                  vertical: 6.h,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xffFCE5C7),
-                  borderRadius: BorderRadius.circular(20),
+                  color: context.colorScheme.secondaryContainer,
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
-                child: const Text(
-                  'Our Community',
-                  style: TextStyle(color: Colors.brown),
+                child: Text(
+                  AppStrings.courseCategory,
+                  style: TextStyle(
+                    color: context.colorScheme.onSecondaryContainer,
+                  ),
                 ),
               ),
 
-              const SizedBox(height: 22),
+              SizedBox(height: 22.h),
 
               const CourseProgress(),
 

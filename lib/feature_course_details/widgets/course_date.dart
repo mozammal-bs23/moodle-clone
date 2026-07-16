@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 class CourseDate extends StatelessWidget {
   const CourseDate({super.key});
@@ -6,33 +8,42 @@ class CourseDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: const Color(0xffF7F7F7),
-        borderRadius: BorderRadius.circular(10),
+        color: context.colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(10.r),
       ),
-      child: const Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.calendar_today, size: 18),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Course start date ',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(text: 'December 18 2013,\n11:00 PM'),
-                    ],
-                  ),
+          Icon(
+            Icons.calendar_today,
+            size: 18.sp,
+            color: context.colorScheme.onSurface,
+          ),
+
+          SizedBox(width: AppSpacing.sm.w),
+
+          Expanded(
+            child: Text.rich(
+              TextSpan(
+                style: TextStyle(
+                  color: context.colorScheme.onSurface,
+                  fontSize: 15.sp,
                 ),
+                children: [
+                  TextSpan(
+                    text: AppStrings.courseStartDate,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: AppStrings.courseStartTime,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),

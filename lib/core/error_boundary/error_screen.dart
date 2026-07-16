@@ -33,11 +33,7 @@ class ErrorScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 24.h),
-            const Icon(
-              Icons.error_outline,
-              size: 64,
-              color: redColor,
-            ),
+            const Icon(Icons.error_outline, size: 64, color: redColor),
             SizedBox(height: 24.h),
             Text(
               'Oops! Something went wrong',
@@ -50,10 +46,7 @@ class ErrorScreen extends StatelessWidget {
             SizedBox(height: 16.h),
             Text(
               'An unexpected error occurred. Our team has been notified.',
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: redColor,
-              ),
+              style: TextStyle(fontSize: 14.sp, color: redColor),
             ),
             SizedBox(height: 24.h),
             Container(
@@ -75,10 +68,7 @@ class ErrorScreen extends StatelessWidget {
                   SizedBox(height: 8.h),
                   SelectableText(
                     error,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontFamily: 'monospace',
-                    ),
+                    style: TextStyle(fontSize: 12.sp, fontFamily: 'monospace'),
                   ),
                   if (stackTrace != null) ...[
                     SizedBox(height: 16.h),

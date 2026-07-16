@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 class TeacherTile extends StatelessWidget {
   const TeacherTile({super.key});
@@ -8,31 +10,49 @@ class TeacherTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 26),
+        SizedBox(height: 26.h),
 
-        const Text(
-          'Teachers',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+        Text(
+          AppStrings.teachers,
+          style: TextStyle(
+            fontSize: 22.sp,
+            fontWeight: FontWeight.w500,
+            color: context.colorScheme.onSurface,
+          ),
         ),
 
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
 
         Material(
           color: Colors.transparent,
           child: ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: const CircleAvatar(
-              radius: 22,
-              backgroundColor: Color(0xffECEFF1),
-              child: Text('JS'),
+            leading: CircleAvatar(
+              radius: 22.r,
+              backgroundColor: context.colorScheme.surfaceContainerHighest,
+              child: Text(
+                AppStrings.teacherInitials,
+                style: TextStyle(
+                  color: context.colorScheme.onSurface,
+                ),
+              ),
             ),
-            title: const Text('Jeffrey Sanders'),
-            trailing: const Icon(Icons.chevron_right),
+            title: Text(
+              AppStrings.teacherName,
+              style: TextStyle(
+                fontSize: 16.sp,
+                color: context.colorScheme.onSurface,
+              ),
+            ),
+            trailing: Icon(
+              Icons.chevron_right,
+              color: context.colorScheme.onSurface,
+            ),
             onTap: () {},
           ),
         ),
 
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
       ],
     );
   }

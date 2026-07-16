@@ -37,9 +37,7 @@ class AppRouter {
           path: AppRoutes.courseDetails,
           name: AppRoutes.courseDetails,
           pageBuilder: (context, state) =>
-          const NoTransitionPage(
-            child: CourseDetailsScreen(),
-          ),
+              const NoTransitionPage(child: CourseDetailsScreen()),
         ),
         GoRoute(
           path: AppRoutes.posts,

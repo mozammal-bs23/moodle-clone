@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 
 class CourseProgress extends StatelessWidget {
   const CourseProgress({super.key});
@@ -11,20 +13,30 @@ class CourseProgress extends StatelessWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: const LinearProgressIndicator(
+                borderRadius: BorderRadius.circular(20.r),
+                child: LinearProgressIndicator(
                   value: .27,
-                  minHeight: 8,
-                  color: Colors.orange,
-                  backgroundColor: Color(0xffFBE5D6),
+                  minHeight: 8.h,
+                  color: context.colorScheme.primary,
+                  backgroundColor:
+                  context.colorScheme.primary.withValues(alpha: .15),
                 ),
               ),
             ),
-            const SizedBox(width: 10),
-            const Text('27%', style: TextStyle(fontWeight: FontWeight.bold)),
+
+            SizedBox(width: AppSpacing.sm.w),
+
+            Text(
+              AppStrings.progress,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: context.colorScheme.onSurface,
+              ),
+            )
           ],
         ),
-        const SizedBox(height: 18),
+
+        SizedBox(height: 18.h),
       ],
     );
   }

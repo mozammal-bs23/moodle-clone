@@ -39,18 +39,20 @@ class MyApp extends StatelessWidget {
             title: FlavorConfig.instance.appName,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
+            themeMode: ThemeMode.light,
             routerConfig: AppRouter.getRouter(
               isLoggedIn: () async {
-                final (token, _) = await di.getIt<LocalStorage>()
-                    .get<String>('auth_token');
+                final (token, _) = await di.getIt<LocalStorage>().get<String>(
+                  'auth_token',
+                );
                 return token != null && token.isNotEmpty;
               },
             ),
             builder: (context, child) {
               return MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  textScaler: TextScaler.noScaling,
-                ),
+                data: MediaQuery.of(
+                  context,
+                ).copyWith(textScaler: TextScaler.noScaling),
                 child: child!,
               );
             },

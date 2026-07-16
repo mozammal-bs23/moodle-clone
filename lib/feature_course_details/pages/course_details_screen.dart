@@ -10,7 +10,7 @@ class CourseDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.black45,
+      backgroundColor: Color(0xFF2E2E2E),
       body: Stack(
         children: [
           /// Banner
