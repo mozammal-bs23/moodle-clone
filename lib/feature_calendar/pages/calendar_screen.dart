@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/constants/app_strings.dart';
 import 'package:flutter_boilerplate/feature_calendar/logic/calendar_controller.dart';
 import 'package:flutter_boilerplate/feature_calendar/widgets/calendar_grid.dart';
 import 'package:flutter_boilerplate/feature_calendar/widgets/calendar_header.dart';
+
 
 /// The main functional screen displaying the monthly calendar.
 class CalendarScreen extends StatefulWidget {
@@ -38,7 +40,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {},
         ),
-        title: const Text('Calendar'),
+        title: const Text(AppStrings.calendar), // Use the constant here
         centerTitle: false,
         actions: [
           IconButton(icon: const Icon(Icons.filter_alt), onPressed: () {}),
