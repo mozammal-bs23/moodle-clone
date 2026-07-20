@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// A widget that displays the course header with a styled progress bar.
+/// A widget that displays the course header with thumbnail, title, and
+/// progress.
 class CourseHeaderWidget extends StatelessWidget {
   /// Creates a [CourseHeaderWidget].
   const CourseHeaderWidget({
@@ -13,47 +14,76 @@ class CourseHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    // Fixed hexadecimal color notation (0xFF...) to prevent Symbol error
+    const orangePrimary = Color(0xFFE06B26);
+    const orangeTrack = Color(0xFFFDF0E6);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Column(
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 12,
+        bottom: 8,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(width: 50, height: 50, color: Colors.grey),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'Celebrating Cultures',
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              width: 52,
+              height: 52,
+              color: Colors.grey.shade300,
+              child: const Icon(
+                Icons.map_outlined,
+                color: Colors.grey,
+                size: 28,
               ),
-            ],
+            ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    // Slightly thicker height
-                    minHeight: 10,
-                    // Uses app theme colors instead of hardcoded values
-                    backgroundColor: theme.colorScheme.outlineVariant,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      theme.colorScheme.primary,
-                    ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Celebrating Cultures',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              const SizedBox(width: 8),
-              Text('${(progress * 100).toInt()}%'),
-            ],
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: LinearProgressIndicator(
+                          value: progress,
+                          minHeight: 6,
+                          backgroundColor: orangeTrack,
+                          valueColor: const AlwaysStoppedAnimation<Color>(
+                            orangePrimary,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${(progress * 100).toInt()}%',
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

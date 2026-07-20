@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/constants/app_strings.dart';
 import 'package:flutter_boilerplate/feature_course/logic/course_overview_controller.dart';
 import 'package:flutter_boilerplate/feature_course/models/course_model.dart';
 import 'package:flutter_boilerplate/feature_course/widgets/course_content_card.dart';
-import 'package:flutter_boilerplate/feature_course/widgets/course_header_widget.dart';
+import 'package:flutter_boilerplate/feature_course/widgets/course_overview_app_bar.dart';
+import 'package:flutter_boilerplate/feature_course/widgets/floating_side_toggle.dart';
 
-/// The screen displaying the course overview.
+/// The screen displaying the course overview layout framework.
 class CourseOverviewScreen extends StatefulWidget {
   /// Creates a [CourseOverviewScreen].
   const CourseOverviewScreen({super.key});
@@ -36,37 +36,7 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            // Placeholder: Does nothing when clicked
-            onPressed: () {},
-          ),
-          actions: const [
-            Icon(Icons.cloud_download),
-            SizedBox(width: 16),
-            Icon(Icons.info_outline),
-            SizedBox(width: 16),
-          ],
-          // Header and Tabs inside AppBar to match reference
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(160),
-            child: Column(
-              children: [
-                CourseHeaderWidget(progress: _controller.progress),
-                TabBar(
-                  indicatorColor: theme.colorScheme.primary,
-                  labelColor: theme.colorScheme.onSurface,
-                  tabs: const [
-                    Tab(text: AppStrings.course),
-                    Tab(text: AppStrings.participants),
-                    Tab(text: AppStrings.grades),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+        appBar: CourseOverviewAppBar(progress: _controller.progress),
         body: ListenableBuilder(
           listenable: _controller,
           builder: (context, _) {
@@ -76,20 +46,30 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
 
             final course = _controller.courseData ?? const CourseModel(
               title: 'Celebrating Cultures',
-              description: 'We are all from different communities...',
+              description: 'We are all from different communities but we '
+                  'are all one community at Mount Orange. This course is for '
+                  'students, teachers and the wider community members to '
+                  'share and learn about our cultural diversity.',
             );
 
             return TabBarView(
               children: [
-                ListView(
-                  padding: const EdgeInsets.all(16),
+                // Screen level Stack gives the toggle zero hit-test clipping
+                Stack(
                   children: [
-                    CourseContentCard(
-                      title: course.title,
-                      description: course.description,
-                      isExpanded: _controller.isExpanded,
-                      onExpansionChanged: (_) => _controller.toggleExpanded(),
+                    ListView(
+                      padding: const EdgeInsets.all(16),
+                      children: [
+                        CourseContentCard(
+                          title: course.title,
+                          description: course.description,
+                          isExpanded: _controller.isExpanded,
+                          onExpansionChanged: (_) =>
+                              _controller.toggleExpanded(),
+                        ),
+                      ],
                     ),
+                    const FloatingSideToggle(),
                   ],
                 ),
                 const Center(child: Text('Participants')),
@@ -100,11 +80,12 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
-          shape: const CircleBorder(), // Forces circular shape
+          shape: const CircleBorder(),
           backgroundColor: theme.colorScheme.surfaceContainerHighest,
           child: Icon(
-            Icons.list,
-            color: theme.colorScheme.onSurfaceVariant,
+            Icons.format_list_bulleted,
+            size: 26,
+            color: theme.colorScheme.onSurface,
           ),
         ),
       ),
