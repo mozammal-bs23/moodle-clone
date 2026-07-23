@@ -39,6 +39,19 @@ class AppConstants {
 
 /// String constants used throughout the app
 class AppStrings {
+  static const String courseTitle = 'Celebrating Cultures';
+  static const String courseCategory = 'Our Community';
+  static const String courseSummary = 'Course summary';
+  static const String teachers = 'Teachers';
+  static const String progress = '27%';
+  static const String courseStartDate = 'Course start date ';
+  static const String courseStartTime = 'December 18 2013,\n11:00 PM';
+  static const String courseDescription =
+      'An informal, optional module for Mount Orange students, staff and auxiliaries to celebrate and showcase the diversity of our traditions, languages and landscapes.';
+  static const String teacherInitials = 'JS';
+  static const String teacherName = 'Jeffrey Sanders';
+  static const String courseBanner = 'assets/images/course_banner.png';
+
   /// Error messages
   static const String errorGeneral = 'An unexpected error occurred';
 
@@ -67,36 +80,48 @@ class AppStrings {
   /// Generic labels
   /// Loading label
   static const String labelLoading = 'Loading...';
+
   /// Error label
   static const String labelError = 'Error';
+
   /// Retry label
   static const String labelRetry = 'Retry';
+
   /// Cancel label
   static const String labelCancel = 'Cancel';
+
   /// OK label
   static const String labelOk = 'OK';
+
   /// Save label
   static const String labelSave = 'Save';
+
   /// Delete label
   static const String labelDelete = 'Delete';
+
   /// Edit label
   static const String labelEdit = 'Edit';
+
   /// Submit label
   static const String labelSubmit = 'Submit';
 
   /// Empty states
   /// No data message
   static const String emptyNoData = 'No data available';
+
   /// No search results message
   static const String emptySearch = 'No results found';
+
   /// No favorites message
   static const String emptyFavorites = 'No favorites yet';
 
   /// Connectivity
   /// Connectivity status label
   static const String connectivityStatus = 'Connectivity status';
+
   /// Online status label
   static const String connectivityOnline = 'Online';
+
   /// Offline status label
   static const String connectivityOffline = 'Offline';
 }

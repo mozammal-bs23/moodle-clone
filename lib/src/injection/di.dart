@@ -27,9 +27,7 @@ Future<void> configureDependencies([String? environment]) async {
 
   getIt
     ..registerLazySingleton<PostRepository>(
-      () => PostRepositoryImpl(
-        remoteDatasource: getIt<PostRemoteDatasource>(),
-      ),
+      () => PostRepositoryImpl(remoteDatasource: getIt<PostRemoteDatasource>()),
     )
     ..registerFactory<GetPostsUseCase>(
       () => GetPostsUseCase(getIt<PostRepository>()),
