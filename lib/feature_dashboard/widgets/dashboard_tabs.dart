@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A widget that displays tabs for the dashboard (e.g., Dashboard, Site home).
@@ -8,22 +10,28 @@ class DashboardTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Row(
-        children: [
-          _TabItem(
-            title: 'Dashboard',
-            isActive: true,
-            onTap: () {},
+    return BlocBuilder<DashboardCubit, DashboardState>(
+      builder: (context, state) {
+        final selectedIndex = state.selectedTabIndex;
+
+        return ColoredBox(
+          color: Colors.white,
+          child: Row(
+            children: [
+              _TabItem(
+                title: 'Dashboard',
+                isActive: selectedIndex == 0,
+                onTap: () => context.read<DashboardCubit>().selectTab(0),
+              ),
+              _TabItem(
+                title: 'Site home',
+                isActive: selectedIndex == 1,
+                onTap: () => context.read<DashboardCubit>().selectTab(1),
+              ),
+            ],
           ),
-          _TabItem(
-            title: 'Site home',
-            isActive: false,
-            onTap: () {},
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -41,9 +49,6 @@ class _TabItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Helper to ensure font size is always > 0 to prevent assertion errors
-    double safeSp(double size) => size.sp > 0 ? size.sp : size;
-
     return Expanded(
       child: InkWell(
         onTap: onTap,
@@ -54,7 +59,7 @@ class _TabItem extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: safeSp(15),
+                  fontSize: 15.sp,
                   fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                   color: isActive ? Colors.black87 : const Color(0xFF616161),
                 ),

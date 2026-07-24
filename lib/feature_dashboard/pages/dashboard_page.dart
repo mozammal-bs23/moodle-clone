@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
+import 'package:flutter_boilerplate/feature_dashboard/widgets/available_courses_card.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/calendar_card.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/dashboard_bottom_navigation.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/dashboard_header.dart';
@@ -25,15 +26,35 @@ class DashboardPage extends StatelessWidget {
           children: [
             const DashboardTabs(),
             Expanded(
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    const TimelineCard(),
-                    const CalendarCard(),
-                    SizedBox(height: 32.h),
-                  ],
-                ),
+              child: BlocBuilder<DashboardCubit, DashboardState>(
+                builder: (context, state) {
+                  return IndexedStack(
+                    index: state.selectedTabIndex,
+                    children: [
+                      // Dashboard Content
+                      SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: Column(
+                          children: [
+                            const TimelineCard(),
+                            const CalendarCard(),
+                            SizedBox(height: 32.h),
+                          ],
+                        ),
+                      ),
+                      // Site Home Content
+                      SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: Column(
+                          children: [
+                            const AvailableCoursesCard(),
+                            SizedBox(height: 32.h),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ],

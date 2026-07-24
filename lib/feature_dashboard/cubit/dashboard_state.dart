@@ -1,21 +1,34 @@
 part of 'dashboard_cubit.dart';
 
-/// State for the dashboard courses screen.
-@freezed
-class DashboardState with _$DashboardState {
-  /// Initial state.
-  const factory DashboardState.initial() = DashboardInitial;
+enum DashboardStatus { initial, loading, loaded, error }
 
-  /// Loading state when courses are being fetched.
-  const factory DashboardState.loading() = DashboardLoading;
+class DashboardState extends Equatable {
+  const DashboardState({
+    this.selectedTabIndex = 0,
+    this.status = DashboardStatus.initial,
+    this.courses = const [],
+    this.message = '',
+  });
 
-  /// Loaded state containing the list of available courses.
-  const factory DashboardState.loaded({
-    required List<CourseEntity> courses,
-  }) = DashboardLoaded;
+  final int selectedTabIndex;
+  final DashboardStatus status;
+  final List<CourseEntity> courses;
+  final String message;
 
-  /// Error state holding the failure message.
-  const factory DashboardState.error({
-    required String message,
-  }) = DashboardError;
+  @override
+  List<Object?> get props => [selectedTabIndex, status, courses, message];
+
+  DashboardState copyWith({
+    int? selectedTabIndex,
+    DashboardStatus? status,
+    List<CourseEntity>? courses,
+    String? message,
+  }) {
+    return DashboardState(
+      selectedTabIndex: selectedTabIndex ?? this.selectedTabIndex,
+      status: status ?? this.status,
+      courses: courses ?? this.courses,
+      message: message ?? this.message,
+    );
+  }
 }

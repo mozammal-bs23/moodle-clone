@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 part 'dashboard_state.dart';
-part 'dashboard_cubit.freezed.dart';
 
 /// Entity representing a course item on the dashboard.
 class CourseEntity {
@@ -32,11 +31,16 @@ class CourseEntity {
 @injectable
 class DashboardCubit extends Cubit<DashboardState> {
   /// Creates a new [DashboardCubit] instance.
-  DashboardCubit() : super(const DashboardState.initial());
+  DashboardCubit() : super(const DashboardState());
+
+  /// Changes the selected tab index.
+  void selectTab(int index) {
+    emit(state.copyWith(selectedTabIndex: index));
+  }
 
   /// Fetches the list of enrolled courses for the dashboard.
   Future<void> fetchDashboardCourses() async {
-    emit(const DashboardState.loading());
+    emit(state.copyWith(status: DashboardStatus.loading));
     try {
       // Simulate network delay
       await Future<void>.delayed(const Duration(milliseconds: 800));
@@ -62,9 +66,15 @@ class DashboardCubit extends Cubit<DashboardState> {
         ),
       ];
 
-      emit(DashboardState.loaded(courses: mockCourses));
+      emit(state.copyWith(
+        status: DashboardStatus.loaded,
+        courses: mockCourses,
+      ));
     } catch (e) {
-      emit(DashboardState.error(message: e.toString()));
+      emit(state.copyWith(
+        status: DashboardStatus.error,
+        message: e.toString(),
+      ));
     }
   }
 }
