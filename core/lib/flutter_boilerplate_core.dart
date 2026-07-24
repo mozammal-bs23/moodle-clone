@@ -5,6 +5,7 @@ export 'utils/base/base_event.dart';
 export 'utils/base/base_state.dart';
 export 'utils/bloc_observer.dart';
 // Constants
+export 'utils/constants/app_assets.dart';
 export 'utils/constants/app_constants.dart';
 export 'utils/failure/app_failure.dart';
 // Flavor
