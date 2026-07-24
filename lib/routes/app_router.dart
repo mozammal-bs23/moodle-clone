@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
+import 'package:flutter_boilerplate/feature_set_base_url/pages/set_base_url_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
 import 'package:go_router/go_router.dart';
 
-/// GoRouter configuration for the application
-///
-/// Handles routing, navigation guards, deep linking, and error handling
 class AppRouter {
   /// Private constructor
   AppRouter._();
@@ -20,7 +17,7 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: AppRoutes.posts,
+      initialLocation: '/',
       debugLogDiagnostics: true,
 
       // Route observers for analytics and logging
@@ -31,12 +28,10 @@ class AppRouter {
           _buildErrorPage(context, state.error, state.uri.toString()),
 
       routes: <GoRoute>[
-        // Posts Routes (JSONPlaceholder CRUD demo)
         GoRoute(
-          path: AppRoutes.posts,
-          name: AppRoutes.posts,
+          path: '/',
           pageBuilder: (context, state) =>
-              const NoTransitionPage(child: PostsPage()),
+              const NoTransitionPage(child: SetBaseUrlPage()),
         ),
       ],
     );
