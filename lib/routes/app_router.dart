@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_auth/pages/login_page.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
@@ -20,8 +21,24 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: AppRoutes.posts,
+      initialLocation: AppRoutes.login,
       debugLogDiagnostics: true,
+
+      // Redirect logic for authentication
+      redirect: (context, state) async {
+        final loggedIn = await isLoggedIn();
+        final loggingIn = state.matchedLocation == AppRoutes.login;
+
+        if (!loggedIn) {
+          return loggingIn ? null : AppRoutes.login;
+        }
+
+        if (loggingIn) {
+          return AppRoutes.posts;
+        }
+
+        return null;
+      },
 
       // Route observers for analytics and logging
       observers: [routeObserver],
@@ -31,6 +48,14 @@ class AppRouter {
           _buildErrorPage(context, state.error, state.uri.toString()),
 
       routes: <GoRoute>[
+        // Auth Routes
+        GoRoute(
+          path: AppRoutes.login,
+          name: AppRoutes.login,
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: LoginPage()),
+        ),
+
         // Posts Routes (JSONPlaceholder CRUD demo)
         GoRoute(
           path: AppRoutes.posts,

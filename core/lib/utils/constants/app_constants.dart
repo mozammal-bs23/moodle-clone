@@ -84,6 +84,20 @@ class AppStrings {
   /// Submit label
   static const String labelSubmit = 'Submit';
 
+  /// Auth labels
+  /// Login label
+  static const String labelLogin = 'Log in';
+  /// Username label
+  static const String labelUsername = 'Username';
+  /// Password label
+  static const String labelPassword = 'Password';
+  /// Lost password label
+  static const String labelLostPassword = 'Lost Password?';
+  /// Site name label
+  static const String labelSiteName = 'eLearning23';
+  /// Site URL label
+  static const String labelSiteUrl = 'https://lmsmobile.ahnafmuttaki.com';
+
   /// Empty states
   /// No data message
   static const String emptyNoData = 'No data available';
