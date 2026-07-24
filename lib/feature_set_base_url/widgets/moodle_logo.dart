@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_assets.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class MoodleLogo extends StatelessWidget {
   const MoodleLogo({super.key});
@@ -7,10 +9,10 @@ class MoodleLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 550,
-        height: 80,
+        width: AppSize.logoWidth,
+        height: AppSize.logoHeight,
         child: Image.asset(
-          'assets/images/moodle_logo.png',
+          AppAssets.moodleLogo,
           fit: BoxFit.contain,
           alignment: Alignment.center,
           filterQuality: FilterQuality.high,

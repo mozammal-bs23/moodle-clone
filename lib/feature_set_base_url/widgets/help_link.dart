@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class HelpLink extends StatelessWidget {
   const HelpLink({super.key});
@@ -8,28 +9,26 @@ class HelpLink extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: () {},
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(AppSize.helpBorderRadius),
         child: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 2),
+          padding: EdgeInsets.symmetric(vertical: AppSize.helpVerticalPadding),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Need help?',
+                AppStrings.needHelp,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: AppSize.helpFontSize,
                   fontWeight: FontWeight.w400,
                   color: Color(0xFF212121),
                 ),
               ),
-
-              SizedBox(height: .5),
-
+              SizedBox(height: AppSize.helpDividerHeight),
               SizedBox(
-                width: 72,
+                width: AppSize.helpDividerWidth,
                 child: Divider(
-                  height: .5,
-                  thickness: .5,
+                  height: AppSize.helpDividerHeight,
+                  thickness: AppSize.helpDividerThickness,
                   color: Color(0xFF212121),
                 ),
               ),

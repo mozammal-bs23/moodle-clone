@@ -5,6 +5,7 @@ import 'package:flutter_boilerplate/feature_set_base_url/widgets/moodle_logo.dar
 import 'package:flutter_boilerplate/feature_set_base_url/widgets/or_divider.dart';
 import 'package:flutter_boilerplate/feature_set_base_url/widgets/qr_scan_button.dart';
 import 'package:flutter_boilerplate/feature_set_base_url/widgets/site_info.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class SetBaseUrlPage extends StatelessWidget {
   const SetBaseUrlPage({super.key});
@@ -15,31 +16,31 @@ class SetBaseUrlPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 5),
+              SizedBox(height: AppSpacing.xxs),
 
               BaseUrlHeader(),
 
-              SizedBox(height: 34),
+              SizedBox(height: AppSpacing.xlMd),
 
               MoodleLogo(),
 
-              SizedBox(height: 44),
+              SizedBox(height: AppSpacing.xxlSm),
 
               SiteInfo(),
 
-              SizedBox(height: 34),
+              SizedBox(height: AppSpacing.xlMd),
 
               OrDivider(),
 
-              SizedBox(height: 34),
+              SizedBox(height: AppSpacing.xlMd),
 
               QrScanButton(),
 
-              SizedBox(height: 22),
+              SizedBox(height: AppSpacing.xlSm),
 
               HelpLink(),
 

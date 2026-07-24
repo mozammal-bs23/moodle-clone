@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class SiteInfo extends StatefulWidget {
   const SiteInfo({super.key});
@@ -33,64 +34,65 @@ class _SiteInfoState extends State<SiteInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Your site',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: _isFocused ? FontWeight.w700 : FontWeight.w400,
-              color: const Color(0xFFFF0000),
-              letterSpacing: 0,
-              height: 1,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          AppStrings.yourSite,
+          style: TextStyle(
+            fontSize: AppSize.fontXs,
+            fontWeight: _isFocused ? FontWeight.w700 : FontWeight.w400,
+            color: const Color(0xFFFF0000),
+            letterSpacing: AppSize.letterSpacingNone,
+            height: AppSize.lineHeight,
           ),
-          const SizedBox(height: 10),
+        ),
+        const SizedBox(height: AppSpacing.mdSm),
 
-          TextField(
-            enableSuggestions: false,
-            autocorrect: false,
-            selectionControls: null,
-            controller: _controller,
-            focusNode: _focusNode,
-            cursorColor: const Color(0xFFFF0000),
-            style: const TextStyle(
-              fontSize: 14,
+        TextField(
+          enableSuggestions: false,
+          autocorrect: false,
+          selectionControls: null,
+          controller: _controller,
+          focusNode: _focusNode,
+          cursorColor: const Color(0xFFFF0000),
+          style: const TextStyle(
+            fontSize: AppSize.fontSm,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF000000),
+            letterSpacing: AppSize.letterSpacingNone,
+            height: AppSize.lineHeight,
+          ),
+          decoration: const InputDecoration(
+            isDense: true,
+            hintText: AppStrings.siteHint,
+            hintStyle: TextStyle(
+              fontSize: AppSize.fontSm,
               fontWeight: FontWeight.w400,
-              color: Color(0xFF000000),
-              letterSpacing: 0,
-              height: 1,
+              color: Color(0xFF757575),
+              letterSpacing: AppSize.letterSpacingNone,
+              height: AppSize.lineHeight,
             ),
-            decoration: const InputDecoration(
-              isDense: true,
-              hintText: 'https://campus.example.edu',
-              hintStyle: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF757575),
-                letterSpacing: 0,
-                height: 1,
-              ),
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              focusedErrorBorder: InputBorder.none,
-              filled: false,
-              fillColor: Colors.transparent,
-              contentPadding: EdgeInsets.zero,
-            ),
+            border: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            focusedErrorBorder: InputBorder.none,
+            filled: false,
+            fillColor: Colors.transparent,
+            contentPadding: EdgeInsets.zero,
           ),
+        ),
 
-          const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.mdLg),
 
-          const Divider(height: 1, thickness: .8, color: Color(0xFFE0E0E0)),
-        ],
-      ),
+        Divider(
+          height: AppSize.lineHeight,
+          thickness: AppSize.dividerThickness,
+          color: const Color(0xFFE0E0E0),
+        ),
+      ],
     );
   }
 }

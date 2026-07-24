@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class OrDivider extends StatelessWidget {
   const OrDivider({super.key});
@@ -7,13 +8,13 @@ class OrDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        'Or',
+        AppStrings.or,
         style: TextStyle(
-          fontSize: 16,
+          fontSize: AppSize.fontMd,
           fontWeight: FontWeight.w400,
           color: Color(0xFF212121),
-          letterSpacing: 0,
-          height: 1,
+          letterSpacing: AppSize.letterSpacingNone,
+          height: AppSize.lineHeight,
         ),
       ),
     );

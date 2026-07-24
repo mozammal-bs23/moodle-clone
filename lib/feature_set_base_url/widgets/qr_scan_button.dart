@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class QrScanButton extends StatelessWidget {
   const QrScanButton({super.key});
@@ -7,25 +8,34 @@ class QrScanButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 42,
+      height: AppSize.qrButtonHeight,
       child: OutlinedButton.icon(
         onPressed: () {},
-        icon: const Icon(Icons.qr_code_2, size: 22, color: Color(0xFF212121)),
+        icon: const Icon(
+          Icons.qr_code_2,
+          size: AppSize.qrIconSize,
+          color: Color(0xFF212121),
+        ),
         label: const Text(
-          'Scan QR code',
+          AppStrings.scanQrCode,
           style: TextStyle(
-            fontSize: 13,
+            fontSize: AppSize.qrButtonFontSize,
             fontWeight: FontWeight.w600,
             color: Color(0xFF212121),
-            letterSpacing: 1,
+            letterSpacing: AppSize.qrButtonLetterSpacing,
           ),
         ),
         style: OutlinedButton.styleFrom(
           elevation: 0,
           backgroundColor: Colors.white,
-          side: const BorderSide(color: Color(0xFF1E1E1E), width: 0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          side: const BorderSide(
+            color: Color(0xFF1E1E1E),
+            width: AppSize.borderWidthNone,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSize.qrButtonRadius),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
         ),
       ),
     );

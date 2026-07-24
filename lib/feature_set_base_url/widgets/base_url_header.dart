@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class BaseUrlHeader extends StatelessWidget {
   const BaseUrlHeader({super.key});
@@ -6,29 +7,32 @@ class BaseUrlHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: AppSize.headerHeight,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            'Connect to Moodle',
+            AppStrings.connectToMoodle,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: AppSize.fontLg,
               fontWeight: FontWeight.w500,
               color: Color(0xFF212121),
-              letterSpacing: -0.2,
-              height: 1.0,
+              letterSpacing: AppSize.letterSpacingTight,
+              height: AppSize.lineHeight,
             ),
           ),
           const Spacer(),
           IconButton(
             onPressed: () {},
-            splashRadius: 18,
+            splashRadius: AppSize.splashRadius,
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+            constraints: const BoxConstraints(
+              minWidth: AppSize.iconButtonMinSize,
+              minHeight: AppSize.iconButtonMinSize,
+            ),
             icon: const Icon(
               Icons.settings,
-              size: 25,
+              size: AppSize.iconSettings,
               color: Color(0xFF212121),
             ),
           ),
