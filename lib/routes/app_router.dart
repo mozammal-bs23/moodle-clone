@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
+import 'package:flutter_boilerplate/feature_reconnect/pages/reconnect_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +21,7 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: AppRoutes.posts,
+      initialLocation: '/reconnect',
       debugLogDiagnostics: true,
 
       // Route observers for analytics and logging
@@ -31,12 +32,20 @@ class AppRouter {
           _buildErrorPage(context, state.error, state.uri.toString()),
 
       routes: <GoRoute>[
+        // Reconnect Page Route
+        GoRoute(
+          path: '/reconnect',
+          name: 'reconnect',
+          pageBuilder: (context, state) =>
+          const NoTransitionPage(child: ReconnectPage()),
+        ),
+
         // Posts Routes (JSONPlaceholder CRUD demo)
         GoRoute(
           path: AppRoutes.posts,
           name: AppRoutes.posts,
           pageBuilder: (context, state) =>
-              const NoTransitionPage(child: PostsPage()),
+          const NoTransitionPage(child: PostsPage()),
         ),
       ],
     );
@@ -44,10 +53,10 @@ class AppRouter {
 
   /// Build error page for routing errors
   static Widget _buildErrorPage(
-    BuildContext context,
-    Exception? error,
-    String location,
-  ) {
+      BuildContext context,
+      Exception? error,
+      String location,
+      ) {
     return Scaffold(
       appBar: AppBar(title: const Text('Error')),
       body: Center(
@@ -61,7 +70,7 @@ class AppRouter {
             ],
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () => context.go(AppRoutes.posts),
+              onPressed: () => context.go('/reconnect'),
               child: const Text('Go Home'),
             ),
           ],
