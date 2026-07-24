@@ -9,49 +9,75 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Set bloc observer for debugging
-  Bloc.observer = SimpleBlocObserver();
+  try {
+    // 1. Initialize Flavor
+    try {
+      FlavorConfig.instance;
+    } catch (_) {
+      FlavorConfig.instance = FlavorConfig.dev();
+    }
 
-  // Initialize dependency injection
-  // This also initializes Hive and pre-resolves SharedPreferences
-  await di.configureDependencies();
+    // 2. Initialize Dependency Injection
+    await di.configureDependencies();
+    
+    // 3. Force ScreenUtil to detect physical size before build
+    await ScreenUtil.ensureScreenSize();
+    
+    Bloc.observer = SimpleBlocObserver();
 
-  runApp(const MyApp());
+    runApp(const MyApp());
+  } catch (error, stackTrace) {
+    debugPrint('Fatal initialization error: $error\n$stackTrace');
+    runApp(ErrorScreen(
+      error: error.toString(),
+      stackTrace: stackTrace.toString(),
+    ));
+  }
 }
 
-/// Main app widget
 class MyApp extends StatelessWidget {
-  /// Main app widget
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ErrorBoundary(
-      onError: (error, stackTrace) {
-        debugPrint('Uncaught error: $error\n$stackTrace');
-      },
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: true,
+        // This is the key to preventing fontSize: 0 crash
+        ensureScreenSize: true,
         builder: (context, child) {
+          // Double-check: if ScreenUtil somehow still reports 0, 
+          // show a standard material app with no scaling to avoid crashes.
+          if (ScreenUtil().screenWidth <= 0) {
+            return const MaterialApp(
+              home: Scaffold(body: Center(child: CircularProgressIndicator())),
+            );
+          }
+
           return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
             title: FlavorConfig.instance.appName,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             routerConfig: AppRouter.getRouter(
               isLoggedIn: () async {
-                final (token, _) = await di.getIt<LocalStorage>()
-                    .get<String>('auth_token');
-                return token != null && token.isNotEmpty;
+                try {
+                  final storage = di.getIt<LocalStorage>();
+                  final (token, _) = await storage.get<String>('auth_token');
+                  return token != null && token.isNotEmpty;
+                } catch (_) {
+                  return false;
+                }
               },
             ),
-            builder: (context, child) {
+            builder: (context, widget) {
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(
                   textScaler: TextScaler.noScaling,
                 ),
-                child: child!,
+                child: widget!,
               );
             },
           );

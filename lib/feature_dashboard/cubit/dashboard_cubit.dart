@@ -32,34 +32,39 @@ class CourseEntity {
 @injectable
 class DashboardCubit extends Cubit<DashboardState> {
   /// Creates a new [DashboardCubit] instance.
-  DashboardCubit() : super(const DashboardInitial());
+  DashboardCubit() : super(const DashboardState.initial());
 
   /// Fetches the list of enrolled courses for the dashboard.
   Future<void> fetchDashboardCourses() async {
-    emit(const DashboardLoading());
+    emit(const DashboardState.loading());
     try {
-      await Future<void>.delayed(const Duration(seconds: 1));
+      // Simulate network delay
+      await Future<void>.delayed(const Duration(milliseconds: 800));
 
       final mockCourses = [
         CourseEntity(
           title: 'A1/A2 English with H5P',
           category: 'English as a Foreign Language',
-          imageUrl: 'https://images.unsplash.com/photo-1618005182384'
-              '-a83a8bd57fbe?w=500',
-          progress: 0,
+          imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500',
+          progress: 0.15,
         ),
         CourseEntity(
           title: 'Mindful Course Creation',
           category: 'Faculty of Education',
-          imageUrl: 'https://images.unsplash.com/photo-1600585154340'
-              '-be6161a56a0c?w=500',
+          imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500',
           progress: 0.5,
+        ),
+        CourseEntity(
+          title: 'Mobile App Development',
+          category: 'Computer Science',
+          imageUrl: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500',
+          progress: 0.8,
         ),
       ];
 
-      emit(DashboardLoaded(courses: mockCourses));
+      emit(DashboardState.loaded(courses: mockCourses));
     } catch (e) {
-      emit(DashboardError(message: e.toString()));
+      emit(DashboardState.error(message: e.toString()));
     }
   }
 }

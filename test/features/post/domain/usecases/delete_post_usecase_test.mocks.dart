@@ -37,51 +37,48 @@ class MockPostRepository extends _i1.Mock implements _i2.PostRepository {
   @override
   _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)> getPosts() =>
       (super.noSuchMethod(
-            Invocation.method(#getPosts, []),
-            returnValue:
-                _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)>.value((
-                  null,
-                  null,
-                )),
-          )
-          as _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)>);
+        Invocation.method(
+          #getPosts,
+          [],
+        ),
+        returnValue: _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)>.value(
+            (null, null)),
+      ) as _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)>);
 
   @override
   _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)> getPost(int? id) =>
       (super.noSuchMethod(
-            Invocation.method(#getPost, [id]),
-            returnValue: _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
+        Invocation.method(
+          #getPost,
+          [id],
+        ),
+        returnValue:
+            _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
 
   @override
   _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)> createPost(
-    _i4.PostEntity? post,
-  ) =>
+          _i4.PostEntity? post) =>
       (super.noSuchMethod(
-            Invocation.method(#createPost, [post]),
-            returnValue: _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
+        Invocation.method(
+          #createPost,
+          [post],
+        ),
+        returnValue:
+            _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
 
   @override
   _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)> updatePost(
-    _i4.PostEntity? post,
-  ) =>
+          _i4.PostEntity? post) =>
       (super.noSuchMethod(
-            Invocation.method(#updatePost, [post]),
-            returnValue: _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
+        Invocation.method(
+          #updatePost,
+          [post],
+        ),
+        returnValue:
+            _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
 
   @override
   _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)> patchPost(
@@ -90,22 +87,25 @@ class MockPostRepository extends _i1.Mock implements _i2.PostRepository {
     String? body,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#patchPost, [id], {#title: title, #body: body}),
-            returnValue: _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
+        Invocation.method(
+          #patchPost,
+          [id],
+          {
+            #title: title,
+            #body: body,
+          },
+        ),
+        returnValue:
+            _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
 
   @override
   _i3.Future<(void, _i5.AppFailure?)> deletePost(int? id) =>
       (super.noSuchMethod(
-            Invocation.method(#deletePost, [id]),
-            returnValue: _i3.Future<(void, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(void, _i5.AppFailure?)>);
+        Invocation.method(
+          #deletePost,
+          [id],
+        ),
+        returnValue: _i3.Future<(void, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(void, _i5.AppFailure?)>);
 }
