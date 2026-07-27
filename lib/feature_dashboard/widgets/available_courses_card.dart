@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/routes/app_routes.dart';
+import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 /// A card widget that displays the "Available courses" section in Site Home.
 class AvailableCoursesCard extends StatelessWidget {
@@ -8,31 +11,40 @@ class AvailableCoursesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: const Color(0xFFE0E0E0)),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            Icons.school,
-            size: 24.w,
-            color: const Color(0xFF424242),
-          ),
-          SizedBox(width: 12.w),
-          Text(
-            'Available courses',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w400,
-              color: Colors.black,
+    return InkWell(
+      onTap: () => context.pushNamed(AppRoutes.availableCourses),
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: AppSpacing.std.w,
+          vertical: AppSpacing.md.h,
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.std.w,
+          vertical: 20.h,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(AppSize.radiusLg.r),
+          border: Border.all(color: AppColors.divider),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.school,
+              size: AppSize.iconMd.w,
+              color: AppColors.grey800,
             ),
-          ),
-        ],
+            SizedBox(width: AppSpacing.md.w),
+            Text(
+              'Available courses',
+              style: TextStyle(
+                fontSize: AppFontSize.lg.sp,
+                fontWeight: FontWeight.w400,
+                color: AppColors.black,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

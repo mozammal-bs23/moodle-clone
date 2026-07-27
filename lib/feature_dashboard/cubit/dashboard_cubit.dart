@@ -38,6 +38,16 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(state.copyWith(selectedTabIndex: index));
   }
 
+  /// Changes the timeline sort type.
+  void changeTimelineSortType(TimelineSortType sortType) {
+    emit(state.copyWith(timelineSortType: sortType));
+  }
+
+  /// Changes the timeline filter type.
+  void changeTimelineFilterType(TimelineFilterType filterType) {
+    emit(state.copyWith(timelineFilterType: filterType));
+  }
+
   /// Fetches the list of enrolled courses for the dashboard.
   Future<void> fetchDashboardCourses() async {
     emit(state.copyWith(status: DashboardStatus.loading));

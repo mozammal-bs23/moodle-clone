@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A bottom navigation bar widget for the dashboard.
@@ -13,17 +14,17 @@ class DashboardBottomNavigation extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         border: Border(
-          top: BorderSide(color: const Color(0xFFE0E0E0), width: 1.h),
+          top: BorderSide(color: AppColors.divider, width: 1.h),
         ),
       ),
       child: BottomNavigationBar(
         currentIndex: 0,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: const Color(0xFF616161),
+        backgroundColor: AppColors.white,
+        selectedItemColor: AppColors.black,
+        unselectedItemColor: AppColors.grey700,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         elevation: 0,
@@ -51,16 +52,16 @@ class DashboardBottomNavigation extends StatelessWidget {
             height: 3.h,
             width: 45.w,
             decoration: BoxDecoration(
-              color: isActive ? const Color(0xFFD47A3A) : Colors.transparent,
+              color: isActive ? AppColors.moodleOrange : Colors.transparent,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(3.r),
                 bottomRight: Radius.circular(3.r),
               ),
             ),
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: AppSpacing.md.h),
           Icon(icon, size: safeSp(28)),
-          SizedBox(height: 8.h),
+          SizedBox(height: AppSpacing.sm.h),
         ],
       ),
       label: '',

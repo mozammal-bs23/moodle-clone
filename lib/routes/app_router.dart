@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/available_courses_page.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/badges_page.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/blog_entries_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/dashboard_page.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/details_page.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/user_details_page.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
@@ -40,6 +45,31 @@ class AppRouter {
           name: AppRoutes.dashboard,
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: DashboardPage()),
+        ),
+        GoRoute(
+          path: AppRoutes.availableCourses,
+          name: AppRoutes.availableCourses,
+          builder: (context, state) => const AvailableCoursesPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.userDetails,
+          name: AppRoutes.userDetails,
+          builder: (context, state) => const UserDetailsPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.details,
+          name: AppRoutes.details,
+          builder: (context, state) => const DetailsPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.badges,
+          name: AppRoutes.badges,
+          builder: (context, state) => const BadgesPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.blogEntries,
+          name: AppRoutes.blogEntries,
+          builder: (context, state) => const BlogEntriesPage(),
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
+import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A widget that displays tabs for the dashboard (e.g., Dashboard, Site home).
@@ -15,7 +16,7 @@ class DashboardTabs extends StatelessWidget {
         final selectedIndex = state.selectedTabIndex;
 
         return ColoredBox(
-          color: Colors.white,
+          color: AppColors.white,
           child: Row(
             children: [
               _TabItem(
@@ -59,18 +60,18 @@ class _TabItem extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 15.sp,
+                  fontSize: AppFontSize.tab.sp,
                   fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-                  color: isActive ? Colors.black87 : const Color(0xFF616161),
+                  color: isActive ? AppColors.black87 : AppColors.grey700,
                 ),
               ),
             ),
             Container(
               height: 3.h,
               width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: 16.w),
+              margin: EdgeInsets.symmetric(horizontal: AppSpacing.std.w),
               decoration: BoxDecoration(
-                color: isActive ? const Color(0xFFD47A3A) : Colors.transparent,
+                color: isActive ? AppColors.moodleOrange : Colors.transparent,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(3.r),
                   topRight: Radius.circular(3.r),
