@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_auth/pages/login_page.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
+import 'package:flutter_boilerplate/feature_splash/pages/splash_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:go_router/go_router.dart';
 
 /// GoRouter configuration for the application
@@ -20,21 +23,27 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: AppRoutes.posts,
+      initialLocation: AppRoutes.splash,
       debugLogDiagnostics: true,
-
-      // Route observers for analytics and logging
       observers: [routeObserver],
-
-      // Error handling
       errorBuilder: (context, state) =>
           _buildErrorPage(context, state.error, state.uri.toString()),
+      routes: <RouteBase>[
+        // Splash Route
+        GoRoute(
+          path: AppRoutes.splash,
+          builder: (context, state) => const SplashPage(),
+        ),
 
-      routes: <GoRoute>[
+        // Auth Routes
+        GoRoute(
+          path: AppRoutes.login,
+          builder: (context, state) => const LoginPage(),
+        ),
+
         // Posts Routes (JSONPlaceholder CRUD demo)
         GoRoute(
           path: AppRoutes.posts,
-          name: AppRoutes.posts,
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: PostsPage()),
         ),
@@ -49,20 +58,24 @@ class AppRouter {
     String location,
   ) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Error')),
+      appBar: AppBar(title: const Text(AppStrings.labelError)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Navigation error occurred'),
+            const Text(AppStrings.errorNavigation),
             if (error != null) ...[
-              const SizedBox(height: 16),
-              Text(error.toString()),
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                error.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.red),
+              ),
             ],
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
             ElevatedButton(
-              onPressed: () => context.go(AppRoutes.posts),
-              child: const Text('Go Home'),
+              onPressed: () => context.go(AppRoutes.splash),
+              child: const Text('Back to Splash'),
             ),
           ],
         ),
