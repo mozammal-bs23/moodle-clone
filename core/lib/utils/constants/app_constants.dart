@@ -84,6 +84,28 @@ class AppStrings {
   /// Submit label
   static const String labelSubmit = 'Submit';
 
+  /// Auth labels
+  static const String labelLogin = 'Log in';
+  static const String labelUsername = 'Username';
+  static const String labelPassword = 'Password';
+  static const String labelLostPassword = 'Lost Password?';
+  static const String labelSiteName = 'eLearning23';
+  static const String labelSiteUrl = 'https://lmsmobile.ahnafmuttaki.com';
+
+  /// More page labels
+  /// More label
+  static const String labelMore = 'More';
+  /// Calendar label
+  static const String labelCalendar = 'Calendar';
+  /// Site blog label
+  static const String labelSiteBlog = 'Site blog';
+  /// Tags label
+  static const String labelTags = 'Tags';
+  /// Scan QR code label
+  static const String labelScanQrCode = 'Scan QR code';
+  /// App settings label
+  static const String labelAppSettings = 'App settings';
+
   /// Empty states
   /// No data message
   static const String emptyNoData = 'No data available';

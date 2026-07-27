@@ -28,6 +28,9 @@ abstract class AppRoutes {
   /// Profile route
   static const String profile = '/profile';
 
+  /// More route
+  static const String more = '/more';
+
   /// Error routes
   static const String notFound = '/not-found';
 
