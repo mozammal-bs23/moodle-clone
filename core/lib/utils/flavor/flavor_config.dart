@@ -18,25 +18,55 @@ class FlavorConfig {
     required this.baseUrl,
   });
 
-  /// Creates dev flavor configuration
+  /// Creates dev flavor configuration.
+  ///
+  /// Reads `APP_NAME`/`BASE_URL` from the compile-time environment
+  /// (pass `--dart-define-from-file=env/dev.json` to override), falling
+  /// back to the values below when the flag is omitted.
   factory FlavorConfig.dev() => FlavorConfig._(
     flavor: Flavor.dev,
-    appName: 'Flutter Boilerplate Dev',
-    baseUrl: 'https://api-dev.example.com',
+    appName: const String.fromEnvironment(
+      'APP_NAME',
+      defaultValue: 'Flutter Boilerplate Dev',
+    ),
+    baseUrl: const String.fromEnvironment(
+      'BASE_URL',
+      defaultValue: 'https://api-dev.example.com',
+    ),
   );
 
-  /// Creates staging flavor configuration
+  /// Creates staging flavor configuration.
+  ///
+  /// Reads `APP_NAME`/`BASE_URL` from the compile-time environment
+  /// (pass `--dart-define-from-file=env/staging.json` to override), falling
+  /// back to the values below when the flag is omitted.
   factory FlavorConfig.staging() => FlavorConfig._(
     flavor: Flavor.staging,
-    appName: 'Flutter Boilerplate Staging',
-    baseUrl: 'https://api-staging.example.com',
+    appName: const String.fromEnvironment(
+      'APP_NAME',
+      defaultValue: 'Flutter Boilerplate Staging',
+    ),
+    baseUrl: const String.fromEnvironment(
+      'BASE_URL',
+      defaultValue: 'https://api-staging.example.com',
+    ),
   );
 
-  /// Creates production flavor configuration
+  /// Creates production flavor configuration.
+  ///
+  /// Reads `APP_NAME`/`BASE_URL` from the compile-time environment
+  /// (pass `--dart-define-from-file=env/prod.json` to override), falling
+  /// back to the values below when the flag is omitted.
   factory FlavorConfig.prod() => FlavorConfig._(
     flavor: Flavor.prod,
-    appName: 'Flutter Boilerplate',
-    baseUrl: 'https://api.example.com',
+    appName: const String.fromEnvironment(
+      'APP_NAME',
+      defaultValue: 'Flutter Boilerplate',
+    ),
+    baseUrl: const String.fromEnvironment(
+      'BASE_URL',
+      defaultValue: 'https://api.example.com',
+    ),
   );
 
   /// Singleton instance of FlavorConfig

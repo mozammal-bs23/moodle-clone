@@ -6,21 +6,21 @@
       "request": "launch",
       "type": "dart",
       "program": "lib/main_dev.dart",
-      "args": ["--flavor", "dev"]
+      "args": ["--flavor", "dev", "--dart-define-from-file", "env/dev.json"]
     },
     {
       "name": "Staging",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_staging.dart",
-      "args": ["--flavor", "staging"]
+      "args": ["--flavor", "staging", "--dart-define-from-file", "env/staging.json"]
     },
     {
       "name": "Prod",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_prod.dart",
-      "args": ["--flavor", "prod"]
+      "args": ["--flavor", "prod", "--dart-define-from-file", "env/prod.json"]
     }
   ]
 }

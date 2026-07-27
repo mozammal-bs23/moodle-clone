@@ -239,23 +239,25 @@ Future<Either<Failure, List<Post>>> getPosts() async {
 
 ### App Flavors (Environments) — Already Implemented ✅
 
-Three entry points preconfigured: dev, staging, prod.
+Three entry points preconfigured: dev, staging, prod. Each has a matching
+JSON file under `env/` that supplies `APP_NAME`/`BASE_URL` at build time.
 
 ```bash
 # Dev environment (hot reload, verbose logging, test API)
-fvm flutter run -t lib/main_dev.dart
+fvm flutter run -t lib/main_dev.dart --dart-define-from-file=env/dev.json
 
 # Staging (integration tests, staging API, analytics)
-fvm flutter run -t lib/main_staging.dart
+fvm flutter run -t lib/main_staging.dart --dart-define-from-file=env/staging.json
 
 # Production (release mode, prod API, full analytics)
-fvm flutter run -t lib/main_prod.dart
+fvm flutter run -t lib/main_prod.dart --dart-define-from-file=env/prod.json
 ```
 
 Configuration stored in `core/lib/utils/flavor/flavor_config.dart`:
-- Each flavor has custom app name, baseUrl, feature flags
-- Configured automatically via entry point selection
-- No `--dart-define` needed — type-safe enum-based setup
+- Each flavor reads `APP_NAME`/`BASE_URL` from the compile-time environment
+  (`env/dev.json`, `env/staging.json`, `env/prod.json`)
+- Omitting `--dart-define-from-file` falls back to the same hardcoded
+  defaults as before — existing commands without the flag still work
 
 ### State Persistence (Optional)
 
