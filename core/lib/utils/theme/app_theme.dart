@@ -6,6 +6,9 @@ class AppTheme {
   /// Private constructor to prevent instantiation
   AppTheme._();
 
+  /// Brand colors
+  static const Color brandOrange = Color(0xFFF98012);
+
   /// Light theme color scheme
   static const ColorScheme lightColorScheme = ColorScheme(
     brightness: Brightness.light,
