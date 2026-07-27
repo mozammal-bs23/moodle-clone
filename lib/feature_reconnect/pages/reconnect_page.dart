@@ -7,6 +7,7 @@ import 'package:flutter_boilerplate/feature_reconnect/widgets/reconnect_logo.dar
 import 'package:flutter_boilerplate/feature_reconnect/widgets/reconnect_or_divider.dart';
 import 'package:flutter_boilerplate/feature_reconnect/widgets/reconnect_qr_button.dart';
 import 'package:flutter_boilerplate/feature_reconnect/widgets/user_avatar.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class ReconnectPage extends StatefulWidget {
   const ReconnectPage({super.key});
@@ -31,53 +32,48 @@ class _ReconnectPageState extends State<ReconnectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFFFFFFF),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
-          keyboardDismissBehavior:
-          ScrollViewKeyboardDismissBehavior.onDrag,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.mdLg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 1.5),
+              const SizedBox(height: AppSpacing.xxs),
 
               const ReconnectHeader(),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.md),
 
               const ReconnectLogo(),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: AppSpacing.lgXs),
 
               const UserAvatar(),
 
-              const SizedBox(height: 36),
+              const SizedBox(height: AppSpacing.xlSm),
 
-              PasswordField(
-                onChanged: _onPasswordChanged,
-              ),
+              PasswordField(onChanged: _onPasswordChanged),
 
-              const SizedBox(height: 28),
+              const SizedBox(height: AppSpacing.lgMd),
 
-              LoginButton(
-                isEnabled: _hasPassword,
-              ),
+              LoginButton(isEnabled: _hasPassword),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.lg),
 
               const ForgotPassword(),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.lg),
 
               const ReconnectOrDivider(),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: AppSpacing.mdLg),
 
               const ReconnectQrButton(),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.lg),
             ],
           ),
         ),

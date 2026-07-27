@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
-    super.key,
-    required this.isEnabled,
-  });
+  const LoginButton({super.key, required this.isEnabled});
 
   final bool isEnabled;
 
@@ -12,27 +10,27 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 44,
+      height: AppSize.buttonHeight,
       child: ElevatedButton(
         onPressed: isEnabled ? () {} : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: isEnabled
-              ? const Color(0xFFF9A865) // Dark orange
-              : const Color(0xFFFCD5B5), // Light orange
+              ? const Color(0xFFF9A865)
+              : const Color(0xFFFCD5B5),
           disabledBackgroundColor: const Color(0xFFFCD5B5),
           disabledForegroundColor: const Color(0xFF212121),
-          elevation: 0,
+          elevation: AppSize.elevationNone,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(AppSize.radiusSm),
           ),
         ),
         child: const Text(
-          'Log in',
+          AppStrings.login,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: AppSize.textSm,
             fontWeight: FontWeight.w600,
             color: Color(0xFF212121),
-            letterSpacing: 1,
+            letterSpacing: AppSize.letterSpacingSm,
           ),
         ),
       ),

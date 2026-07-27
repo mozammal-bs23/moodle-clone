@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class ReconnectHeader extends StatelessWidget {
   const ReconnectHeader({super.key});
@@ -6,38 +7,44 @@ class ReconnectHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height: AppSize.headerHeight,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
             onPressed: () {},
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+            constraints: const BoxConstraints(
+              minWidth: AppSize.headerIconButtonSize,
+              minHeight: AppSize.headerIconButtonSize,
+            ),
             icon: const Icon(
               Icons.arrow_back,
-              size: 22,
+              size: AppSize.headerIconSize,
               color: Color(0xFF212121),
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: AppSpacing.mdLg),
           const Text(
-            'Reconnect',
+            AppStrings.reconnect,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: AppSize.headerTitleSize,
               fontWeight: FontWeight.w700,
               color: Color(0xFF212121),
-              letterSpacing: -0.2,
+              letterSpacing: AppSize.headerLetterSpacing,
             ),
           ),
           const Spacer(),
           IconButton(
             onPressed: () {},
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+            constraints: const BoxConstraints(
+              minWidth: AppSize.headerIconButtonSize,
+              minHeight: AppSize.headerIconButtonSize,
+            ),
             icon: const Icon(
               Icons.help_outline,
-              size: 22,
+              size: AppSize.headerIconSize,
               color: Color(0xFF212121),
             ),
           ),

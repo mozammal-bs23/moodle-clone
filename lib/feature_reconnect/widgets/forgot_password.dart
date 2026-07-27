@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});
@@ -8,26 +9,26 @@ class ForgotPassword extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: () {},
-        borderRadius: BorderRadius.circular(2),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4),
+        borderRadius: BorderRadius.circular(AppSize.radiusXs),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Lost password?',
+                AppStrings.lostPassword,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: AppSize.textMd,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF212121),
+                  color: const Color(0xFF212121),
                 ),
               ),
-              SizedBox(height: .2), // Gap between text and underline
+              const SizedBox(height: AppSpacing.tiny),
               SizedBox(
-                width: 98,
-                child: Divider(
-                  height: 1,
-                  thickness: 1,
+                width: AppSize.forgotPasswordUnderlineWidth,
+                child: const Divider(
+                  height: AppSize.dividerThickness,
+                  thickness: AppSize.dividerThickness,
                   color: Color(0xFF212121),
                 ),
               ),

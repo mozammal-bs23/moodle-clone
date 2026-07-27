@@ -67,38 +67,80 @@ class AppStrings {
   /// Generic labels
   /// Loading label
   static const String labelLoading = 'Loading...';
+
   /// Error label
   static const String labelError = 'Error';
+
   /// Retry label
   static const String labelRetry = 'Retry';
+
   /// Cancel label
   static const String labelCancel = 'Cancel';
+
   /// OK label
   static const String labelOk = 'OK';
+
   /// Save label
   static const String labelSave = 'Save';
+
   /// Delete label
   static const String labelDelete = 'Delete';
+
   /// Edit label
   static const String labelEdit = 'Edit';
+
   /// Submit label
   static const String labelSubmit = 'Submit';
 
   /// Empty states
   /// No data message
   static const String emptyNoData = 'No data available';
+
   /// No search results message
   static const String emptySearch = 'No results found';
+
   /// No favorites message
   static const String emptyFavorites = 'No favorites yet';
 
   /// Connectivity
   /// Connectivity status label
   static const String connectivityStatus = 'Connectivity status';
+
   /// Online status label
   static const String connectivityOnline = 'Online';
+
   /// Offline status label
   static const String connectivityOffline = 'Offline';
+
+  /// Reconnect screen
+  static const String lostPassword = 'Lost password?';
+
+  /// Login
+  static const String login = 'Log in';
+
+  /// Password field
+  static const String password = 'Password';
+
+  /// Reconnect title
+  static const String reconnect = 'Reconnect';
+
+  /// Reconnect site name
+  static const String siteName = 'eLearning23';
+
+  /// Reconnect site URL
+  static const String siteUrl = 'https://lmsmobile.ahnafmuttaki.com';
+
+  /// OR label
+  static const String or = 'Or';
+
+  /// QR button label
+  static const String scanQrCode = 'Scan QR code';
+
+  /// User initials
+  static const String userInitials = 'SU';
+
+  /// User name
+  static const String userName = 'Student User';
 }
 
 /// Spacing constants for consistent padding/margins
@@ -126,6 +168,25 @@ class AppSpacing {
 
   /// Extra extra large spacing (48)
   static const double xxl = 48;
+
+  /// Custom spacing (20)
+  static const double mdLg = 20;
+
+  /// Custom spacing (28)
+  static const double lgMd = 28;
+
+  /// Custom spacing (30)
+  static const double lgXs = 30;
+
+  /// Custom spacing (36)
+  static const double xlSm = 36;
+  static const double xxs = 1.5;
+
+  /// Tiny spacing (0.2)
+  static const double tiny = 0.2;
+
+  /// Medium-small spacing (10)
+  static const double mdSm = 10;
 }
 
 /// App size constants
@@ -167,4 +228,73 @@ class AppSize {
 
   /// Large elevation (8)
   static const double elevationLg = 8;
+
+  /// Tiny border radius (2)
+  static const double radiusXs = 2;
+
+  /// Forgot password underline width (98)
+  static const double forgotPasswordUnderlineWidth = 98;
+
+  /// Divider thickness (1)
+  static const double dividerThickness = 1;
+
+  /// Body text size (16)
+  static const double textMd = 16;
+
+  /// Login button height (44)
+  static const double buttonHeight = 44;
+
+  /// Small text size (15)
+  static const double textSm = 15;
+
+  /// Small letter spacing (1)
+  static const double letterSpacingSm = 1;
+
+  /// No elevation
+  static const double elevationNone = 0;
+
+  /// Password field minimum suffix icon size (36)
+  static const double suffixIconMinSize = 36;
+
+  /// Icon splash radius (18)
+  static const double iconSplashRadius = 18;
+
+  /// Password underline width
+  static const double passwordUnderlineWidth = 0.7;
+
+  /// Password focused underline width
+  static const double passwordFocusedUnderlineWidth = 1.1;
+
+  /// Header height (48)
+  static const double headerHeight = 48;
+
+  /// Header icon button size (32)
+  static const double headerIconButtonSize = 32;
+
+  /// Header icon size (22)
+  static const double headerIconSize = 22;
+
+  /// Header title font size (20)
+  static const double headerTitleSize = 20;
+
+  /// Header title letter spacing (-0.2)
+  static const double headerLetterSpacing = -0.2;
+
+  /// Logo title font size (19)
+  static const double logoTitleSize = 19;
+
+  /// No letter spacing
+  static const double letterSpacingNone = 0;
+
+  /// Small text size (14)
+  static const double textXs = 14;
+
+  /// Standard border width (1)
+  static const double borderWidth = 1;
+
+  /// Avatar size (78)
+  static const double avatarSize = 78;
+
+  /// Avatar initials font size (24)
+  static const double avatarInitialSize = 24;
 }

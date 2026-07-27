@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({
-    super.key,
-    required this.onChanged,
-  });
+  const PasswordField({super.key, required this.onChanged});
 
   final ValueChanged<String> onChanged;
 
@@ -22,7 +20,7 @@ class _PasswordFieldState extends State<PasswordField> {
       cursorColor: const Color(0xFFF9A865),
       onChanged: widget.onChanged,
       style: const TextStyle(
-        fontSize: 16,
+        fontSize: AppSize.textMd,
         fontWeight: FontWeight.w400,
         color: Color(0xFF212121),
       ),
@@ -31,25 +29,25 @@ class _PasswordFieldState extends State<PasswordField> {
         filled: false,
         border: InputBorder.none,
 
-        hintText: 'Password',
+        hintText: AppStrings.password,
         hintStyle: const TextStyle(
-          fontSize: 16,
+          fontSize: AppSize.textMd,
           fontWeight: FontWeight.w400,
           color: Color(0xFF212121),
         ),
 
         contentPadding: const EdgeInsets.only(
-          top: 8,
-          bottom: 4,
+          top: AppSpacing.sm,
+          bottom: AppSpacing.xs,
         ),
 
         suffixIconConstraints: const BoxConstraints(
-          minWidth: 36,
-          minHeight: 36,
+          minWidth: AppSize.suffixIconMinSize,
+          minHeight: AppSize.suffixIconMinSize,
         ),
 
         suffixIcon: IconButton(
-          splashRadius: 18,
+          splashRadius: AppSize.iconSplashRadius,
           padding: EdgeInsets.zero,
           onPressed: () {
             setState(() {
@@ -57,25 +55,23 @@ class _PasswordFieldState extends State<PasswordField> {
             });
           },
           icon: Icon(
-            _obscureText
-                ? Icons.remove_red_eye
-                : Icons.visibility_off,
-            size: 24,
+            _obscureText ? Icons.remove_red_eye : Icons.visibility_off,
+            size: AppSize.iconMd,
             color: const Color(0xFF2F2F2F),
           ),
         ),
 
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xFFD0D0D0), // Ash grey
-            width: 0.7,
+            color: Color(0xFFD0D0D0),
+            width: AppSize.passwordUnderlineWidth,
           ),
         ),
 
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xFF9E9E9E), // Dark ash
-            width: 1.1,
+            color: Color(0xFF9E9E9E),
+            width: AppSize.passwordFocusedUnderlineWidth,
           ),
         ),
       ),

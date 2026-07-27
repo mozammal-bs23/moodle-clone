@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class ReconnectLogo extends StatelessWidget {
   const ReconnectLogo({super.key});
@@ -8,22 +9,22 @@ class ReconnectLogo extends StatelessWidget {
     return const Column(
       children: [
         Text(
-          'eLearning23',
+          AppStrings.siteName,
           style: TextStyle(
-            fontSize: 19,
+            fontSize: AppSize.logoTitleSize,
             fontWeight: FontWeight.w700,
             color: Color(0xFF212121),
-            letterSpacing: -0.2,
+            letterSpacing: AppSize.headerLetterSpacing,
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: AppSpacing.sm),
         Text(
-          'https://lmsmobile.ahnafmuttaki.com',
+          AppStrings.siteUrl,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: AppSize.textSm,
             fontWeight: FontWeight.w400,
             color: Color(0xFF616161),
-            letterSpacing: 0,
+            letterSpacing: AppSize.letterSpacingNone,
           ),
         ),
       ],

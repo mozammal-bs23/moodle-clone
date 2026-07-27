@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
 class ReconnectOrDivider extends StatelessWidget {
   const ReconnectOrDivider({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const [
+    return const Row(
+      children: [
         Expanded(
           child: Divider(
             color: Color(0xFFEEEEEE),
-            thickness: 1,
+            thickness: AppSize.dividerThickness,
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
           child: Text(
-            'Or',
+            AppStrings.or,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppSize.textMd,
               fontWeight: FontWeight.w400,
               color: Color(0xFF757575),
             ),
@@ -27,7 +28,7 @@ class ReconnectOrDivider extends StatelessWidget {
         Expanded(
           child: Divider(
             color: Color(0xFFEEEEEE),
-            thickness: 1,
+            thickness: AppSize.dividerThickness,
           ),
         ),
       ],
