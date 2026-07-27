@@ -5,6 +5,7 @@ import 'package:flutter_boilerplate/feature_auth/widgets/login_form.dart';
 import 'package:flutter_boilerplate/feature_auth/widgets/login_header.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 /// Pixel-perfect Login Page for the Moodle Clone application.
@@ -46,17 +47,17 @@ class _LoginPageScaffold extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: _buildAppBar(),
-          body: const SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+          appBar: _buildAppBar(context),
+          body: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg.w),
             child: Column(
               children: [
                 // Slightly increased gap between AppBar and Logo
-                SizedBox(height: 8),
-                LoginHeader(),
+                SizedBox(height: AppSpacing.sm.h),
+                const LoginHeader(),
                 // Shifted form further upward for pixel-perfect ratio
-                SizedBox(height: 20),
-                LoginForm(),
+                SizedBox(height: AppSpacing.lg.h),
+                const LoginForm(),
               ],
             ),
           ),
@@ -66,31 +67,44 @@ class _LoginPageScaffold extends StatelessWidget {
   }
 
   /// Builds the pixel-perfect AppBar matching the reference screenshot.
-  PreferredSizeWidget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
+      scrolledUnderElevation: 0,
       centerTitle: false,
       titleSpacing: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.black, size: 24),
+        icon: Icon(
+          Icons.arrow_back,
+          color: Theme.of(context).colorScheme.onSurface,
+          size: AppSize.iconMd.r,
+        ),
         onPressed: () {},
       ),
-      title: const Text(
+      title: Text(
         AppStrings.labelLogin,
         style: TextStyle(
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.onSurface,
           fontWeight: FontWeight.w500,
-          fontSize: 19,
+          fontSize: 19.sp,
         ),
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.settings, color: Colors.black, size: 24),
+          icon: Icon(
+            Icons.settings,
+            color: Theme.of(context).colorScheme.onSurface,
+            size: AppSize.iconMd.r,
+          ),
           onPressed: () {},
         ),
         IconButton(
-          icon: const Icon(Icons.help_outline, color: Colors.black, size: 24),
+          icon: Icon(
+            Icons.help_outline,
+            color: Theme.of(context).colorScheme.onSurface,
+            size: AppSize.iconMd.r,
+          ),
           onPressed: () {},
         ),
       ],

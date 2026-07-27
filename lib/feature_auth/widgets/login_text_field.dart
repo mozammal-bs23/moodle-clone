@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A custom text field widget tailored for the Moodle Login screen.
 class LoginTextField extends StatefulWidget {
@@ -37,8 +38,9 @@ class _LoginTextFieldState extends State<LoginTextField> {
 
   @override
   void dispose() {
-    _focusNode.removeListener(_onFocusChange);
-    _focusNode.dispose();
+    _focusNode
+      ..removeListener(_onFocusChange)
+      ..dispose();
     super.dispose();
   }
 
@@ -55,24 +57,33 @@ class _LoginTextFieldState extends State<LoginTextField> {
       focusNode: _focusNode,
       obscureText: widget.isPassword && !_isVisible,
       cursorColor: AppTheme.moodleOrange,
-      style: const TextStyle(fontSize: 16, color: Colors.black),
+      style: TextStyle(
+        fontSize: 16.sp,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       decoration: InputDecoration(
         // Background text disappears whenever the field is tapped (focused)
         hintText: _isFocused ? null : widget.label,
-        hintStyle: const TextStyle(
-          color: Color(0xFFADB5BD),
-          fontSize: 16,
+        hintStyle: TextStyle(
+          color: AppTheme.moodleLabelGrey,
+          fontSize: 16.sp,
         ),
         filled: false,
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFE9ECEF), width: 1.2),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppTheme.moodleBorderGrey,
+            width: 1.2.h,
+          ),
         ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: AppTheme.moodleOrange, width: 1.5),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppTheme.moodleOrange,
+            width: 1.5.h,
+          ),
         ),
         // Ensures the hint text is vertically centered in the left middle
-        contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+        contentPadding: EdgeInsets.fromLTRB(0, 12.h, 0, 12.h),
         suffixIcon: widget.isPassword ? _buildVisibilityToggle() : null,
       ),
     );
@@ -82,8 +93,8 @@ class _LoginTextFieldState extends State<LoginTextField> {
     return IconButton(
       icon: Icon(
         _isVisible ? Icons.visibility_outlined : Icons.visibility_sharp,
-        color: Colors.black,
-        size: 20,
+        color: Theme.of(context).colorScheme.onSurface,
+        size: 20.r,
       ),
       onPressed: () => setState(() => _isVisible = !_isVisible),
     );

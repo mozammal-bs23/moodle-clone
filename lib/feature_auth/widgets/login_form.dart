@@ -4,6 +4,7 @@ import 'package:flutter_boilerplate/feature_auth/cubit/login_cubit.dart';
 import 'package:flutter_boilerplate/feature_auth/widgets/login_button.dart';
 import 'package:flutter_boilerplate/feature_auth/widgets/login_text_field.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A widget that provides the authentication input fields and login button.
 class LoginForm extends StatefulWidget {
@@ -30,14 +31,14 @@ class _LoginFormState extends State<LoginForm> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Column(
             children: [
               LoginTextField(
                 controller: _usernameController,
                 label: AppStrings.labelUsername,
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14.h),
               LoginTextField(
                 controller: _passwordController,
                 label: AppStrings.labelPassword,
@@ -46,9 +47,9 @@ class _LoginFormState extends State<LoginForm> {
             ],
           ),
         ),
-        const SizedBox(height: 32),
+        SizedBox(height: AppSpacing.xl.h),
         LoginButton(onPressed: _onLoginPressed),
-        const SizedBox(height: 24),
+        SizedBox(height: AppSpacing.lg.h),
         _buildLostPasswordLink(),
       ],
     );
@@ -64,13 +65,13 @@ class _LoginFormState extends State<LoginForm> {
   Widget _buildLostPasswordLink() {
     return InkWell(
       onTap: () {},
-      child: const Text(
+      child: Text(
         AppStrings.labelLostPassword,
         style: TextStyle(
           color: AppTheme.moodleLinkGrey,
           decoration: TextDecoration.underline,
           decorationThickness: 1.2,
-          fontSize: 14.5,
+          fontSize: 14.5.sp,
           fontWeight: FontWeight.w500,
         ),
       ),

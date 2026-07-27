@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A widget that displays the Moodle branding and site information.
 ///
@@ -18,32 +19,32 @@ class LoginHeader extends StatelessWidget {
           // Sized to 380 to match the large scale in the reference screenshot
           Image.asset(
             'assets/images/moodle_logo.png',
-            width: 380,
+            width: 380.w,
             fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) => const Icon(
+            errorBuilder: (context, error, stackTrace) => Icon(
               Icons.school,
-              size: 80,
+              size: 80.r,
               color: AppTheme.moodleOrange,
             ),
           ),
           // Reduced gap for pixel-perfect ratio
-          const SizedBox(height: 4),
+          SizedBox(height: AppSpacing.xs.h),
           // Site display name - eLearning23
-          const Text(
+          Text(
             AppStrings.labelSiteName,
             style: TextStyle(
-              fontSize: 19,
+              fontSize: 19.sp,
               fontWeight: FontWeight.w700,
               color: AppTheme.moodleDarkGrey,
               letterSpacing: -0.2,
             ),
           ),
-          const SizedBox(height: 2),
+          SizedBox(height: 2.h),
           // Specific Moodle instance URL
-          const Text(
+          Text(
             AppStrings.labelSiteUrl,
             style: TextStyle(
-              fontSize: 13.5,
+              fontSize: 13.5.sp,
               fontWeight: FontWeight.bold,
               color: AppTheme.moodleMediumGrey,
               letterSpacing: 0.1,

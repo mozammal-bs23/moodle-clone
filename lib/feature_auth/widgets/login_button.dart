@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_auth/cubit/login_cubit.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A button widget for the Login screen with a loading state.
 class LoginButton extends StatelessWidget {
@@ -21,7 +22,7 @@ class LoginButton extends StatelessWidget {
         final isLoading = state is LoginLoading;
         return SizedBox(
           width: double.infinity,
-          height: 44,
+          height: 44.h,
           child: ElevatedButton(
             onPressed: isLoading ? null : onPressed,
             style: ElevatedButton.styleFrom(
@@ -31,7 +32,7 @@ class LoginButton extends StatelessWidget {
                   AppTheme.moodleButtonOrange.withValues(alpha: 0.6),
               elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
               ),
             ),
             child: isLoading ? _buildLoading() : _buildText(),
@@ -42,21 +43,21 @@ class LoginButton extends StatelessWidget {
   }
 
   Widget _buildLoading() {
-    return const SizedBox(
-      height: 18,
-      width: 18,
+    return SizedBox(
+      height: 18.r,
+      width: 18.r,
       child: CircularProgressIndicator(
-        strokeWidth: 2,
-        color: Color(0xFF495057),
+        strokeWidth: 2.r,
+        color: AppTheme.moodleDarkGrey,
       ),
     );
   }
 
   Widget _buildText() {
-    return const Text(
+    return Text(
       AppStrings.labelLogin,
       style: TextStyle(
-        fontSize: 15,
+        fontSize: 15.sp,
         fontWeight: FontWeight.w500,
         letterSpacing: 0.3,
       ),
