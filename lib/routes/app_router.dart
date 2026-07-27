@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_app_settings/pages/app_settings_page.dart';
 import 'package:flutter_boilerplate/feature_more/pages/more_page.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
@@ -46,6 +47,13 @@ class AppRouter {
           name: AppRoutes.posts,
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: PostsPage()),
+        ),
+
+        // App Settings Route
+        GoRoute(
+          path: AppRoutes.appSettings,
+          name: AppRoutes.appSettings,
+          builder: (context, state) => const AppSettingsPage(),
         ),
       ],
     );

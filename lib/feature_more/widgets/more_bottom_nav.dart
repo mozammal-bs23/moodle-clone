@@ -31,28 +31,28 @@ class MoreBottomNav extends StatelessWidget {
                   icon: Icons.speed,
                   isActive: false,
                   onTap: () {
-                    // TODO: Navigate to Dashboard
+                    // TODO(Nadim): Navigate to Dashboard
                   },
                 ),
                 _buildNavItem(
                   icon: Icons.school,
                   isActive: false,
                   onTap: () {
-                    // TODO: Navigate to Courses
+                    // TODO(Nadim): Navigate to Courses
                   },
                 ),
                 _buildNavItem(
                   icon: Icons.forum,
                   isActive: false,
                   onTap: () {
-                    // TODO: Navigate to Chat
+                    // TODO(Nadim): Navigate to Chat
                   },
                 ),
                 _buildNavItem(
                   icon: Icons.notifications,
                   isActive: false,
                   onTap: () {
-                    // TODO: Navigate to Notifications
+                    // TODO(Nadim): Navigate to Notifications
                   },
                 ),
                 _buildNavItem(

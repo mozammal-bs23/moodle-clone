@@ -31,6 +31,9 @@ abstract class AppRoutes {
   /// More route
   static const String more = '/more';
 
+  /// App settings route
+  static const String appSettings = '/app-settings';
+
   /// Error routes
   static const String notFound = '/not-found';
 
