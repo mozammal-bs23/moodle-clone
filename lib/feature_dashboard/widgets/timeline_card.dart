@@ -1,0 +1,349 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
+import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+/// A card widget that displays a timeline of activities.
+class TimelineCard extends StatelessWidget {
+  /// Creates a [TimelineCard].
+  const TimelineCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double safeSp(double size) => size.sp > 0 ? size.sp : size;
+
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: AppSpacing.std.w,
+        vertical: AppSpacing.md.h,
+      ),
+      padding: EdgeInsets.all(AppSpacing.std.w),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+        border: Border.all(color: AppColors.divider),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Timeline',
+            style: TextStyle(
+              fontSize: safeSp(AppFontSize.xl),
+              fontWeight: FontWeight.w500,
+              color: AppColors.black,
+            ),
+          ),
+          SizedBox(height: AppSpacing.std.h),
+          _buildSearchField(safeSp),
+          SizedBox(height: AppSpacing.md.h),
+          _buildFilterRow(context, safeSp),
+          SizedBox(height: 40.h),
+          _buildEmptyState(safeSp),
+          SizedBox(height: 20.h),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSearchField(double Function(double) safeSp) {
+    return Container(
+      height: 44.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        children: [
+          SizedBox(width: AppSpacing.md.w),
+          Expanded(
+            child: TextField(
+              style: TextStyle(fontSize: safeSp(AppFontSize.md)),
+              decoration: InputDecoration(
+                hintText: 'Search by activity type or name',
+                hintStyle: TextStyle(
+                  color: AppColors.grey600,
+                  fontSize: safeSp(AppFontSize.md),
+                ),
+                border: InputBorder.none,
+                isDense: true,
+              ),
+            ),
+          ),
+          Icon(
+            Icons.search,
+            color: AppColors.grey600,
+            size: safeSp(AppSize.iconMd - 2),
+          ),
+          SizedBox(width: AppSpacing.sm.w),
+          Icon(
+            Icons.backspace_outlined,
+            color: AppColors.grey600,
+            size: safeSp(AppFontSize.xl),
+          ),
+          SizedBox(width: AppSpacing.md.w),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterRow(BuildContext context, double Function(double) safeSp) {
+    return BlocBuilder<DashboardCubit, DashboardState>(
+      buildWhen: (previous, current) =>
+          previous.timelineSortType != current.timelineSortType ||
+          previous.timelineFilterType != current.timelineFilterType,
+      builder: (context, state) {
+        return Row(
+          children: [
+            Theme(
+              data: Theme.of(context).copyWith(
+                hoverColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              ),
+              child: PopupMenuButton<TimelineFilterType>(
+                padding: EdgeInsets.zero,
+                offset: Offset(0, 40.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+                ),
+                onSelected: (TimelineFilterType result) {
+                  context
+                      .read<DashboardCubit>()
+                      .changeTimelineFilterType(result);
+                },
+                itemBuilder: (BuildContext context) => [
+                  _buildFilterMenuItem(
+                    TimelineFilterType.all,
+                    state.timelineFilterType,
+                    safeSp,
+                  ),
+                  _buildFilterMenuItem(
+                    TimelineFilterType.overdue,
+                    state.timelineFilterType,
+                    safeSp,
+                  ),
+                  const PopupMenuDivider(),
+                  PopupMenuItem<TimelineFilterType>(
+                    enabled: false,
+                    height: 32.h,
+                    child: Text(
+                      'Due date',
+                      style: TextStyle(
+                        fontSize: safeSp(AppFontSize.label),
+                        color: AppColors.grey600,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  _buildFilterMenuItem(
+                    TimelineFilterType.next7Days,
+                    state.timelineFilterType,
+                    safeSp,
+                  ),
+                  _buildFilterMenuItem(
+                    TimelineFilterType.next30Days,
+                    state.timelineFilterType,
+                    safeSp,
+                  ),
+                  _buildFilterMenuItem(
+                    TimelineFilterType.next3Months,
+                    state.timelineFilterType,
+                    safeSp,
+                  ),
+                  _buildFilterMenuItem(
+                    TimelineFilterType.next6Months,
+                    state.timelineFilterType,
+                    safeSp,
+                  ),
+                ],
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSpacing.md.w,
+                    vertical: 6.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.grey200,
+                    borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        state.timelineFilterType.label,
+                        style: TextStyle(
+                          color: AppColors.black87,
+                          fontSize: safeSp(AppFontSize.md),
+                        ),
+                      ),
+                      Icon(Icons.arrow_drop_down, size: safeSp(20)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const Spacer(),
+            Theme(
+              data: Theme.of(context).copyWith(
+                hoverColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              ),
+              child: PopupMenuButton<TimelineSortType>(
+                padding: EdgeInsets.zero,
+                offset: Offset(0, 44.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+                ),
+                onSelected: (TimelineSortType result) {
+                  context.read<DashboardCubit>().changeTimelineSortType(result);
+                },
+                itemBuilder: (BuildContext context) => [
+                  _buildSortMenuItem(
+                    TimelineSortType.dates,
+                    state.timelineSortType,
+                    'Sort by dates',
+                    safeSp,
+                  ),
+                  _buildSortMenuItem(
+                    TimelineSortType.courses,
+                    state.timelineSortType,
+                    'Sort by courses',
+                    safeSp,
+                  ),
+                ],
+                child: Container(
+                  padding: EdgeInsets.all(AppSpacing.xs.w),
+                  decoration: BoxDecoration(
+                    color: AppColors.grey100,
+                    borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+                  ),
+                  child: Icon(
+                    Icons.sort,
+                    color: AppColors.black87,
+                    size: safeSp(AppSize.iconMd),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  PopupMenuItem<TimelineFilterType> _buildFilterMenuItem(
+    TimelineFilterType value,
+    TimelineFilterType currentSelection,
+    double Function(double) safeSp,
+  ) {
+    final isSelected = value == currentSelection;
+    return PopupMenuItem<TimelineFilterType>(
+      value: value,
+      padding: EdgeInsets.zero,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.std.w,
+          vertical: AppSpacing.md.h,
+        ),
+        color: isSelected ? AppColors.moodleLightOrange : null,
+        child: Text(
+          value.label,
+          style: TextStyle(
+            fontSize: safeSp(AppFontSize.md),
+            color: AppColors.black87,
+          ),
+        ),
+      ),
+    );
+  }
+
+  PopupMenuItem<TimelineSortType> _buildSortMenuItem(
+    TimelineSortType value,
+    TimelineSortType currentSelection,
+    String label,
+    double Function(double) safeSp,
+  ) {
+    final isSelected = value == currentSelection;
+    return PopupMenuItem<TimelineSortType>(
+      value: value,
+      padding: EdgeInsets.zero,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.std.w,
+          vertical: AppSpacing.md.h,
+        ),
+        color: isSelected ? AppColors.moodleLightOrange : null,
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: safeSp(AppFontSize.md),
+            color: AppColors.black87,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(double Function(double) safeSp) {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            width: 80.w,
+            height: 90.h,
+            padding: EdgeInsets.all(AppSpacing.sm.w),
+            decoration: BoxDecoration(
+              color: AppColors.grey300,
+              borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+            ),
+            child: GridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+              physics: const NeverScrollableScrollPhysics(),
+              children: List.generate(
+                4,
+                (index) => Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 4,
+                        width: 20,
+                        color: AppColors.grey100,
+                      ),
+                      const SizedBox(height: 2),
+                      Container(
+                        height: 4,
+                        width: 20,
+                        color: AppColors.grey100,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: AppSpacing.std.h),
+          Text(
+            'No activities require action',
+            style: TextStyle(
+              color: AppColors.grey800,
+              fontSize: safeSp(AppFontSize.lg),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

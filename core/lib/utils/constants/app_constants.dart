@@ -47,7 +47,7 @@ class AppStrings {
       'Network error. Please check your connection';
 
   /// Timeout error message
-  static const String errorTimeout = 'Request timed out';
+  static const String errorTimeout = 'Request timeout';
 
   /// Server error message
   static const String errorServer = 'Server error. Please try again later';
@@ -67,45 +67,53 @@ class AppStrings {
   /// Generic labels
   /// Loading label
   static const String labelLoading = 'Loading...';
+
   /// Error label
   static const String labelError = 'Error';
+
   /// Retry label
   static const String labelRetry = 'Retry';
+
   /// Cancel label
   static const String labelCancel = 'Cancel';
+
   /// OK label
   static const String labelOk = 'OK';
+
   /// Save label
   static const String labelSave = 'Save';
+
   /// Delete label
   static const String labelDelete = 'Delete';
+
   /// Edit label
   static const String labelEdit = 'Edit';
+
   /// Submit label
   static const String labelSubmit = 'Submit';
 
   /// Empty states
   /// No data message
   static const String emptyNoData = 'No data available';
+
   /// No search results message
   static const String emptySearch = 'No results found';
+
   /// No favorites message
   static const String emptyFavorites = 'No favorites yet';
 
   /// Connectivity
   /// Connectivity status label
   static const String connectivityStatus = 'Connectivity status';
+
   /// Online status label
   static const String connectivityOnline = 'Online';
+
   /// Offline status label
   static const String connectivityOffline = 'Offline';
 }
 
 /// Spacing constants for consistent padding/margins
-///
-/// Values are defined in logical pixels and can be used with
-/// EdgeInsets.all(), EdgeInsets.symmetric(), etc.
-/// For responsive sizing with ScreenUtil, use .w, .h, .r extensions
 class AppSpacing {
   const AppSpacing._();
 
@@ -115,8 +123,11 @@ class AppSpacing {
   /// Small spacing (8)
   static const double sm = 8;
 
-  /// Medium spacing (16)
-  static const double md = 16;
+  /// Medium spacing (12)
+  static const double md = 12;
+
+  /// Standard spacing (16)
+  static const double std = 16;
 
   /// Large spacing (24)
   static const double lg = 24;
@@ -128,21 +139,52 @@ class AppSpacing {
   static const double xxl = 48;
 }
 
+/// Font size constants
+class AppFontSize {
+  const AppFontSize._();
+
+  static const double xs = 10;
+  static const double sm = 12;
+  static const double md = 14;
+  static const double lg = 16;
+  static const double xl = 18;
+  static const double xxl = 20;
+  static const double h3 = 22;
+  static const double h2 = 24;
+  static const double h1 = 32;
+
+  /// Custom sizes used in UI
+  static const double tab = 15;
+  static const double label = 13;
+}
+
 /// App size constants
 class AppSize {
   const AppSize._();
 
+  /// Extra small icon size (12)
+  static const double iconXs = 12;
+
   /// Small icon size (16)
   static const double iconSm = 16;
 
+  /// Small-Medium icon size (20)
+  static const double iconSmMd = 20;
+
   /// Medium icon size (24)
   static const double iconMd = 24;
+
+  /// Medium-Large icon size (26)
+  static const double iconMdLg = 26;
 
   /// Large icon size (32)
   static const double iconLg = 32;
 
   /// Extra large icon size (48)
   static const double iconXl = 48;
+
+  /// Extra extra large size (50)
+  static const double xxl = 50;
 
   /// Small border radius (4)
   static const double radiusSm = 4;

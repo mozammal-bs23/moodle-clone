@@ -26,8 +26,13 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakePostModel_0 extends _i1.SmartFake implements _i2.PostModel {
-  _FakePostModel_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakePostModel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
 }
 
 /// A class which mocks [PostRemoteDatasource].
@@ -40,67 +45,102 @@ class MockPostRemoteDatasource extends _i1.Mock
   }
 
   @override
-  _i4.Future<List<_i2.PostModel>> getPosts() =>
-      (super.noSuchMethod(
-            Invocation.method(#getPosts, []),
-            returnValue: _i4.Future<List<_i2.PostModel>>.value(
-              <_i2.PostModel>[],
-            ),
-          )
-          as _i4.Future<List<_i2.PostModel>>);
+  _i4.Future<List<_i2.PostModel>> getPosts() => (super.noSuchMethod(
+        Invocation.method(
+          #getPosts,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i2.PostModel>>.value(<_i2.PostModel>[]),
+      ) as _i4.Future<List<_i2.PostModel>>);
 
   @override
-  _i4.Future<_i2.PostModel> getPost(int? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#getPost, [id]),
-            returnValue: _i4.Future<_i2.PostModel>.value(
-              _FakePostModel_0(this, Invocation.method(#getPost, [id])),
-            ),
-          )
-          as _i4.Future<_i2.PostModel>);
+  _i4.Future<_i2.PostModel> getPost(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getPost,
+          [id],
+        ),
+        returnValue: _i4.Future<_i2.PostModel>.value(_FakePostModel_0(
+          this,
+          Invocation.method(
+            #getPost,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.PostModel>);
 
   @override
   _i4.Future<_i2.PostModel> createPost(_i2.PostModel? post) =>
       (super.noSuchMethod(
-            Invocation.method(#createPost, [post]),
-            returnValue: _i4.Future<_i2.PostModel>.value(
-              _FakePostModel_0(this, Invocation.method(#createPost, [post])),
-            ),
-          )
-          as _i4.Future<_i2.PostModel>);
+        Invocation.method(
+          #createPost,
+          [post],
+        ),
+        returnValue: _i4.Future<_i2.PostModel>.value(_FakePostModel_0(
+          this,
+          Invocation.method(
+            #createPost,
+            [post],
+          ),
+        )),
+      ) as _i4.Future<_i2.PostModel>);
 
   @override
-  _i4.Future<_i2.PostModel> updatePost(int? id, _i2.PostModel? post) =>
+  _i4.Future<_i2.PostModel> updatePost(
+    int? id,
+    _i2.PostModel? post,
+  ) =>
       (super.noSuchMethod(
-            Invocation.method(#updatePost, [id, post]),
-            returnValue: _i4.Future<_i2.PostModel>.value(
-              _FakePostModel_0(
-                this,
-                Invocation.method(#updatePost, [id, post]),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.PostModel>);
+        Invocation.method(
+          #updatePost,
+          [
+            id,
+            post,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.PostModel>.value(_FakePostModel_0(
+          this,
+          Invocation.method(
+            #updatePost,
+            [
+              id,
+              post,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.PostModel>);
 
   @override
-  _i4.Future<_i2.PostModel> patchPost(int? id, Map<String, dynamic>? changes) =>
+  _i4.Future<_i2.PostModel> patchPost(
+    int? id,
+    Map<String, dynamic>? changes,
+  ) =>
       (super.noSuchMethod(
-            Invocation.method(#patchPost, [id, changes]),
-            returnValue: _i4.Future<_i2.PostModel>.value(
-              _FakePostModel_0(
-                this,
-                Invocation.method(#patchPost, [id, changes]),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.PostModel>);
+        Invocation.method(
+          #patchPost,
+          [
+            id,
+            changes,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.PostModel>.value(_FakePostModel_0(
+          this,
+          Invocation.method(
+            #patchPost,
+            [
+              id,
+              changes,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.PostModel>);
 
   @override
-  _i4.Future<void> deletePost(int? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#deletePost, [id]),
-            returnValue: _i4.Future<void>.value(),
-            returnValueForMissingStub: _i4.Future<void>.value(),
-          )
-          as _i4.Future<void>);
+  _i4.Future<void> deletePost(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deletePost,
+          [id],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

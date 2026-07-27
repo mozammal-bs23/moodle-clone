@@ -45,14 +45,13 @@ class MockGetPostsUseCase extends _i1.Mock implements _i2.GetPostsUseCase {
   @override
   _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)> call() =>
       (super.noSuchMethod(
-            Invocation.method(#call, []),
-            returnValue:
-                _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)>.value((
-                  null,
-                  null,
-                )),
-          )
-          as _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)>);
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)>.value(
+            (null, null)),
+      ) as _i3.Future<(List<_i4.PostEntity>?, _i5.AppFailure?)>);
 }
 
 /// A class which mocks [CreatePostUseCase].
@@ -66,13 +65,13 @@ class MockCreatePostUseCase extends _i1.Mock implements _i6.CreatePostUseCase {
   @override
   _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)> call(_i4.PostEntity? post) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [post]),
-            returnValue: _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
+        Invocation.method(
+          #call,
+          [post],
+        ),
+        returnValue:
+            _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
 }
 
 /// A class which mocks [UpdatePostUseCase].
@@ -86,13 +85,13 @@ class MockUpdatePostUseCase extends _i1.Mock implements _i7.UpdatePostUseCase {
   @override
   _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)> call(_i4.PostEntity? post) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [post]),
-            returnValue: _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
+        Invocation.method(
+          #call,
+          [post],
+        ),
+        returnValue:
+            _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
 }
 
 /// A class which mocks [PatchPostUseCase].
@@ -110,13 +109,17 @@ class MockPatchPostUseCase extends _i1.Mock implements _i8.PatchPostUseCase {
     String? body,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [id], {#title: title, #body: body}),
-            returnValue: _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
+        Invocation.method(
+          #call,
+          [id],
+          {
+            #title: title,
+            #body: body,
+          },
+        ),
+        returnValue:
+            _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(_i4.PostEntity?, _i5.AppFailure?)>);
 }
 
 /// A class which mocks [DeletePostUseCase].
@@ -128,13 +131,11 @@ class MockDeletePostUseCase extends _i1.Mock implements _i9.DeletePostUseCase {
   }
 
   @override
-  _i3.Future<(void, _i5.AppFailure?)> call(int? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#call, [id]),
-            returnValue: _i3.Future<(void, _i5.AppFailure?)>.value((
-              null,
-              null,
-            )),
-          )
-          as _i3.Future<(void, _i5.AppFailure?)>);
+  _i3.Future<(void, _i5.AppFailure?)> call(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [id],
+        ),
+        returnValue: _i3.Future<(void, _i5.AppFailure?)>.value((null, null)),
+      ) as _i3.Future<(void, _i5.AppFailure?)>);
 }

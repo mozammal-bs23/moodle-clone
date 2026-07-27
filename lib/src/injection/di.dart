@@ -6,6 +6,7 @@
 /// manually here.
 library;
 
+import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_boilerplate/feature_post/cubit/post_cubit.dart';
 import 'package:flutter_boilerplate_core/utils/injection/di.dart' as core_di;
 import 'package:flutter_boilerplate_data/feature_post/datasources/post_remote_datasource.dart';
@@ -57,5 +58,8 @@ Future<void> configureDependencies([String? environment]) async {
         patchPostUseCase: getIt<PatchPostUseCase>(),
         deletePostUseCase: getIt<DeletePostUseCase>(),
       ),
+    )
+    ..registerFactory<DashboardCubit>(
+      DashboardCubit.new,
     );
 }
