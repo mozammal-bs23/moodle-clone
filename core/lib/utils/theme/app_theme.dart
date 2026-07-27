@@ -6,6 +6,27 @@ class AppTheme {
   /// Private constructor to prevent instantiation
   AppTheme._();
 
+  /// Moodle branding orange color
+  static const Color moodleOrange = Color(0xFFF98012);
+
+  /// Moodle button background orange (lighter)
+  static const Color moodleButtonOrange = Color(0xFFFFB366);
+
+  /// Moodle text dark grey
+  static const Color moodleDarkGrey = Color(0xFF495057);
+
+  /// Moodle text medium grey
+  static const Color moodleMediumGrey = Color(0xFF6C757D);
+
+  /// Moodle text link grey
+  static const Color moodleLinkGrey = Color(0xFF343A40);
+
+  /// Moodle border light grey
+  static const Color moodleBorderGrey = Color(0xFFE9ECEF);
+
+  /// Moodle label grey
+  static const Color moodleLabelGrey = Color(0xFF868E96);
+
   /// Light theme color scheme
   static const ColorScheme lightColorScheme = ColorScheme(
     brightness: Brightness.light,
