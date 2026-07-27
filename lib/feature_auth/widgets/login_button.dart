@@ -22,7 +22,7 @@ class LoginButton extends StatelessWidget {
         final isLoading = state is LoginLoading;
         return SizedBox(
           width: double.infinity,
-          height: 44.h,
+          height: AppSize.buttonHeight.h,
           child: ElevatedButton(
             onPressed: isLoading ? null : onPressed,
             style: ElevatedButton.styleFrom(
@@ -47,7 +47,7 @@ class LoginButton extends StatelessWidget {
       height: 18.r,
       width: 18.r,
       child: CircularProgressIndicator(
-        strokeWidth: 2.r,
+        strokeWidth: AppSpacing.xxs.r,
         color: AppTheme.moodleDarkGrey,
       ),
     );

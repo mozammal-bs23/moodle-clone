@@ -16,10 +16,10 @@ class LoginHeader extends StatelessWidget {
       child: Column(
         children: [
           // Moodle Logo with Graduation Cap and TM
-          // Sized to 380 to match the large scale in the reference screenshot
+          // Sized to match the large scale in the reference screenshot
           Image.asset(
             'assets/images/moodle_logo.png',
-            width: 380.w,
+            width: AppSize.logoWidth.w,
             fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) => Icon(
               Icons.school,
@@ -39,7 +39,7 @@ class LoginHeader extends StatelessWidget {
               letterSpacing: -0.2,
             ),
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: AppSpacing.xxs.h),
           // Specific Moodle instance URL
           Text(
             AppStrings.labelSiteUrl,

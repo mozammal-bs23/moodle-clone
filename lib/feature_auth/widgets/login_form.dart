@@ -31,14 +31,14 @@ class _LoginFormState extends State<LoginForm> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.ms.w),
           child: Column(
             children: [
               LoginTextField(
                 controller: _usernameController,
                 label: AppStrings.labelUsername,
               ),
-              SizedBox(height: 14.h),
+              SizedBox(height: AppSpacing.smm.h),
               LoginTextField(
                 controller: _passwordController,
                 label: AppStrings.labelPassword,

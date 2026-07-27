@@ -123,14 +123,26 @@ class AppStrings {
 class AppSpacing {
   const AppSpacing._();
 
+  /// Extra extra small spacing (2)
+  static const double xxs = 2;
+
   /// Extra small spacing (4)
   static const double xs = 4;
 
   /// Small spacing (8)
   static const double sm = 8;
 
+  /// Medium-small spacing (12)
+  static const double ms = 12;
+
+  /// Small-medium spacing (14)
+  static const double smm = 14;
+
   /// Medium spacing (16)
   static const double md = 16;
+
+  /// Medium-large spacing (20)
+  static const double ml = 20;
 
   /// Large spacing (24)
   static const double lg = 24;
@@ -149,6 +161,9 @@ class AppSize {
   /// Small icon size (16)
   static const double iconSm = 16;
 
+  /// Medium-small icon size (20)
+  static const double iconMs = 20;
+
   /// Medium icon size (24)
   static const double iconMd = 24;
 
@@ -157,6 +172,12 @@ class AppSize {
 
   /// Extra large icon size (48)
   static const double iconXl = 48;
+
+  /// Logo width (380)
+  static const double logoWidth = 380;
+
+  /// Button height (44)
+  static const double buttonHeight = 44;
 
   /// Small border radius (4)
   static const double radiusSm = 4;
