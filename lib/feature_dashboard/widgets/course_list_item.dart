@@ -63,7 +63,7 @@ class CourseListItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
         ),
         child: Icon(
-          Icons.school,
+          Icons.school_outlined,
           color: AppColors.white,
           size: safeSp(AppSize.iconLg),
         ),
@@ -85,7 +85,7 @@ class CourseListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
           ),
           child: Icon(
-            Icons.school,
+            Icons.school_outlined,
             color: AppColors.white,
             size: safeSp(AppSize.iconLg),
           ),

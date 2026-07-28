@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/course_list_item.dart';
+import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -81,8 +82,8 @@ class AvailableCoursesPage extends StatelessWidget {
           'Available courses',
           style: TextStyle(
             color: AppColors.black,
-            fontSize: safeSp(AppFontSize.xxl),
-            fontWeight: FontWeight.w500,
+            fontSize: safeSp(AppFontSize.h3),
+            fontWeight: FontWeight.w600,
           ),
         ),
         actions: [
@@ -97,6 +98,8 @@ class AvailableCoursesPage extends StatelessWidget {
         child: BlocBuilder<DashboardCubit, DashboardState>(
           builder: (context, state) {
             final filtered = _filter(state);
+            final hasActiveFilter = state.availableCoursesSearch.isNotEmpty ||
+                state.onlyMyCourses;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +109,7 @@ class AvailableCoursesPage extends StatelessWidget {
                 _buildShowOnlyMyCoursesRow(context, state, safeSp),
                 SizedBox(height: AppSpacing.lg.h),
                 if (filtered.isEmpty)
-                  _buildEmptyState(safeSp)
+                  _buildEmptyState(hasActiveFilter, safeSp)
                 else
                   Column(
                     children: [
@@ -114,6 +117,8 @@ class AvailableCoursesPage extends StatelessWidget {
                         if (i > 0) SizedBox(height: AppSpacing.md.h),
                         CourseListItem(
                           course: filtered[i],
+                          onTap: () => context
+                              .pushNamed(AppRoutes.details),
                           onToggleLock: (id) => context
                               .read<DashboardCubit>()
                               .toggleCourseLock(id),
@@ -154,9 +159,9 @@ class AvailableCoursesPage extends StatelessWidget {
   ) {
     final cubit = context.read<DashboardCubit>();
     return Container(
-      height: 48.h,
+      height: 52.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+        borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
         border: Border.all(color: AppColors.border),
       ),
       child: Row(
@@ -227,20 +232,26 @@ class AvailableCoursesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildEmptyState(double Function(double) safeSp) {
+  Widget _buildEmptyState(
+    bool isSearchResult,
+    double Function(double) safeSp,
+  ) {
+    final icon = isSearchResult ? Icons.search : Icons.school_outlined;
+    final message =
+        isSearchResult ? 'No results' : 'No course information to show.';
     return Padding(
       padding: EdgeInsets.symmetric(vertical: AppSpacing.xxl.h),
       child: Center(
         child: Column(
           children: [
             Icon(
-              Icons.school_outlined,
+              icon,
               size: 96.w,
               color: AppColors.grey300,
             ),
             SizedBox(height: AppSpacing.md.h),
             Text(
-              'No course information to show.',
+              message,
               style: TextStyle(
                 fontSize: safeSp(AppFontSize.lg),
                 color: AppColors.grey700,
