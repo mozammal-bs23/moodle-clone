@@ -9,6 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize logger
+  AppLogger.init();
+
   // Set bloc observer for debugging
   Bloc.observer = SimpleBlocObserver();
 
@@ -28,10 +31,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ErrorBoundary(
       onError: (error, stackTrace) {
-        debugPrint('Uncaught error: $error\n$stackTrace');
+        AppLogger.e('Uncaught error', error, stackTrace);
       },
       child: ScreenUtilInit(
-        designSize: const Size(375, 812),
+        designSize: const Size(AppSize.designWidth, AppSize.designHeight),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
@@ -42,7 +45,7 @@ class MyApp extends StatelessWidget {
             routerConfig: AppRouter.getRouter(
               isLoggedIn: () async {
                 final (token, _) = await di.getIt<LocalStorage>()
-                    .get<String>('auth_token');
+                    .get<String>(AppConstants.tokenKey);
                 return token != null && token.isNotEmpty;
               },
             ),
