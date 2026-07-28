@@ -18,6 +18,10 @@ class CourseEntity extends Equatable {
     required this.progress,
     required this.isEnrolled,
     required this.isLocked,
+    this.teacherName = 'Admin User',
+    this.teacherInitials = 'AU',
+    this.courseCompliance = 'Mandatory',
+    this.selfEnrolBlocked = false,
   });
 
   /// Unique id of the course.
@@ -41,6 +45,19 @@ class CourseEntity extends Equatable {
   /// Whether the course is access-restricted (shown via lock icon).
   final bool isLocked;
 
+  /// Display name of the course's primary teacher.
+  final String teacherName;
+
+  /// Initials shown inside the teacher's avatar.
+  final String teacherInitials;
+
+  /// Compliance label surfaced on the course details page.
+  final String courseCompliance;
+
+  /// Whether the current user cannot enrol in this course (shows
+  /// the "You cannot enrol yourself in this course" info banner).
+  final bool selfEnrolBlocked;
+
   CourseEntity copyWith({
     String? id,
     String? title,
@@ -49,6 +66,10 @@ class CourseEntity extends Equatable {
     double? progress,
     bool? isEnrolled,
     bool? isLocked,
+    String? teacherName,
+    String? teacherInitials,
+    String? courseCompliance,
+    bool? selfEnrolBlocked,
   }) {
     return CourseEntity(
       id: id ?? this.id,
@@ -58,6 +79,10 @@ class CourseEntity extends Equatable {
       progress: progress ?? this.progress,
       isEnrolled: isEnrolled ?? this.isEnrolled,
       isLocked: isLocked ?? this.isLocked,
+      teacherName: teacherName ?? this.teacherName,
+      teacherInitials: teacherInitials ?? this.teacherInitials,
+      courseCompliance: courseCompliance ?? this.courseCompliance,
+      selfEnrolBlocked: selfEnrolBlocked ?? this.selfEnrolBlocked,
     );
   }
 
@@ -70,6 +95,10 @@ class CourseEntity extends Equatable {
         progress,
         isEnrolled,
         isLocked,
+        teacherName,
+        teacherInitials,
+        courseCompliance,
+        selfEnrolBlocked,
       ];
 }
 
@@ -154,6 +183,7 @@ class DashboardCubit extends Cubit<DashboardState> {
       progress: 0,
       isEnrolled: false,
       isLocked: true,
+      selfEnrolBlocked: true,
     ),
     const CourseEntity(
       id: 'c5',

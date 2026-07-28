@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/course_list_item.dart';
+import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 /// Lists the enrolled courses ("My Courses" bottom-nav destination).
 ///
@@ -86,7 +88,13 @@ class MyCoursesPage extends StatelessWidget {
           separatorBuilder: (_, __) => SizedBox(height: AppSpacing.md.h),
           itemBuilder: (context, index) {
             final course = state.courses[index];
-            return CourseListItem(course: course);
+            return CourseListItem(
+              course: course,
+              onTap: () => context.pushNamed(
+                AppRoutes.details,
+                queryParameters: {'courseId': course.id},
+              ),
+            );
           },
         );
       },

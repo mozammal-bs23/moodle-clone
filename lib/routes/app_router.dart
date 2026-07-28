@@ -101,7 +101,10 @@ class AppRouter {
         GoRoute(
           path: AppRoutes.details,
           name: AppRoutes.details,
-          builder: (context, state) => const DetailsPage(),
+          builder: (context, state) {
+            final courseId = state.uri.queryParameters['courseId'];
+            return DetailsPage(courseId: courseId);
+          },
         ),
         GoRoute(
           path: AppRoutes.badges,

@@ -29,7 +29,7 @@ class UserDetailsPage extends StatelessWidget {
             SizedBox(height: AppSpacing.lg.h),
             _buildProfileHeader(safeSp),
             SizedBox(height: AppSpacing.xl.h),
-            _buildActionButtons(safeSp),
+            _buildActionButtons(context, safeSp),
             SizedBox(height: AppSpacing.lg.h),
             _buildMenuItems(context, safeSp),
           ],
@@ -84,7 +84,7 @@ class UserDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons(double Function(double) safeSp) {
+  Widget _buildActionButtons(BuildContext context, double Function(double) safeSp) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg.w),
       child: Column(
@@ -92,14 +92,18 @@ class UserDetailsPage extends StatelessWidget {
           _buildButton(
             icon: Icons.send,
             label: 'Message',
-            onPressed: () {},
+            onPressed: () => context.pushNamed(AppRoutes.messages),
             safeSp: safeSp,
           ),
           SizedBox(height: AppSpacing.md.h),
           _buildButton(
             icon: Icons.email,
             label: 'Email',
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Compose email coming soon')),
+              );
+            },
             safeSp: safeSp,
           ),
         ],

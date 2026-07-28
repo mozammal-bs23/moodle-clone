@@ -117,8 +117,10 @@ class AvailableCoursesPage extends StatelessWidget {
                         if (i > 0) SizedBox(height: AppSpacing.md.h),
                         CourseListItem(
                           course: filtered[i],
-                          onTap: () => context
-                              .pushNamed(AppRoutes.details),
+                          onTap: () => context.pushNamed(
+                            AppRoutes.details,
+                            queryParameters: {'courseId': filtered[i].id},
+                          ),
                           onToggleLock: (id) => context
                               .read<DashboardCubit>()
                               .toggleCourseLock(id),

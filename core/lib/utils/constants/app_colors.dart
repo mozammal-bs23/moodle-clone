@@ -39,4 +39,12 @@ class AppColors {
   static const Color barrier = Colors.black54;
   static const Color shadow = Colors.black12;
   static const Color overlayGrey = Color(0xFFD1D5DB);
+
+  /// Course-detail hero (matches the Moodle purple hero).
+  static const Color courseHeroPurple = Color(0xFFB6B0FB);
+
+  /// Info banner palette used on the course details page.
+  static const Color infoBannerBlue = Color(0xFFE3F2FD);
+  static const Color infoBannerIcon = Color(0xFF0D47A1);
+  static const Color infoBannerText = Color(0xFF0D47A1);
 }
