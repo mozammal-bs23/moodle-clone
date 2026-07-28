@@ -103,7 +103,101 @@ class TimelineActivityEntity extends Equatable {
 @injectable
 class DashboardCubit extends Cubit<DashboardState> {
   /// Creates a new [DashboardCubit] instance.
-  DashboardCubit() : super(const DashboardState());
+  DashboardCubit() : super(_initialStateWithMockData());
+
+  static DashboardState _initialStateWithMockData() {
+    final now = DateTime.now();
+    return const DashboardState().copyWith(
+      status: DashboardStatus.loaded,
+      courses: _mockCourses.where((c) => c.isEnrolled).toList(),
+      availableCourses: _mockCourses,
+      timelineActivities: _mockTimeline(now),
+    );
+  }
+
+  static final List<CourseEntity> _mockCourses = <CourseEntity>[
+    const CourseEntity(
+      id: 'c1',
+      title: 'A1/A2 English with H5P',
+      category: 'English as a Foreign Language',
+      imageUrl:
+          'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500',
+      progress: 0.15,
+      isEnrolled: true,
+      isLocked: false,
+    ),
+    const CourseEntity(
+      id: 'c2',
+      title: 'Mindful Course Creation',
+      category: 'Faculty of Education',
+      imageUrl:
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500',
+      progress: 0.5,
+      isEnrolled: true,
+      isLocked: false,
+    ),
+    const CourseEntity(
+      id: 'c3',
+      title: 'Mobile App Development',
+      category: 'Computer Science',
+      imageUrl:
+          'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500',
+      progress: 0.8,
+      isEnrolled: true,
+      isLocked: false,
+    ),
+    const CourseEntity(
+      id: 'c4',
+      title: 'AIDLC - New way of implementation',
+      category: 'Category 1',
+      imageUrl: '',
+      progress: 0,
+      isEnrolled: false,
+      isLocked: true,
+    ),
+    const CourseEntity(
+      id: 'c5',
+      title: 'Introduction to Psychology',
+      category: 'Social Sciences',
+      imageUrl:
+          'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=500',
+      progress: 0,
+      isEnrolled: false,
+      isLocked: false,
+    ),
+    const CourseEntity(
+      id: 'c6',
+      title: 'Data Structures & Algorithms',
+      category: 'Computer Science',
+      imageUrl:
+          'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500',
+      progress: 0,
+      isEnrolled: false,
+      isLocked: false,
+    ),
+  ];
+
+  static List<TimelineActivityEntity> _mockTimeline(DateTime now) =>
+      <TimelineActivityEntity>[
+        TimelineActivityEntity(
+          id: 't1',
+          name: 'Submit English essay draft',
+          type: 'Assignment',
+          dueDate: now.add(const Duration(days: 2)),
+        ),
+        TimelineActivityEntity(
+          id: 't2',
+          name: 'Mindful course quiz',
+          type: 'Quiz',
+          dueDate: now.add(const Duration(days: 5)),
+        ),
+        TimelineActivityEntity(
+          id: 't3',
+          name: 'Mobile dev project proposal',
+          type: 'Assignment',
+          dueDate: now.add(const Duration(days: 14)),
+        ),
+      ];
 
   /// Selects the active top-level Dashboard/Site-home sub-tab.
   void selectTab(int index) {
@@ -157,95 +251,12 @@ class DashboardCubit extends Cubit<DashboardState> {
       // Simulate network delay
       await Future<void>.delayed(const Duration(milliseconds: 800));
 
-      final mockTimeline = <TimelineActivityEntity>[
-        TimelineActivityEntity(
-          id: 't1',
-          name: 'Submit English essay draft',
-          type: 'Assignment',
-          dueDate: DateTime.now().add(const Duration(days: 2)),
-        ),
-        TimelineActivityEntity(
-          id: 't2',
-          name: 'Mindful course quiz',
-          type: 'Quiz',
-          dueDate: DateTime.now().add(const Duration(days: 5)),
-        ),
-        TimelineActivityEntity(
-          id: 't3',
-          name: 'Mobile dev project proposal',
-          type: 'Assignment',
-          dueDate: DateTime.now().add(const Duration(days: 14)),
-        ),
-      ];
-
-      final mockCourses = <CourseEntity>[
-        const CourseEntity(
-          id: 'c1',
-          title: 'A1/A2 English with H5P',
-          category: 'English as a Foreign Language',
-          imageUrl:
-              'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500',
-          progress: 0.15,
-          isEnrolled: true,
-          isLocked: false,
-        ),
-        const CourseEntity(
-          id: 'c2',
-          title: 'Mindful Course Creation',
-          category: 'Faculty of Education',
-          imageUrl:
-              'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500',
-          progress: 0.5,
-          isEnrolled: true,
-          isLocked: false,
-        ),
-        const CourseEntity(
-          id: 'c3',
-          title: 'Mobile App Development',
-          category: 'Computer Science',
-          imageUrl:
-              'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500',
-          progress: 0.8,
-          isEnrolled: true,
-          isLocked: false,
-        ),
-        const CourseEntity(
-          id: 'c4',
-          title: 'AIDLC - New way of implementation',
-          category: 'Category 1',
-          imageUrl: '',
-          progress: 0,
-          isEnrolled: false,
-          isLocked: true,
-        ),
-        const CourseEntity(
-          id: 'c5',
-          title: 'Introduction to Psychology',
-          category: 'Social Sciences',
-          imageUrl:
-              'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=500',
-          progress: 0,
-          isEnrolled: false,
-          isLocked: false,
-        ),
-        const CourseEntity(
-          id: 'c6',
-          title: 'Data Structures & Algorithms',
-          category: 'Computer Science',
-          imageUrl:
-              'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500',
-          progress: 0,
-          isEnrolled: false,
-          isLocked: false,
-        ),
-      ];
-
       emit(
         state.copyWith(
           status: DashboardStatus.loaded,
-          courses: mockCourses.where((c) => c.isEnrolled).toList(),
-          availableCourses: mockCourses,
-          timelineActivities: mockTimeline,
+          courses: _mockCourses.where((c) => c.isEnrolled).toList(),
+          availableCourses: _mockCourses,
+          timelineActivities: _mockTimeline(DateTime.now()),
         ),
       );
     } catch (e) {
