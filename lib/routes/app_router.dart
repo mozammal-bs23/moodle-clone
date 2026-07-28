@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/available_courses_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/badges_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/blog_entries_page.dart';
@@ -12,6 +14,7 @@ import 'package:flutter_boilerplate/feature_dashboard/pages/user_details_page.da
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
+import 'package:flutter_boilerplate/src/injection/di.dart' as di;
 import 'package:go_router/go_router.dart';
 
 /// GoRouter configuration for the application
@@ -53,27 +56,42 @@ class AppRouter {
         GoRoute(
           path: AppRoutes.availableCourses,
           name: AppRoutes.availableCourses,
-          builder: (context, state) => const AvailableCoursesPage(),
+          builder: (context, state) => BlocProvider(
+            create: (_) => di.getIt<DashboardCubit>(),
+            child: const AvailableCoursesPage(),
+          ),
         ),
         GoRoute(
           path: AppRoutes.myCourses,
           name: AppRoutes.myCourses,
-          builder: (context, state) => const MyCoursesPage(),
+          builder: (context, state) => BlocProvider(
+            create: (_) => di.getIt<DashboardCubit>(),
+            child: const MyCoursesPage(),
+          ),
         ),
         GoRoute(
           path: AppRoutes.messages,
           name: AppRoutes.messages,
-          builder: (context, state) => const MessagesPage(),
+          builder: (context, state) => BlocProvider(
+            create: (_) => di.getIt<DashboardCubit>(),
+            child: const MessagesPage(),
+          ),
         ),
         GoRoute(
           path: AppRoutes.notifications,
           name: AppRoutes.notifications,
-          builder: (context, state) => const NotificationsPage(),
+          builder: (context, state) => BlocProvider(
+            create: (_) => di.getIt<DashboardCubit>(),
+            child: const NotificationsPage(),
+          ),
         ),
         GoRoute(
           path: AppRoutes.more,
           name: AppRoutes.more,
-          builder: (context, state) => const MorePage(),
+          builder: (context, state) => BlocProvider(
+            create: (_) => di.getIt<DashboardCubit>(),
+            child: const MorePage(),
+          ),
         ),
         GoRoute(
           path: AppRoutes.userDetails,
