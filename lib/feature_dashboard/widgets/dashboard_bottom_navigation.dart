@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,30 +14,40 @@ class DashboardBottomNavigation extends StatelessWidget {
     // Helper to ensure font/icon size is always > 0
     double safeSp(double size) => size.sp > 0 ? size.sp : size;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        border: Border(
-          top: BorderSide(color: AppColors.divider, width: 1.h),
-        ),
-      ),
-      child: BottomNavigationBar(
-        currentIndex: 0,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.white,
-        selectedItemColor: AppColors.black,
-        unselectedItemColor: AppColors.grey700,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        elevation: 0,
-        items: [
-          _buildNavItem(Icons.speed, true, safeSp),
-          _buildNavItem(Icons.school_outlined, false, safeSp),
-          _buildNavItem(Icons.chat_bubble_outline, false, safeSp),
-          _buildNavItem(Icons.notifications_none, false, safeSp),
-          _buildNavItem(Icons.more_horiz, false, safeSp),
-        ],
-      ),
+    return BlocBuilder<DashboardCubit, DashboardState>(
+      buildWhen: (previous, current) =>
+          previous.bottomNavIndex != current.bottomNavIndex,
+      builder: (context, state) {
+        final cubit = context.read<DashboardCubit>();
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            border: Border(
+              top: BorderSide(color: AppColors.divider, width: 1.h),
+            ),
+          ),
+          child: BottomNavigationBar(
+            currentIndex: DashboardNavTab.values.indexOf(state.bottomNavIndex),
+            onTap: (index) => cubit.selectBottomNav(
+              DashboardNavTab.values[index],
+            ),
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: AppColors.white,
+            selectedItemColor: AppColors.black,
+            unselectedItemColor: AppColors.grey700,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            elevation: 0,
+            items: [
+              _buildNavItem(Icons.speed, state.bottomNavIndex == DashboardNavTab.dashboard, safeSp),
+              _buildNavItem(Icons.school_outlined, state.bottomNavIndex == DashboardNavTab.myCourses, safeSp),
+              _buildNavItem(Icons.chat_bubble_outline, state.bottomNavIndex == DashboardNavTab.messages, safeSp),
+              _buildNavItem(Icons.notifications_none, state.bottomNavIndex == DashboardNavTab.notifications, safeSp),
+              _buildNavItem(Icons.more_horiz, state.bottomNavIndex == DashboardNavTab.more, safeSp),
+            ],
+          ),
+        );
+      },
     );
   }
 

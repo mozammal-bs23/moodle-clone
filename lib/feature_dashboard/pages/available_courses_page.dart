@@ -1,10 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
+import 'package:flutter_boilerplate/feature_dashboard/widgets/course_list_item.dart';
 import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+/// Full Available Courses page reachable from the Site-home card.
 class AvailableCoursesPage extends StatelessWidget {
+  /// Creates an [AvailableCoursesPage].
   const AvailableCoursesPage({super.key});
+
+  void _showMoreActions(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: AppColors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppSize.radiusLg.r),
+        ),
+      ),
+      builder: (sheetContext) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.refresh),
+                title: const Text('Refresh'),
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  context
+                      .read<DashboardCubit>()
+                      .fetchDashboardCourses();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.sort),
+                title: const Text('Sort by name'),
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Sort by name coming soon')),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.file_download_outlined),
+                title: const Text('Download all for offline'),
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Offline downloads coming soon'),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,27 +88,71 @@ class AvailableCoursesPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert, color: AppColors.black),
-            onPressed: () {},
+            onPressed: () => _showMoreActions(context),
           ),
         ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(AppSpacing.std.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSearchField(safeSp),
-            SizedBox(height: AppSpacing.md.h),
-            _buildShowOnlyMyCoursesRow(safeSp),
-            SizedBox(height: AppSpacing.lg.h),
-            _buildCourseCard(safeSp),
-          ],
+        child: BlocBuilder<DashboardCubit, DashboardState>(
+          builder: (context, state) {
+            final filtered = _filter(state);
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildSearchField(context, state, safeSp),
+                SizedBox(height: AppSpacing.md.h),
+                _buildShowOnlyMyCoursesRow(context, state, safeSp),
+                SizedBox(height: AppSpacing.lg.h),
+                if (filtered.isEmpty)
+                  _buildEmptyState(safeSp)
+                else
+                  Column(
+                    children: [
+                      for (var i = 0; i < filtered.length; i++) ...[
+                        if (i > 0) SizedBox(height: AppSpacing.md.h),
+                        CourseListItem(
+                          course: filtered[i],
+                          onToggleLock: (id) => context
+                              .read<DashboardCubit>()
+                              .toggleCourseLock(id),
+                        ),
+                      ],
+                    ],
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildSearchField(double Function(double) safeSp) {
+  List<CourseEntity> _filter(DashboardState state) {
+    final query = state.availableCoursesSearch.trim().toLowerCase();
+    var list = state.availableCourses;
+    if (state.onlyMyCourses) {
+      list = list.where((c) => c.isEnrolled).toList();
+    }
+    if (query.isNotEmpty) {
+      list = list
+          .where(
+            (c) =>
+                c.title.toLowerCase().contains(query) ||
+                c.category.toLowerCase().contains(query),
+          )
+          .toList();
+    }
+    return list;
+  }
+
+  Widget _buildSearchField(
+    BuildContext context,
+    DashboardState state,
+    double Function(double) safeSp,
+  ) {
+    final cubit = context.read<DashboardCubit>();
     return Container(
       height: 48.h,
       decoration: BoxDecoration(
@@ -62,6 +164,7 @@ class AvailableCoursesPage extends StatelessWidget {
           SizedBox(width: AppSpacing.md.w),
           Expanded(
             child: TextField(
+              onChanged: cubit.changeAvailableCoursesSearch,
               style: TextStyle(fontSize: safeSp(AppFontSize.md)),
               decoration: InputDecoration(
                 hintText: 'Search',
@@ -79,19 +182,31 @@ class AvailableCoursesPage extends StatelessWidget {
             color: AppColors.grey600,
             size: safeSp(AppSize.iconMdLg),
           ),
-          SizedBox(width: AppSpacing.sm.w),
-          Icon(
-            Icons.backspace_outlined,
-            color: AppColors.grey600,
-            size: safeSp(AppSize.iconSmMd),
-          ),
+          if (state.availableCoursesSearch.isNotEmpty)
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => cubit.changeAvailableCoursesSearch(''),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm.w),
+                child: Icon(
+                  Icons.backspace_outlined,
+                  color: AppColors.grey600,
+                  size: safeSp(AppSize.iconSmMd),
+                ),
+              ),
+            ),
           SizedBox(width: AppSpacing.md.w),
         ],
       ),
     );
   }
 
-  Widget _buildShowOnlyMyCoursesRow(double Function(double) safeSp) {
+  Widget _buildShowOnlyMyCoursesRow(
+    BuildContext context,
+    DashboardState state,
+    double Function(double) safeSp,
+  ) {
+    final cubit = context.read<DashboardCubit>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -104,84 +219,35 @@ class AvailableCoursesPage extends StatelessWidget {
           ),
         ),
         Switch(
-          value: false,
-          onChanged: (value) {},
-          activeColor: AppColors.moodleOrange,
+          value: state.onlyMyCourses,
+          onChanged: cubit.toggleOnlyMyCourses,
+          activeThumbColor: AppColors.moodleOrange,
         ),
       ],
     );
   }
 
-  Widget _buildCourseCard(double Function(double) safeSp) {
-    return Container(
-      padding: EdgeInsets.all(AppSpacing.md.w),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppSize.radiusLg.r),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 60.w,
-            height: 60.w,
-            decoration: BoxDecoration(
-              color: const Color(0xFFB3B1FF),
-              borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+  Widget _buildEmptyState(double Function(double) safeSp) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: AppSpacing.xxl.h),
+      child: Center(
+        child: Column(
+          children: [
+            Icon(
+              Icons.school_outlined,
+              size: 96.w,
+              color: AppColors.grey300,
             ),
-            child: Icon(
-              Icons.school,
-              color: AppColors.white,
-              size: safeSp(AppSize.iconLg),
+            SizedBox(height: AppSpacing.md.h),
+            Text(
+              'No course information to show.',
+              style: TextStyle(
+                fontSize: safeSp(AppFontSize.lg),
+                color: AppColors.grey700,
+              ),
             ),
-          ),
-          SizedBox(width: AppSpacing.md.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'AIDLC - New way of implementation',
-                        style: TextStyle(
-                          fontSize: safeSp(AppFontSize.lg),
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.black87,
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      Icons.lock,
-                      size: safeSp(AppSize.iconSmMd),
-                      color: AppColors.grey700,
-                    ),
-                  ],
-                ),
-                SizedBox(height: AppSpacing.sm.h),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSpacing.sm.w,
-                    vertical: AppSpacing.xs.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.moodleLightOrange,
-                    borderRadius: BorderRadius.circular(AppSize.radiusFull.r),
-                  ),
-                  child: Text(
-                    'Category 1',
-                    style: TextStyle(
-                      fontSize: safeSp(AppFontSize.sm),
-                      color: AppColors.black87,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

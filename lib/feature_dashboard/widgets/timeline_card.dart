@@ -36,55 +36,121 @@ class TimelineCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: AppSpacing.std.h),
-          _buildSearchField(safeSp),
+          _buildSearchField(context, safeSp),
           SizedBox(height: AppSpacing.md.h),
           _buildFilterRow(context, safeSp),
-          SizedBox(height: 40.h),
-          _buildEmptyState(safeSp),
-          SizedBox(height: 20.h),
+          SizedBox(height: AppSpacing.lg.h),
+          BlocBuilder<DashboardCubit, DashboardState>(
+            builder: (context, state) {
+              final visible = _filter(state);
+              if (visible.isEmpty) {
+                return _buildEmptyState(safeSp);
+              }
+              return Column(
+                children: [
+                  for (var i = 0; i < visible.length; i++) ...[
+                    if (i > 0) Divider(height: AppSpacing.lg.h),
+                    _buildTimelineRow(context, visible[i], safeSp),
+                  ],
+                ],
+              );
+            },
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildSearchField(double Function(double) safeSp) {
-    return Container(
-      height: 44.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Row(
-        children: [
-          SizedBox(width: AppSpacing.md.w),
-          Expanded(
-            child: TextField(
-              style: TextStyle(fontSize: safeSp(AppFontSize.md)),
-              decoration: InputDecoration(
-                hintText: 'Search by activity type or name',
-                hintStyle: TextStyle(
-                  color: AppColors.grey600,
-                  fontSize: safeSp(AppFontSize.md),
+  List<TimelineActivityEntity> _filter(DashboardState state) {
+    final query = state.timelineSearch.trim().toLowerCase();
+    final now = DateTime.now();
+    final list = state.timelineActivities.where((a) {
+      switch (state.timelineFilterType) {
+        case TimelineFilterType.all:
+          return true;
+        case TimelineFilterType.overdue:
+          return a.dueDate.isBefore(now);
+        case TimelineFilterType.next7Days:
+          return a.dueDate.isAfter(now) &&
+              a.dueDate.isBefore(now.add(const Duration(days: 7)));
+        case TimelineFilterType.next30Days:
+          return a.dueDate.isAfter(now) &&
+              a.dueDate.isBefore(now.add(const Duration(days: 30)));
+        case TimelineFilterType.next3Months:
+          return a.dueDate.isAfter(now) &&
+              a.dueDate.isBefore(now.add(const Duration(days: 90)));
+        case TimelineFilterType.next6Months:
+          return a.dueDate.isAfter(now) &&
+              a.dueDate.isBefore(now.add(const Duration(days: 180)));
+      }
+    }).toList();
+    if (query.isEmpty) return list;
+    return list
+        .where(
+          (a) =>
+              a.name.toLowerCase().contains(query) ||
+              a.type.toLowerCase().contains(query),
+        )
+        .toList();
+  }
+
+  Widget _buildSearchField(
+    BuildContext context,
+    double Function(double) safeSp,
+  ) {
+    final cubit = context.read<DashboardCubit>();
+    return BlocBuilder<DashboardCubit, DashboardState>(
+      buildWhen: (previous, current) =>
+          previous.timelineSearch != current.timelineSearch,
+      builder: (context, state) {
+        return Container(
+          height: 44.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Row(
+            children: [
+              SizedBox(width: AppSpacing.md.w),
+              Expanded(
+                child: TextField(
+                  onChanged: cubit.changeTimelineSearch,
+                  style: TextStyle(fontSize: safeSp(AppFontSize.md)),
+                  decoration: InputDecoration(
+                    hintText: 'Search by activity type or name',
+                    hintStyle: TextStyle(
+                      color: AppColors.grey600,
+                      fontSize: safeSp(AppFontSize.md),
+                    ),
+                    border: InputBorder.none,
+                    isDense: true,
+                  ),
                 ),
-                border: InputBorder.none,
-                isDense: true,
               ),
-            ),
+              Icon(
+                Icons.search,
+                color: AppColors.grey600,
+                size: safeSp(AppSize.iconMd - 2),
+              ),
+              if (state.timelineSearch.isNotEmpty)
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => cubit.changeTimelineSearch(''),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: AppSpacing.sm.w),
+                    child: Icon(
+                      Icons.backspace_outlined,
+                      color: AppColors.grey600,
+                      size: safeSp(AppFontSize.xl),
+                    ),
+                  ),
+                ),
+              SizedBox(width: AppSpacing.md.w),
+            ],
           ),
-          Icon(
-            Icons.search,
-            color: AppColors.grey600,
-            size: safeSp(AppSize.iconMd - 2),
-          ),
-          SizedBox(width: AppSpacing.sm.w),
-          Icon(
-            Icons.backspace_outlined,
-            color: AppColors.grey600,
-            size: safeSp(AppFontSize.xl),
-          ),
-          SizedBox(width: AppSpacing.md.w),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -289,60 +355,113 @@ class TimelineCard extends StatelessWidget {
     );
   }
 
+  Widget _buildTimelineRow(
+    BuildContext context,
+    TimelineActivityEntity activity,
+    double Function(double) safeSp,
+  ) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 36.w,
+          height: 36.w,
+          decoration: BoxDecoration(
+            color: AppColors.moodleLightOrange,
+            borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+          ),
+          child: Icon(
+            Icons.assignment_outlined,
+            size: safeSp(AppSize.iconMd),
+            color: AppColors.moodleOrange,
+          ),
+        ),
+        SizedBox(width: AppSpacing.md.w),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                activity.name,
+                style: TextStyle(
+                  fontSize: safeSp(AppFontSize.md),
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black87,
+                ),
+              ),
+              SizedBox(height: 2.h),
+              Text(
+                '${activity.type} • due in '
+                '${activity.dueDate.difference(DateTime.now()).inDays.abs()} days',
+                style: TextStyle(
+                  fontSize: safeSp(AppFontSize.sm),
+                  color: AppColors.grey600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildEmptyState(double Function(double) safeSp) {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            width: 80.w,
-            height: 90.h,
-            padding: EdgeInsets.all(AppSpacing.sm.w),
-            decoration: BoxDecoration(
-              color: AppColors.grey300,
-              borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
-            ),
-            child: GridView.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
-              physics: const NeverScrollableScrollPhysics(),
-              children: List.generate(
-                4,
-                (index) => Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(2.r),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 4,
-                        width: 20,
-                        color: AppColors.grey100,
-                      ),
-                      const SizedBox(height: 2),
-                      Container(
-                        height: 4,
-                        width: 20,
-                        color: AppColors.grey100,
-                      ),
-                    ],
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: AppSpacing.lg.h),
+      child: Center(
+        child: Column(
+          children: [
+            Container(
+              width: 80.w,
+              height: 90.h,
+              padding: EdgeInsets.all(AppSpacing.sm.w),
+              decoration: BoxDecoration(
+                color: AppColors.grey300,
+                borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+              ),
+              child: GridView.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 4,
+                physics: const NeverScrollableScrollPhysics(),
+                children: List.generate(
+                  4,
+                  (index) => Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(2.r),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 4,
+                          width: 20,
+                          color: AppColors.grey100,
+                        ),
+                        const SizedBox(height: 2),
+                        Container(
+                          height: 4,
+                          width: 20,
+                          color: AppColors.grey100,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: AppSpacing.std.h),
-          Text(
-            'No activities require action',
-            style: TextStyle(
-              color: AppColors.grey800,
-              fontSize: safeSp(AppFontSize.lg),
-              fontWeight: FontWeight.w400,
+            SizedBox(height: AppSpacing.std.h),
+            Text(
+              'No activities require action',
+              style: TextStyle(
+                color: AppColors.grey800,
+                fontSize: safeSp(AppFontSize.lg),
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

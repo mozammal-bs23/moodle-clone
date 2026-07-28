@@ -4,15 +4,24 @@ import 'package:injectable/injectable.dart';
 
 part 'dashboard_state.dart';
 
+/// Bottom navigation destination the user is currently on.
+enum DashboardNavTab { dashboard, myCourses, messages, notifications, more }
+
 /// Entity representing a course item on the dashboard.
-class CourseEntity {
+class CourseEntity extends Equatable {
   /// Creates a new [CourseEntity] instance.
-  CourseEntity({
+  const CourseEntity({
+    required this.id,
     required this.title,
     required this.category,
     required this.imageUrl,
     required this.progress,
+    required this.isEnrolled,
+    required this.isLocked,
   });
+
+  /// Unique id of the course.
+  final String id;
 
   /// The title of the course.
   final String title;
@@ -23,8 +32,71 @@ class CourseEntity {
   /// The banner image URL for the course.
   final String imageUrl;
 
-  /// The progress completion percentage.
+  /// The progress completion percentage in the 0..1 range.
   final double progress;
+
+  /// Whether the current user is enrolled.
+  final bool isEnrolled;
+
+  /// Whether the course is access-restricted (shown via lock icon).
+  final bool isLocked;
+
+  CourseEntity copyWith({
+    String? id,
+    String? title,
+    String? category,
+    String? imageUrl,
+    double? progress,
+    bool? isEnrolled,
+    bool? isLocked,
+  }) {
+    return CourseEntity(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      category: category ?? this.category,
+      imageUrl: imageUrl ?? this.imageUrl,
+      progress: progress ?? this.progress,
+      isEnrolled: isEnrolled ?? this.isEnrolled,
+      isLocked: isLocked ?? this.isLocked,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        category,
+        imageUrl,
+        progress,
+        isEnrolled,
+        isLocked,
+      ];
+}
+
+/// A timeline activity item rendered inside the dashboard Timeline card.
+class TimelineActivityEntity extends Equatable {
+  /// Creates a new [TimelineActivityEntity] instance.
+  const TimelineActivityEntity({
+    required this.id,
+    required this.name,
+    required this.type,
+    required this.dueDate,
+  });
+
+  /// Unique id of the timeline entry.
+  final String id;
+
+  /// Display name (e.g. activity title).
+  final String name;
+
+  /// Activity type label (Assignment, Quiz, …).
+  final String type;
+
+  /// When the activity is due.
+  final DateTime dueDate;
+
+  @override
+  List<Object?> get props => [id, name, type, dueDate];
 }
 
 /// Cubit for managing the dashboard screen state.
@@ -33,9 +105,14 @@ class DashboardCubit extends Cubit<DashboardState> {
   /// Creates a new [DashboardCubit] instance.
   DashboardCubit() : super(const DashboardState());
 
-  /// Changes the selected tab index.
+  /// Selects the active top-level Dashboard/Site-home sub-tab.
   void selectTab(int index) {
     emit(state.copyWith(selectedTabIndex: index));
+  }
+
+  /// Selects the active bottom navigation destination.
+  void selectBottomNav(DashboardNavTab tab) {
+    emit(state.copyWith(bottomNavIndex: tab));
   }
 
   /// Changes the timeline sort type.
@@ -48,6 +125,31 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(state.copyWith(timelineFilterType: filterType));
   }
 
+  /// Updates the timeline search text.
+  void changeTimelineSearch(String value) {
+    emit(state.copyWith(timelineSearch: value));
+  }
+
+  /// Updates the available-courses search text.
+  void changeAvailableCoursesSearch(String value) {
+    emit(state.copyWith(availableCoursesSearch: value));
+  }
+
+  /// Toggles the "Show only my courses" filter.
+  void toggleOnlyMyCourses(bool value) {
+    emit(state.copyWith(onlyMyCourses: value));
+  }
+
+  /// Toggles a course's locked/unlocked state.
+  void toggleCourseLock(String courseId) {
+    final updated = state.availableCourses
+        .map(
+          (c) => c.id == courseId ? c.copyWith(isLocked: !c.isLocked) : c,
+        )
+        .toList(growable: false);
+    emit(state.copyWith(availableCourses: updated));
+  }
+
   /// Fetches the list of enrolled courses for the dashboard.
   Future<void> fetchDashboardCourses() async {
     emit(state.copyWith(status: DashboardStatus.loading));
@@ -55,36 +157,104 @@ class DashboardCubit extends Cubit<DashboardState> {
       // Simulate network delay
       await Future<void>.delayed(const Duration(milliseconds: 800));
 
-      final mockCourses = [
-        CourseEntity(
-          title: 'A1/A2 English with H5P',
-          category: 'English as a Foreign Language',
-          imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500',
-          progress: 0.15,
+      final mockTimeline = <TimelineActivityEntity>[
+        TimelineActivityEntity(
+          id: 't1',
+          name: 'Submit English essay draft',
+          type: 'Assignment',
+          dueDate: DateTime.now().add(const Duration(days: 2)),
         ),
-        CourseEntity(
-          title: 'Mindful Course Creation',
-          category: 'Faculty of Education',
-          imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500',
-          progress: 0.5,
+        TimelineActivityEntity(
+          id: 't2',
+          name: 'Mindful course quiz',
+          type: 'Quiz',
+          dueDate: DateTime.now().add(const Duration(days: 5)),
         ),
-        CourseEntity(
-          title: 'Mobile App Development',
-          category: 'Computer Science',
-          imageUrl: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500',
-          progress: 0.8,
+        TimelineActivityEntity(
+          id: 't3',
+          name: 'Mobile dev project proposal',
+          type: 'Assignment',
+          dueDate: DateTime.now().add(const Duration(days: 14)),
         ),
       ];
 
-      emit(state.copyWith(
-        status: DashboardStatus.loaded,
-        courses: mockCourses,
-      ));
+      final mockCourses = <CourseEntity>[
+        const CourseEntity(
+          id: 'c1',
+          title: 'A1/A2 English with H5P',
+          category: 'English as a Foreign Language',
+          imageUrl:
+              'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500',
+          progress: 0.15,
+          isEnrolled: true,
+          isLocked: false,
+        ),
+        const CourseEntity(
+          id: 'c2',
+          title: 'Mindful Course Creation',
+          category: 'Faculty of Education',
+          imageUrl:
+              'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500',
+          progress: 0.5,
+          isEnrolled: true,
+          isLocked: false,
+        ),
+        const CourseEntity(
+          id: 'c3',
+          title: 'Mobile App Development',
+          category: 'Computer Science',
+          imageUrl:
+              'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500',
+          progress: 0.8,
+          isEnrolled: true,
+          isLocked: false,
+        ),
+        const CourseEntity(
+          id: 'c4',
+          title: 'AIDLC - New way of implementation',
+          category: 'Category 1',
+          imageUrl: '',
+          progress: 0,
+          isEnrolled: false,
+          isLocked: true,
+        ),
+        const CourseEntity(
+          id: 'c5',
+          title: 'Introduction to Psychology',
+          category: 'Social Sciences',
+          imageUrl:
+              'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=500',
+          progress: 0,
+          isEnrolled: false,
+          isLocked: false,
+        ),
+        const CourseEntity(
+          id: 'c6',
+          title: 'Data Structures & Algorithms',
+          category: 'Computer Science',
+          imageUrl:
+              'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500',
+          progress: 0,
+          isEnrolled: false,
+          isLocked: false,
+        ),
+      ];
+
+      emit(
+        state.copyWith(
+          status: DashboardStatus.loaded,
+          courses: mockCourses.where((c) => c.isEnrolled).toList(),
+          availableCourses: mockCourses,
+          timelineActivities: mockTimeline,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(
-        status: DashboardStatus.error,
-        message: e.toString(),
-      ));
+      emit(
+        state.copyWith(
+          status: DashboardStatus.error,
+          message: e.toString(),
+        ),
+      );
     }
   }
 }

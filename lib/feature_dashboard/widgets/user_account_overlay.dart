@@ -82,6 +82,7 @@ class UserAccountOverlay extends StatelessWidget {
             SizedBox(height: AppSpacing.xl.h),
             // User Info - Leads to User Details Page
             _buildListTile(
+              context: context,
               leading: CircleAvatar(
                 radius: 20.r,
                 backgroundColor: AppColors.grey100,
@@ -104,6 +105,7 @@ class UserAccountOverlay extends StatelessWidget {
             const Divider(height: 1, color: AppColors.divider),
             // Menu Items
             _buildListTile(
+              context: context,
               leading: Icon(
                 Icons.format_list_bulleted,
                 size: AppSize.iconMd.w,
@@ -113,6 +115,7 @@ class UserAccountOverlay extends StatelessWidget {
               safeSp: safeSp,
             ),
             _buildListTile(
+              context: context,
               leading: Icon(
                 Icons.folder_outlined,
                 size: AppSize.iconMd.w,
@@ -122,6 +125,7 @@ class UserAccountOverlay extends StatelessWidget {
               safeSp: safeSp,
             ),
             _buildListTile(
+              context: context,
               leading: Icon(
                 Icons.grid_view_outlined,
                 size: AppSize.iconMd.w,
@@ -131,6 +135,7 @@ class UserAccountOverlay extends StatelessWidget {
               safeSp: safeSp,
             ),
             _buildListTile(
+              context: context,
               leading: Icon(
                 Icons.emoji_events_outlined,
                 size: AppSize.iconMd.w,
@@ -144,6 +149,7 @@ class UserAccountOverlay extends StatelessWidget {
               },
             ),
             _buildListTile(
+              context: context,
               leading: Icon(
                 Icons.contact_page_outlined,
                 size: AppSize.iconMd.w,
@@ -157,6 +163,7 @@ class UserAccountOverlay extends StatelessWidget {
               },
             ),
             _buildListTile(
+              context: context,
               leading: Icon(
                 Icons.build_outlined,
                 size: AppSize.iconMd.w,
@@ -166,6 +173,7 @@ class UserAccountOverlay extends StatelessWidget {
               safeSp: safeSp,
             ),
             _buildListTile(
+              context: context,
               leading: Icon(
                 Icons.email_outlined,
                 size: AppSize.iconMd.w,
@@ -182,6 +190,7 @@ class UserAccountOverlay extends StatelessWidget {
             SizedBox(height: AppSpacing.lg.h),
             const Divider(height: 1, color: AppColors.divider),
             _buildListTile(
+              context: context,
               leading: Icon(
                 Icons.swap_horiz,
                 size: AppSize.iconMd.w,
@@ -195,7 +204,8 @@ class UserAccountOverlay extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg.w - 4),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () =>
+                    _showNotImplemented(context, 'Log out'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.red,
                   minimumSize: Size(double.infinity, 48.h),
@@ -232,6 +242,7 @@ class UserAccountOverlay extends StatelessWidget {
   }
 
   Widget _buildListTile({
+    required BuildContext context,
     required Widget leading,
     required String title,
     required double Function(double) safeSp,
@@ -253,10 +264,19 @@ class UserAccountOverlay extends StatelessWidget {
             size: AppSize.iconMd.w,
             color: AppColors.black54,
           ),
-      onTap: onTap,
+      onTap: onTap ?? () => _showNotImplemented(context, title),
       contentPadding: EdgeInsets.symmetric(
         horizontal: AppSpacing.lg.w - 4,
         vertical: AppSpacing.xs.h,
+      ),
+    );
+  }
+
+  void _showNotImplemented(BuildContext context, String label) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$label is coming in a future update'),
+        duration: const Duration(seconds: 2),
       ),
     );
   }

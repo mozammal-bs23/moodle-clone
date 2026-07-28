@@ -4,6 +4,10 @@ import 'package:flutter_boilerplate/feature_dashboard/pages/badges_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/blog_entries_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/dashboard_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/details_page.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/messages_page.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/more_page.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/my_courses_page.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/notifications_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/user_details_page.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
@@ -15,7 +19,7 @@ class AppRouter {
   AppRouter._();
 
   static final AppRouteObserver routeObserver = AppRouteObserver();
-  
+
   static GoRouter? _router;
 
   /// Get the router configuration
@@ -50,6 +54,26 @@ class AppRouter {
           path: AppRoutes.availableCourses,
           name: AppRoutes.availableCourses,
           builder: (context, state) => const AvailableCoursesPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.myCourses,
+          name: AppRoutes.myCourses,
+          builder: (context, state) => const MyCoursesPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.messages,
+          name: AppRoutes.messages,
+          builder: (context, state) => const MessagesPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.notifications,
+          name: AppRoutes.notifications,
+          builder: (context, state) => const NotificationsPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.more,
+          name: AppRoutes.more,
+          builder: (context, state) => const MorePage(),
         ),
         GoRoute(
           path: AppRoutes.userDetails,

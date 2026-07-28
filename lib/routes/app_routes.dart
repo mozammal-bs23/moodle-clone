@@ -46,6 +46,24 @@ abstract class AppRoutes {
   /// Profile route
   static const String profile = '/profile';
 
+  /// My Courses route (bottom-nav destination).
+  static const String myCourses = '/my-courses';
+
+  /// Messages route (bottom-nav destination).
+  static const String messages = '/messages';
+
+  /// Notifications route (bottom-nav destination).
+  static const String notifications = '/notifications';
+
+  /// More route (bottom-nav destination).
+  static const String more = '/more';
+
+  /// Search route (dashboard header).
+  static const String search = '/search';
+
+  /// Calendar route.
+  static const String calendar = '/calendar';
+
   /// Error routes
   static const String notFound = '/not-found';
 

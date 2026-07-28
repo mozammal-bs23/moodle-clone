@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_dashboard/pages/calendar_page.dart';
 import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,34 +10,41 @@ class CalendarCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: AppSpacing.std.w),
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSpacing.std.w,
-        vertical: 18.h,
+    return InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => const CalendarPage(),
+        ),
       ),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Row(
-        children: [
-          Text(
-            'Calendar',
-            style: TextStyle(
-              fontSize: AppFontSize.xl.sp,
-              fontWeight: FontWeight.w400,
-              color: AppColors.black87,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: AppSpacing.std.w),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.std.w,
+          vertical: 18.h,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+          border: Border.all(color: AppColors.divider),
+        ),
+        child: Row(
+          children: [
+            Text(
+              'Calendar',
+              style: TextStyle(
+                fontSize: AppFontSize.xl.sp,
+                fontWeight: FontWeight.w400,
+                color: AppColors.black87,
+              ),
             ),
-          ),
-          const Spacer(),
-          Icon(
-            Icons.chevron_right,
-            color: AppColors.grey600,
-            size: AppSize.iconMd.sp,
-          ),
-        ],
+            const Spacer(),
+            Icon(
+              Icons.chevron_right,
+              color: AppColors.grey600,
+              size: AppSize.iconMd.sp,
+            ),
+          ],
+        ),
       ),
     );
   }
