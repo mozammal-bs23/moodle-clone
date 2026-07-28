@@ -24,7 +24,7 @@ class CalendarCard extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+          borderRadius: BorderRadius.circular(AppSize.radiusLg.r),
           border: Border.all(color: AppColors.divider),
         ),
         child: Row(

@@ -21,7 +21,7 @@ class TimelineCard extends StatelessWidget {
       padding: EdgeInsets.all(AppSpacing.std.w),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+        borderRadius: BorderRadius.circular(AppSize.radiusLg.r),
         border: Border.all(color: AppColors.divider),
       ),
       child: Column(
@@ -226,13 +226,12 @@ class TimelineCard extends StatelessWidget {
                 ],
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: AppSpacing.md.w,
-                    vertical: 6.h,
+                    horizontal: AppSpacing.std.w,
+                    vertical: 8.h,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.grey200,
-                    borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
-                    border: Border.all(color: AppColors.border),
+                    color: AppColors.grey100,
+                    borderRadius: BorderRadius.circular(AppSize.radiusLg.r),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -242,9 +241,15 @@ class TimelineCard extends StatelessWidget {
                         style: TextStyle(
                           color: AppColors.black87,
                           fontSize: safeSp(AppFontSize.md),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Icon(Icons.arrow_drop_down, size: safeSp(20)),
+                      SizedBox(width: AppSpacing.xs.w),
+                      Icon(
+                        Icons.expand_more_rounded,
+                        size: safeSp(20),
+                        color: AppColors.grey800,
+                      ),
                     ],
                   ),
                 ),
@@ -281,15 +286,18 @@ class TimelineCard extends StatelessWidget {
                   ),
                 ],
                 child: Container(
-                  padding: EdgeInsets.all(AppSpacing.xs.w),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSpacing.sm.w,
+                    vertical: AppSpacing.xs.h,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.grey100,
                     borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
                   ),
                   child: Icon(
-                    Icons.sort,
-                    color: AppColors.black87,
-                    size: safeSp(AppSize.iconMd),
+                    Icons.sort_rounded,
+                    color: AppColors.grey800,
+                    size: safeSp(AppSize.iconSmMd),
                   ),
                 ),
               ),
@@ -411,47 +419,12 @@ class TimelineCard extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Container(
-              width: 80.w,
-              height: 90.h,
-              padding: EdgeInsets.all(AppSpacing.sm.w),
-              decoration: BoxDecoration(
-                color: AppColors.grey300,
-                borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
-              ),
-              child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
-                physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(
-                  4,
-                  (index) => Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(2.r),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 4,
-                          width: 20,
-                          color: AppColors.grey100,
-                        ),
-                        const SizedBox(height: 2),
-                        Container(
-                          height: 4,
-                          width: 20,
-                          color: AppColors.grey100,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+            Icon(
+              Icons.archive_outlined,
+              size: 96.w,
+              color: AppColors.grey300,
             ),
-            SizedBox(height: AppSpacing.std.h),
+            SizedBox(height: AppSpacing.md.h),
             Text(
               'No activities require action',
               style: TextStyle(

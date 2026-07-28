@@ -30,17 +30,19 @@ class AvailableCoursesCard extends StatelessWidget {
         child: Row(
           children: [
             Icon(
-              Icons.school,
-              size: AppSize.iconMd.w,
+              Icons.school_outlined,
+              size: 24.w,
               color: AppColors.grey800,
             ),
             SizedBox(width: AppSpacing.md.w),
-            Text(
-              'Available courses',
-              style: TextStyle(
-                fontSize: AppFontSize.lg.sp,
-                fontWeight: FontWeight.w400,
-                color: AppColors.black,
+            Expanded(
+              child: Text(
+                'Available courses',
+                style: TextStyle(
+                  fontSize: AppFontSize.lg.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black87,
+                ),
               ),
             ),
           ],

@@ -56,10 +56,10 @@ class CourseListItem extends StatelessWidget {
   Widget _buildThumbnail(double Function(double) safeSp) {
     if (course.imageUrl.isEmpty) {
       return Container(
-        width: 60.w,
-        height: 60.w,
+        width: 64.w,
+        height: 64.w,
         decoration: BoxDecoration(
-          color: const Color(0xFFB3B1FF),
+          color: const Color(0xFFB6B0FB),
           borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
         ),
         child: Icon(
@@ -74,14 +74,14 @@ class CourseListItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
       child: Image.network(
         course.imageUrl,
-        width: 60.w,
-        height: 60.w,
+        width: 64.w,
+        height: 64.w,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) => Container(
-          width: 60.w,
-          height: 60.w,
+          width: 64.w,
+          height: 64.w,
           decoration: BoxDecoration(
-            color: const Color(0xFFB3B1FF),
+            color: const Color(0xFFB6B0FB),
             borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
           ),
           child: Icon(
@@ -99,6 +99,7 @@ class CourseListItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Text(
@@ -107,6 +108,7 @@ class CourseListItem extends StatelessWidget {
                   fontSize: safeSp(AppFontSize.lg),
                   fontWeight: FontWeight.w500,
                   color: AppColors.black87,
+                  height: 1.25,
                 ),
               ),
             ),
@@ -115,9 +117,9 @@ class CourseListItem extends StatelessWidget {
               onTap:
                   onToggleLock == null ? null : () => onToggleLock!(course.id),
               child: Padding(
-                padding: EdgeInsets.only(left: AppSpacing.xs.w),
+                padding: EdgeInsets.only(left: AppSpacing.xs.w, top: 2.h),
                 child: Icon(
-                  course.isLocked ? Icons.lock : Icons.lock_open,
+                  course.isLocked ? Icons.lock_rounded : Icons.lock_open_rounded,
                   size: safeSp(AppSize.iconSmMd),
                   color: course.isLocked ? AppColors.grey700 : AppColors.grey400,
                 ),

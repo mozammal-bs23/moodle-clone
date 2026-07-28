@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
-import 'package:flutter_boilerplate/feature_dashboard/pages/calendar_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/messages_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/more_page.dart';
 import 'package:flutter_boilerplate/feature_dashboard/pages/my_courses_page.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_boilerplate/feature_dashboard/widgets/calendar_card.dart
 import 'package:flutter_boilerplate/feature_dashboard/widgets/dashboard_bottom_navigation.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/dashboard_header.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/dashboard_tabs.dart';
-import 'package:flutter_boilerplate/feature_dashboard/widgets/section_menu_row.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/timeline_card.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/user_account_overlay.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
@@ -90,10 +88,10 @@ class DashboardPage extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () => _showUserAccount(context),
                     child: Container(
-                      width: 40.w,
-                      height: 50.h,
+                      width: 36.w,
+                      height: 56.h,
                       decoration: BoxDecoration(
-                        color: AppColors.overlayGrey.withValues(alpha: 0.9),
+                        color: AppColors.grey200,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(AppSize.radiusFull.r),
                           bottomLeft: Radius.circular(AppSize.radiusFull.r),
@@ -102,14 +100,14 @@ class DashboardPage extends StatelessWidget {
                           BoxShadow(
                             color: AppColors.shadow,
                             blurRadius: 4.r,
-                            offset: const Offset(-2, 0),
+                            offset: const Offset(-1, 0),
                           ),
                         ],
                       ),
                       child: Icon(
-                        Icons.chevron_left,
-                        color: AppColors.black,
-                        size: 28.w,
+                        Icons.chevron_left_rounded,
+                        color: AppColors.grey800,
+                        size: 24.w,
                       ),
                     ),
                   ),
@@ -222,28 +220,6 @@ class _SiteHomeContent extends StatelessWidget {
       child: Column(
         children: [
           const AvailableCoursesCard(),
-          SectionMenuRow(
-            icon: Icons.article_outlined,
-            title: 'Site blog',
-            onTap: () => context.pushNamed(AppRoutes.blogEntries),
-          ),
-          SectionMenuRow(
-            icon: Icons.calendar_today_outlined,
-            title: 'Calendar',
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (_) => const CalendarPage(),
-              ),
-            ),
-          ),
-          SectionMenuRow(
-            icon: Icons.contacts_outlined,
-            title: 'My contacts',
-            subtitle: 'Browse and message people on this site',
-            onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('My contacts coming soon')),
-            ),
-          ),
           SizedBox(height: AppSpacing.xl.h),
         ],
       ),
