@@ -192,24 +192,16 @@ class TimelineCard extends StatelessWidget {
         return Row(
           children: [
             Theme(
-              data: Theme.of(context).copyWith(
+              data: ThemeData(
+                brightness: Brightness.light,
+                canvasColor: AppColors.white,
+                cardColor: AppColors.white,
                 hoverColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                menuTheme: MenuThemeData(
-                  style: MenuStyle(
-                    backgroundColor:
-                        const WidgetStatePropertyAll(AppColors.white),
-                    surfaceTintColor:
-                        const WidgetStatePropertyAll(AppColors.white),
-                    elevation: const WidgetStatePropertyAll(4),
-                    shape: WidgetStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(AppSize.radiusMd.r),
-                      ),
-                    ),
-                  ),
+                dialogTheme: const DialogThemeData(
+                  backgroundColor: AppColors.white,
+                  surfaceTintColor: AppColors.white,
                 ),
               ),
               child: PopupMenuButton<TimelineFilterType>(
@@ -301,24 +293,16 @@ class TimelineCard extends StatelessWidget {
             ),
             const Spacer(),
             Theme(
-              data: Theme.of(context).copyWith(
+              data: ThemeData(
+                brightness: Brightness.light,
+                canvasColor: AppColors.white,
+                cardColor: AppColors.white,
                 hoverColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                menuTheme: MenuThemeData(
-                  style: MenuStyle(
-                    backgroundColor:
-                        const WidgetStatePropertyAll(AppColors.white),
-                    surfaceTintColor:
-                        const WidgetStatePropertyAll(AppColors.white),
-                    elevation: const WidgetStatePropertyAll(4),
-                    shape: WidgetStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(AppSize.radiusMd.r),
-                      ),
-                    ),
-                  ),
+                dialogTheme: const DialogThemeData(
+                  backgroundColor: AppColors.white,
+                  surfaceTintColor: AppColors.white,
                 ),
               ),
               child: PopupMenuButton<TimelineSortType>(
