@@ -196,6 +196,21 @@ class TimelineCard extends StatelessWidget {
                 hoverColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
+                menuTheme: MenuThemeData(
+                  style: MenuStyle(
+                    backgroundColor:
+                        const WidgetStatePropertyAll(AppColors.white),
+                    surfaceTintColor:
+                        const WidgetStatePropertyAll(AppColors.white),
+                    elevation: const WidgetStatePropertyAll(4),
+                    shape: WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(AppSize.radiusMd.r),
+                      ),
+                    ),
+                  ),
+                ),
               ),
               child: PopupMenuButton<TimelineFilterType>(
                 padding: EdgeInsets.zero,
@@ -290,6 +305,21 @@ class TimelineCard extends StatelessWidget {
                 hoverColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
+                menuTheme: MenuThemeData(
+                  style: MenuStyle(
+                    backgroundColor:
+                        const WidgetStatePropertyAll(AppColors.white),
+                    surfaceTintColor:
+                        const WidgetStatePropertyAll(AppColors.white),
+                    elevation: const WidgetStatePropertyAll(4),
+                    shape: WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(AppSize.radiusMd.r),
+                      ),
+                    ),
+                  ),
+                ),
               ),
               child: PopupMenuButton<TimelineSortType>(
                 padding: EdgeInsets.zero,
@@ -315,10 +345,9 @@ class TimelineCard extends StatelessWidget {
                   ),
                 ],
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSpacing.sm.w,
-                    vertical: AppSpacing.xs.h,
-                  ),
+                  width: 44.w,
+                  height: 44.h,
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: AppColors.grey100,
                     borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
@@ -331,7 +360,7 @@ class TimelineCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: AppSpacing.sm.w),
+            SizedBox(width: AppSpacing.xs.w),
             _buildViewModeButton(context, state, safeSp),
           ],
         );
@@ -361,11 +390,8 @@ class TimelineCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
         child: Container(
-          constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-          padding: EdgeInsets.symmetric(
-            horizontal: AppSpacing.sm.w,
-            vertical: AppSpacing.xs.h,
-          ),
+          width: 44.w,
+          height: 44.h,
           alignment: Alignment.center,
           child: Icon(
             icon,
