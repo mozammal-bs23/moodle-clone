@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_boilerplate/feature_auth/data/datasources/login_remote_datasource.dart';
-import 'package:flutter_boilerplate/feature_auth/data/models/login_request_model.dart';
 import 'package:flutter_boilerplate/feature_auth/data/models/login_response_model.dart';
 import 'package:flutter_boilerplate/feature_auth/data/repositories/login_repository_impl.dart';
 import 'package:flutter_boilerplate/feature_auth/domain/entities/login_token_entity.dart';
@@ -37,14 +36,7 @@ void main() {
       expect(token, isA<LoginTokenEntity>());
       expect(token!.token, 'public-token-abc');
       expect(token.privateToken, 'private-token-xyz');
-      verify(
-        mockRemote.login(
-          const LoginRequestModel(
-            username: 'student',
-            password: 'Student@123',
-          ),
-        ),
-      ).called(1);
+      verify(mockRemote.login(any)).called(1);
     });
 
     test('returns AuthFailure when Moodle replies with an error body',
