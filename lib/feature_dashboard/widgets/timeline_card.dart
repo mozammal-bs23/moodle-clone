@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_boilerplate/feature_dashboard/utils/app_colors.dart';
 import 'package:flutter_boilerplate/feature_dashboard/utils/app_constants.dart';
+import 'package:flutter_boilerplate/feature_dashboard/widgets/timeline_activity_grid_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A card widget that displays a timeline of activities.
@@ -46,6 +47,23 @@ class TimelineCard extends StatelessWidget {
               final visible = _filter(state);
               if (visible.isEmpty) {
                 return _buildEmptyState(safeSp);
+              }
+              if (state.timelineViewMode == TimelineViewMode.grid) {
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: AppSpacing.md,
+                    crossAxisSpacing: AppSpacing.md,
+                    childAspectRatio: 1.4,
+                  ),
+                  itemCount: visible.length,
+                  itemBuilder: (context, index) {
+                    return TimelineActivityGridCard(activity: visible[index]);
+                  },
+                );
               }
               return Column(
                 children: [
@@ -159,7 +177,8 @@ class TimelineCard extends StatelessWidget {
     return BlocBuilder<DashboardCubit, DashboardState>(
       buildWhen: (previous, current) =>
           previous.timelineSortType != current.timelineSortType ||
-          previous.timelineFilterType != current.timelineFilterType,
+          previous.timelineFilterType != current.timelineFilterType ||
+          previous.timelineViewMode != current.timelineViewMode,
       builder: (context, state) {
         return Row(
           children: [
@@ -228,7 +247,7 @@ class TimelineCard extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: AppSpacing.std.w,
-                    vertical: 8.h,
+                    vertical: AppSpacing.xs.h,
                   ),
                   decoration: BoxDecoration(
                     color: AppColors.grey100,
@@ -257,6 +276,8 @@ class TimelineCard extends StatelessWidget {
               ),
             ),
             const Spacer(),
+            _buildViewModeToggle(context, state, safeSp),
+            SizedBox(width: AppSpacing.xs.w),
             Theme(
               data: Theme.of(context).copyWith(
                 hoverColor: Colors.transparent,
@@ -306,6 +327,71 @@ class TimelineCard extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildViewModeToggle(
+    BuildContext context,
+    DashboardState state,
+    double Function(double) safeSp,
+  ) {
+    final cubit = context.read<DashboardCubit>();
+    final isList = state.timelineViewMode == TimelineViewMode.list;
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.grey100,
+        borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildViewModeButton(
+            context: context,
+            icon: Icons.view_list_rounded,
+            isSelected: isList,
+            onTap: () => cubit.changeTimelineViewMode(TimelineViewMode.list),
+            safeSp: safeSp,
+          ),
+          _buildViewModeButton(
+            context: context,
+            icon: Icons.grid_view_rounded,
+            isSelected: !isList,
+            onTap: () => cubit.changeTimelineViewMode(TimelineViewMode.grid),
+            safeSp: safeSp,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildViewModeButton({
+    required BuildContext context,
+    required IconData icon,
+    required bool isSelected,
+    required VoidCallback onTap,
+    required double Function(double) safeSp,
+  }) {
+    return Material(
+      color: isSelected
+          ? AppColors.moodleOrange.withValues(alpha: 0.12)
+          : Colors.transparent,
+      borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+        child: Container(
+          constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.sm.w,
+            vertical: AppSpacing.xs.h,
+          ),
+          child: Icon(
+            icon,
+            size: safeSp(AppSize.iconSmMd),
+            color: isSelected ? AppColors.moodleOrange : AppColors.grey600,
+          ),
+        ),
+      ),
     );
   }
 
@@ -399,13 +485,18 @@ class TimelineCard extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 2.h),
-              Text(
-                '${activity.type} • due in '
-                '${activity.dueDate.difference(DateTime.now()).inDays.abs()} days',
-                style: TextStyle(
-                  fontSize: safeSp(AppFontSize.sm),
-                  color: AppColors.grey600,
-                ),
+              Builder(
+                builder: (context) {
+                  final days =
+                      activity.dueDate.difference(DateTime.now()).inDays.abs();
+                  return Text(
+                    '${activity.type} • due in $days days',
+                    style: TextStyle(
+                      fontSize: safeSp(AppFontSize.sm),
+                      color: AppColors.grey600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
