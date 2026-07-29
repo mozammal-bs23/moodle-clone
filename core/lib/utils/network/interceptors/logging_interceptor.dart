@@ -3,35 +3,36 @@ import 'package:logger/logger.dart';
 
 /// Interceptor for logging network requests and responses
 class LoggingInterceptor extends Interceptor {
-  /// Creates a new [LoggingInterceptor]
+  /// Creates a [LoggingInterceptor]
   LoggingInterceptor({
     Logger? logger,
     this.logRequestBody = true,
     this.logResponseBody = true,
-  }) : logger = logger ??
-      Logger(
-        printer: PrettyPrinter(
-          methodCount: 0,
-          errorMethodCount: 5,
-          lineLength: 80,
-          printEmojis: false,
-        ),
-      );
+  }) : logger = logger ?? Logger(
+          level: Level.debug,
+          printer: PrettyPrinter(
+            methodCount: 0,
+            errorMethodCount: 5,
+            lineLength: 80,
+            printEmojis: false,
+          ),
+        );
 
-  /// The logger used to print network information
+  /// Logger instance
   final Logger logger;
 
-  /// Whether to log the request body
+  /// Whether to log request bodies
   final bool logRequestBody;
 
-  /// Whether to log the response body
+  /// Whether to log response bodies
   final bool logResponseBody;
+
 
   @override
   void onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) {
     final buffer = StringBuffer()
       ..writeln('→ ${options.method.toUpperCase()} ${options.uri}')
       ..writeln('  Headers: ${options.headers}')
@@ -57,14 +58,14 @@ class LoggingInterceptor extends Interceptor {
 
   @override
   void onResponse(
-      Response<dynamic> response,
-      ResponseInterceptorHandler handler,
-      ) {
+    Response<dynamic> response,
+    ResponseInterceptorHandler handler,
+  ) {
     final buffer = StringBuffer()
       ..writeln(
         '← ${response.statusCode} '
-            '${response.requestOptions.method.toUpperCase()} '
-            '${response.requestOptions.uri}',
+        '${response.requestOptions.method.toUpperCase()} '
+        '${response.requestOptions.uri}',
       )
       ..writeln('  Headers: ${response.headers.map}');
 
@@ -77,14 +78,14 @@ class LoggingInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) {
+  void onError(DioError err, ErrorInterceptorHandler handler) {
     final buffer = StringBuffer()
       ..writeln('✗ Error: ${err.message}')
       ..writeln('  Type: ${err.type}')
       ..writeln(
         '  Request: '
-            '${err.requestOptions.method.toUpperCase()} '
-            '${err.requestOptions.uri}',
+        '${err.requestOptions.method.toUpperCase()} '
+        '${err.requestOptions.uri}',
       );
 
     if (err.response != null) {
@@ -93,12 +94,7 @@ class LoggingInterceptor extends Interceptor {
         ..writeln('  Response: ${err.response?.data}');
     }
 
-    // ✅ FIXED: Pass error and stackTrace as named parameters
-    logger.e(
-      buffer.toString(),
-      error: err,
-      stackTrace: err.stackTrace,
-    );
+    logger.e(buffer.toString(), err, err.stackTrace);
     handler.next(err);
   }
 }

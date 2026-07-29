@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
-import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
+import 'package:flutter_boilerplate/feature_dashboard/utils/app_colors.dart';
+import 'package:flutter_boilerplate/feature_dashboard/utils/app_constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A widget that displays tabs for the dashboard (e.g., Dashboard, Site home).
@@ -66,15 +67,21 @@ class _TabItem extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               height: 3.h,
               width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: AppSpacing.std.w),
-              decoration: BoxDecoration(
-                color: isActive ? AppColors.moodleOrange : Colors.transparent,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(3.r),
-                  topRight: Radius.circular(3.r),
+              child: Center(
+                child: Container(
+                  height: 3.h,
+                  width: 140.w,
+                  decoration: BoxDecoration(
+                    color:
+                        isActive ? AppColors.moodleOrange : Colors.transparent,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(3.r),
+                      topRight: Radius.circular(3.r),
+                    ),
+                  ),
                 ),
               ),
             ),

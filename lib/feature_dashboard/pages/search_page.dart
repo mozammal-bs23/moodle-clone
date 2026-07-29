@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_boilerplate/feature_dashboard/widgets/course_list_item.dart';
-import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
+import 'package:flutter_boilerplate/feature_dashboard/utils/app_colors.dart';
+import 'package:flutter_boilerplate/feature_dashboard/utils/app_constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Full-screen search results page launched from the dashboard header.

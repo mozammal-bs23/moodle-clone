@@ -1,4 +1,7 @@
-/// Application-wide constants
+/// Application-wide constants used by the dashboard feature.
+///
+/// Originally part of `core/lib/utils/constants/app_constants.dart` (outside
+/// `lib/`); relocated here to keep the dashboard feature self-contained.
 class AppConstants {
   /// App name
   static const String appName = 'Flutter Boilerplate';
@@ -47,7 +50,7 @@ class AppStrings {
       'Network error. Please check your connection';
 
   /// Timeout error message
-  static const String errorTimeout = 'Request timed out';
+  static const String errorTimeout = 'Request timeout';
 
   /// Server error message
   static const String errorServer = 'Server error. Please try again later';
@@ -111,21 +114,9 @@ class AppStrings {
 
   /// Offline status label
   static const String connectivityOffline = 'Offline';
-
-  /// Connect to Moodle screen
-  static const String connectToMoodle = 'Connect to Moodle';
-  static const String yourSite = 'Your site';
-  static const String siteHint = 'https://campus.example.edu';
-  static const String needHelp = 'Need help?';
-  static const String scanQrCode = 'Scan QR code';
-  static const String or = 'OR';
 }
 
 /// Spacing constants for consistent padding/margins
-///
-/// Values are defined in logical pixels and can be used with
-/// EdgeInsets.all(), EdgeInsets.symmetric(), etc.
-/// For responsive sizing with ScreenUtil, use .w, .h, .r extensions
 class AppSpacing {
   const AppSpacing._();
 
@@ -135,8 +126,11 @@ class AppSpacing {
   /// Small spacing (8)
   static const double sm = 8;
 
-  /// Medium spacing (16)
-  static const double md = 16;
+  /// Medium spacing (12)
+  static const double md = 12;
+
+  /// Standard spacing (16)
+  static const double std = 16;
 
   /// Large spacing (24)
   static const double lg = 24;
@@ -146,31 +140,54 @@ class AppSpacing {
 
   /// Extra extra large spacing (48)
   static const double xxl = 48;
+}
 
-  /// Custom spacing
-  static const double xxs = 5;
-  static const double mdSm = 10;
-  static const double mdLg = 12;
-  static const double xlSm = 22;
-  static const double xlMd = 34;
-  static const double xxlSm = 44;
+/// Font size constants
+class AppFontSize {
+  const AppFontSize._();
+
+  static const double xs = 10;
+  static const double sm = 12;
+  static const double md = 14;
+  static const double lg = 16;
+  static const double xl = 18;
+  static const double xxl = 20;
+  static const double h3 = 22;
+  static const double h2 = 24;
+  static const double h1 = 32;
+
+  /// Custom sizes used in UI
+  static const double tab = 15;
+  static const double label = 13;
 }
 
 /// App size constants
 class AppSize {
   const AppSize._();
 
+  /// Extra small icon size (12)
+  static const double iconXs = 12;
+
   /// Small icon size (16)
   static const double iconSm = 16;
 
+  /// Small-Medium icon size (20)
+  static const double iconSmMd = 20;
+
   /// Medium icon size (24)
   static const double iconMd = 24;
+
+  /// Medium-Large icon size (26)
+  static const double iconMdLg = 26;
 
   /// Large icon size (32)
   static const double iconLg = 32;
 
   /// Extra large icon size (48)
   static const double iconXl = 48;
+
+  /// Extra extra large size (50)
+  static const double xxl = 50;
 
   /// Small border radius (4)
   static const double radiusSm = 4;
@@ -195,39 +212,4 @@ class AppSize {
 
   /// Large elevation (8)
   static const double elevationLg = 8;
-
-  /// Font sizes
-  static const double fontXs = 12;
-  static const double fontSm = 14;
-  static const double fontMd = 16;
-  static const double fontLg = 20;
-
-  /// Layout sizes
-  static const double headerHeight = 40;
-  static const double logoHeight = 80;
-  static const double logoWidth = 550;
-
-  /// Common values
-  static const double lineHeight = 1;
-  static const double dividerThickness = .8;
-  static const double letterSpacingNone = 0;
-  static const double letterSpacingTight = -.2;
-  static const double splashRadius = 18;
-  static const double iconSettings = 25;
-  static const double iconButtonMinSize = 32;
-  static const double helpBorderRadius = 5;
-  static const double helpVerticalPadding = 2;
-
-  static const double helpFontSize = 15;
-
-  static const double helpDividerWidth = 72;
-  static const double helpDividerHeight = .5;
-  static const double helpDividerThickness = .5;
-  static const double qrButtonHeight = 42;
-  static const double qrIconSize = 22;
-  static const double qrButtonFontSize = 13;
-  static const double qrButtonLetterSpacing = 1;
-  static const double qrButtonRadius = 3;
-  static const double borderWidthNone = 0;
-  static const double horizontalPaddingNone = 0;
 }

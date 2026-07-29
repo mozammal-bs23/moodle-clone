@@ -64,6 +64,12 @@ abstract class AppRoutes {
   /// Calendar route.
   static const String calendar = '/calendar';
 
+  /// Calendar settings route.
+  static const String calendarSettings = '/calendar/settings';
+
+  /// Calendar reminder settings route.
+  static const String calendarReminderSettings = '/calendar/reminder';
+
   /// Error routes
   static const String notFound = '/not-found';
 

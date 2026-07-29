@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/feature_dashboard/pages/calendar_page.dart';
-import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
+import 'package:flutter_boilerplate/routes/app_routes.dart';
+import 'package:flutter_boilerplate/feature_dashboard/utils/app_colors.dart';
+import 'package:flutter_boilerplate/feature_dashboard/utils/app_constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 /// A card widget that displays a "Calendar" label with a chevron icon.
 class CalendarCard extends StatelessWidget {
@@ -11,11 +13,7 @@ class CalendarCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute<void>(
-          builder: (_) => const CalendarPage(),
-        ),
-      ),
+      onTap: () => context.pushNamed(AppRoutes.calendar),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: AppSpacing.std.w),
         padding: EdgeInsets.symmetric(

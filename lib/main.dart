@@ -19,10 +19,7 @@ void main() async {
 
     // 2. Initialize Dependency Injection
     await di.configureDependencies();
-    
-    // 3. Force ScreenUtil to detect physical size before build
-    await ScreenUtil.ensureScreenSize();
-    
+
     Bloc.observer = SimpleBlocObserver();
 
     runApp(const MyApp());
@@ -48,14 +45,6 @@ class MyApp extends StatelessWidget {
         // This is the key to preventing fontSize: 0 crash
         ensureScreenSize: true,
         builder: (context, child) {
-          // Double-check: if ScreenUtil somehow still reports 0, 
-          // show a standard material app with no scaling to avoid crashes.
-          if (ScreenUtil().screenWidth <= 0) {
-            return const MaterialApp(
-              home: Scaffold(body: Center(child: CircularProgressIndicator())),
-            );
-          }
-
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: FlavorConfig.instance.appName,

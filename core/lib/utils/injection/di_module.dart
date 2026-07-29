@@ -12,9 +12,10 @@ abstract class DIModule {
   @Named('baseUrl')
   String get baseUrl => FlavorConfig.instance.baseUrl;
 
-  /// Logger configuration
+  /// Dio client configuration
   @lazySingleton
   Logger get logger => Logger(
+        level: Level.debug,
         printer: PrettyPrinter(
           methodCount: 0,
           errorMethodCount: 5,
@@ -28,19 +29,17 @@ abstract class DIModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   /// Dio client configuration
+  ///
+  /// Sets a default JSON content-type so requests with a body (POST/PUT/
+  /// PATCH) are sent as `application/json` even when [ApiClient] - which
+  /// otherwise configures this same shared instance - hasn't been
+  /// instantiated yet by anything else in the dependency graph.
   @lazySingleton
   Dio get dio => Dio(
         BaseOptions(contentType: 'application/json; charset=UTF-8'),
       );
 
-  /// Default network timeouts and retries
-  @factoryMethod
-  Duration get timeout => const Duration(seconds: 30);
-  
-  @factoryMethod
-  int get maxRetries => 3;
-
-  /// Base URL for the JSONPlaceholder demo API
+  /// Base URL for the JSONPlaceholder demo API (feature_post only)
   @Named('jsonPlaceholderBaseUrl')
   String get jsonPlaceholderBaseUrl => 'https://jsonplaceholder.typicode.com';
 

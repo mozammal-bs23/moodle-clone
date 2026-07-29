@@ -5,14 +5,16 @@ allprojects {
     }
 }
 
-// Set build directory to 'build' at the project root
-rootProject.layout.buildDirectory.value(rootProject.layout.projectDirectory.dir("../build"))
+val newBuildDir: Directory =
+    rootProject.layout.buildDirectory
+        .dir("../../build")
+        .get()
+rootProject.layout.buildDirectory.value(newBuildDir)
 
 subprojects {
-    // Each subproject gets its own folder inside the root build directory
-    project.layout.buildDirectory.value(rootProject.layout.buildDirectory.dir(project.name))
+    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
+    project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
-
 subprojects {
     project.evaluationDependsOn(":app")
 }

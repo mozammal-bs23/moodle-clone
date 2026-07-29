@@ -29,7 +29,7 @@ class AuthInterceptor extends Interceptor {
   }
 
   @override
-  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     // Handle 401 Unauthorized errors
     if (err.response?.statusCode == 401) {
       if (refreshToken != null) {

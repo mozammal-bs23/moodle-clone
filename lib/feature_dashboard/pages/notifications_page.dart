@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate_core/utils/constants/constants.dart';
+import 'package:flutter_boilerplate/feature_dashboard/utils/app_colors.dart';
+import 'package:flutter_boilerplate/feature_dashboard/utils/app_constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Placeholder for the Notifications bottom-nav destination.

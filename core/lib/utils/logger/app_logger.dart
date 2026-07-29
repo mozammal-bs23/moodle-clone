@@ -1,32 +1,29 @@
 import 'dart:convert';
 import 'package:logger/logger.dart';
 
-/// Application logger configuration.
-/// Centralized logging utility for the app.
+/// Application logger configuration
+/// Centralized logging utility for the app
 class AppLogger {
-  /// Private constructor to prevent instantiation.
+  /// Private constructor to prevent instantiation
   AppLogger._();
 
-  /// Internal logger instance.
+  /// Logger instance
   static late Logger _logger;
 
-  /// Flag to enable or disable logging.
+  /// Whether logging is enabled
   static bool _isEnabled = true;
 
-  /// Initializes the logger with custom configuration.
-  ///
-  /// [level] sets the logging threshold level.
-  /// [enable] controls whether logging is active.
-  /// [customLogger] allows passing a custom [Logger] instance.
+
+  /// Initializes the logger with custom configuration
   static void init({
     Level level = Level.debug,
     bool enable = true,
     Logger? customLogger,
   }) {
     _isEnabled = enable;
-
     _logger = customLogger ??
         Logger(
+          level: level,
           printer: PrettyPrinter(
             methodCount: 0,
             errorMethodCount: 5,
@@ -36,94 +33,56 @@ class AppLogger {
         );
   }
 
-  /// Logs a trace/verbose message.
-  ///
-  /// Accepts optional [error] and [stackTrace].
-  static void t(dynamic message, [dynamic error, StackTrace? stackTrace]) {
+  /// Logs a verbose message
+  static void v(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     if (_isEnabled) {
-      _logger.v(
-        message,
-        error: error,
-        stackTrace: stackTrace,
-      );
+      _logger.v(message, error, stackTrace);
     }
   }
 
-  /// Logs a debug message.
-  ///
-  /// Accepts optional [error] and [stackTrace].
+  /// Logs a debug message
   static void d(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     if (_isEnabled) {
-      _logger.d(
-        message,
-        error: error,
-        stackTrace: stackTrace,
-      );
+      _logger.d(message, error, stackTrace);
     }
   }
 
-  /// Logs an info message.
-  ///
-  /// Accepts optional [error] and [stackTrace].
+  /// Logs an info message
   static void i(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     if (_isEnabled) {
-      _logger.i(
-        message,
-        error: error,
-        stackTrace: stackTrace,
-      );
+      _logger.i(message, error, stackTrace);
     }
   }
 
-  /// Logs a warning message.
-  ///
-  /// Accepts optional [error] and [stackTrace].
+  /// Logs a warning message
   static void w(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     if (_isEnabled) {
-      _logger.w(
-        message,
-        error: error,
-        stackTrace: stackTrace,
-      );
+      _logger.w(message, error, stackTrace);
     }
   }
 
-  /// Logs an error message.
-  ///
-  /// Accepts optional [error] and [stackTrace].
+  /// Logs an error message
   static void e(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     if (_isEnabled) {
-      _logger.e(
-        message,
-        error: error,
-        stackTrace: stackTrace,
-      );
+      _logger.e(message, error, stackTrace);
     }
   }
 
-  /// Logs a fatal/wtf message.
-  ///
-  /// Accepts optional [error] and [stackTrace].
-  static void f(dynamic message, [dynamic error, StackTrace? stackTrace]) {
+  /// Logs a wtf (What a Terrible Failure) message
+  static void wtf(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     if (_isEnabled) {
-      _logger.wtf(
-        message,
-        error: error,
-        stackTrace: stackTrace,
-      );
+      _logger.wtf(message, error, stackTrace);
     }
   }
 
-  /// Logs an object instance with an optional [name].
+  /// Logs an object
   static void logObject(Object object, {String? name}) {
     if (_isEnabled) {
       _logger.i('${name ?? 'Object'}: $object');
     }
   }
 
-  /// Logs a JSON map formatted with proper indentation.
-  ///
-  /// Accepts a [json] map and an optional header [name].
+  /// Logs a JSON object (pretty printed)
   static void logJson(Map<String, dynamic> json, {String? name}) {
     if (_isEnabled) {
       const encoder = JsonEncoder.withIndent('  ');
@@ -131,9 +90,7 @@ class AppLogger {
     }
   }
 
-  /// Logs an HTTP API request details.
-  ///
-  /// Accepts HTTP [method], target [url], optional [headers], and [body].
+  /// Logs an API request
   static void logRequest({
     required String method,
     required String url,
@@ -144,18 +101,14 @@ class AppLogger {
       final buffer = StringBuffer()
         ..writeln('→ $method $url')
         ..writeln('Headers: $headers');
-
       if (body != null) {
         buffer.writeln('Body: $body');
       }
-
       _logger.d(buffer.toString());
     }
   }
 
-  /// Logs an HTTP API response details.
-  ///
-  /// Accepts [statusCode], target [url], and response [data].
+  /// Logs an API response
   static void logResponse({
     required int statusCode,
     required String url,
@@ -166,17 +119,17 @@ class AppLogger {
     }
   }
 
-  /// Disables all output logging.
+  /// Disables logging
   static void disable() {
     _isEnabled = false;
   }
 
-  /// Enables output logging.
+  /// Enables logging
   static void enable() {
     _isEnabled = true;
   }
 
-  /// Toggles the output logging state.
+  /// Toggles logging
   static void toggle() {
     _isEnabled = !_isEnabled;
   }

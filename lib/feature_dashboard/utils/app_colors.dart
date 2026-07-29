@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-/// Application-wide color constants
+/// Application-wide color constants used by the dashboard feature.
+///
+/// These were originally defined in `core/lib/utils/constants/app_colors.dart`
+/// (a file outside `lib/`), but were moved here to keep the dashboard feature
+/// self-contained and avoid coupling the dashboard to the `core` package.
 class AppColors {
   AppColors._();
 
@@ -14,7 +18,7 @@ class AppColors {
   static const Color black = Colors.black;
   static const Color black87 = Colors.black87;
   static const Color black54 = Colors.black54;
-  
+
   /// Grey shades
   static const Color grey50 = Color(0xFFFAFAFA);
   static const Color grey100 = Color(0xFFF5F5F5);
@@ -34,7 +38,7 @@ class AppColors {
   static const Color border = Color(0xFFBDBDBD);
   static const Color background = Color(0xFFF2F2F2);
   static const Color surface = Colors.white;
-  
+
   /// Overlay and shadows
   static const Color barrier = Colors.black54;
   static const Color shadow = Colors.black12;
