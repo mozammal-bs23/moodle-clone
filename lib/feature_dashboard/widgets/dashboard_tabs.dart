@@ -67,13 +67,16 @@ class _TabItem extends StatelessWidget {
                 ),
               ),
             ),
+            // Underline is ~60% of tab width and centered, matching the design
+            // where the orange indicator sits under the tab label rather than
+            // stretching the full tab width.
             SizedBox(
               height: 3.h,
               width: double.infinity,
-              child: Center(
+              child: FractionallySizedBox(
+                widthFactor: 0.6,
                 child: Container(
                   height: 3.h,
-                  width: 140.w,
                   decoration: BoxDecoration(
                     color:
                         isActive ? AppColors.moodleOrange : Colors.transparent,
