@@ -122,10 +122,15 @@ class TimelineCard extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.timelineSearch != current.timelineSearch,
       builder: (context, state) {
-        return SizedBox(
+        return Container(
           height: 44.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+            border: Border.all(color: AppColors.black87, width: 1),
+          ),
           child: Row(
             children: [
+              SizedBox(width: AppSpacing.md.w),
               Expanded(
                 child: TextField(
                   onChanged: cubit.changeTimelineSearch,
@@ -148,7 +153,7 @@ class TimelineCard extends StatelessWidget {
               ),
               Icon(
                 Icons.search,
-                color: AppColors.grey600,
+                color: AppColors.grey800,
                 size: safeSp(AppSize.iconMd - 2),
               ),
               if (state.timelineSearch.isNotEmpty) ...[
@@ -158,8 +163,8 @@ class TimelineCard extends StatelessWidget {
                   onTap: () => cubit.changeTimelineSearch(''),
                   child: Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: AppSpacing.sm.w,
-                      vertical: AppSpacing.xs.h,
+                      horizontal: AppSpacing.xs.w,
+                      vertical: 2.h,
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.grey200,
@@ -168,13 +173,13 @@ class TimelineCard extends StatelessWidget {
                     ),
                     child: Icon(
                       Icons.close_rounded,
-                      color: AppColors.grey700,
+                      color: AppColors.grey800,
                       size: safeSp(AppFontSize.md),
                     ),
                   ),
                 ),
               ],
-              SizedBox(width: AppSpacing.xs.w),
+              SizedBox(width: AppSpacing.md.w),
             ],
           ),
         );
@@ -262,12 +267,13 @@ class TimelineCard extends StatelessWidget {
                 ],
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: AppSpacing.std.w,
+                    horizontal: AppSpacing.md.w,
                     vertical: 8.h,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.grey100,
-                    borderRadius: BorderRadius.circular(AppSize.radiusLg.r),
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+                    border: Border.all(color: AppColors.black87, width: 1),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -275,16 +281,16 @@ class TimelineCard extends StatelessWidget {
                       Text(
                         state.timelineFilterType.label,
                         style: TextStyle(
-                          color: AppColors.black87,
+                          color: AppColors.black,
                           fontSize: safeSp(AppFontSize.md),
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       SizedBox(width: AppSpacing.xs.w),
                       Icon(
                         Icons.expand_more_rounded,
                         size: safeSp(20),
-                        color: AppColors.grey800,
+                        color: AppColors.black87,
                       ),
                     ],
                   ),
@@ -333,12 +339,13 @@ class TimelineCard extends StatelessWidget {
                   height: 44.h,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: AppColors.grey100,
+                    color: AppColors.white,
                     borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+                    border: Border.all(color: AppColors.black87, width: 1),
                   ),
                   child: Icon(
                     Icons.sort_rounded,
-                    color: AppColors.grey800,
+                    color: AppColors.black87,
                     size: safeSp(AppSize.iconSmMd),
                   ),
                 ),
@@ -366,7 +373,7 @@ class TimelineCard extends StatelessWidget {
     final icon =
         isList ? Icons.grid_view_rounded : Icons.view_list_rounded;
     return Material(
-      color: AppColors.grey100,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
       child: InkWell(
         onTap: () => cubit.changeTimelineViewMode(
@@ -377,9 +384,14 @@ class TimelineCard extends StatelessWidget {
           width: 44.w,
           height: 44.h,
           alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
+            border: Border.all(color: AppColors.black87, width: 1),
+          ),
           child: Icon(
             icon,
-            color: AppColors.grey800,
+            color: AppColors.black87,
             size: safeSp(AppSize.iconSmMd),
           ),
         ),
