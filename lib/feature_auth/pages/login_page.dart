@@ -4,6 +4,7 @@ import 'package:flutter_boilerplate/feature_auth/cubit/login_cubit.dart';
 import 'package:flutter_boilerplate/feature_auth/widgets/login_form.dart';
 import 'package:flutter_boilerplate/feature_auth/widgets/login_header.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
+import 'package:flutter_boilerplate/src/injection/di.dart' as di;
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +17,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(),
+      // Resolve the cubit from the service locator so its constructor
+      // dependencies (LoginUseCase) are satisfied via the manual DI wiring
+      // in `lib/src/injection/di.dart`.
+      create: (_) => di.getIt<LoginCubit>(),
       child: const _LoginPageScaffold(),
     );
   }
