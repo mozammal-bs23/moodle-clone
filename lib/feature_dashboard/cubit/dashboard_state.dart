@@ -6,6 +6,9 @@ enum DashboardStatus { initial, loading, loaded, error }
 /// Sort type for the Timeline card.
 enum TimelineSortType { dates, courses }
 
+/// Visual layout for the Timeline card activity list.
+enum TimelineViewMode { list, grid }
+
 /// Predefined Timeline filters with display labels.
 enum TimelineFilterType {
   all('All'),
@@ -35,6 +38,7 @@ class DashboardState extends Equatable {
     this.timelineSearch = '',
     this.availableCoursesSearch = '',
     this.onlyMyCourses = false,
+    this.timelineViewMode = TimelineViewMode.list,
   });
 
   /// Index of the active Dashboard / Site-home sub-tab.
@@ -73,6 +77,9 @@ class DashboardState extends Equatable {
   /// Whether the Available Courses list is filtered to enrolled courses.
   final bool onlyMyCourses;
 
+  /// Active layout for the Timeline card activity list (list vs grid).
+  final TimelineViewMode timelineViewMode;
+
   TimelineActivityEntity? get firstTimelineActivity {
     if (timelineActivities.isEmpty) return null;
     return timelineActivities.first;
@@ -92,6 +99,7 @@ class DashboardState extends Equatable {
         timelineSearch,
         availableCoursesSearch,
         onlyMyCourses,
+        timelineViewMode,
       ];
 
   DashboardState copyWith({
@@ -107,6 +115,7 @@ class DashboardState extends Equatable {
     String? timelineSearch,
     String? availableCoursesSearch,
     bool? onlyMyCourses,
+    TimelineViewMode? timelineViewMode,
   }) {
     return DashboardState(
       selectedTabIndex: selectedTabIndex ?? this.selectedTabIndex,
@@ -122,6 +131,7 @@ class DashboardState extends Equatable {
       availableCoursesSearch:
           availableCoursesSearch ?? this.availableCoursesSearch,
       onlyMyCourses: onlyMyCourses ?? this.onlyMyCourses,
+      timelineViewMode: timelineViewMode ?? this.timelineViewMode,
     );
   }
 }

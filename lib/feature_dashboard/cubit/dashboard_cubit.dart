@@ -249,6 +249,11 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(state.copyWith(timelineFilterType: filterType));
   }
 
+  /// Switches the timeline activity list between list and grid layouts.
+  void changeTimelineViewMode(TimelineViewMode mode) {
+    emit(state.copyWith(timelineViewMode: mode));
+  }
+
   /// Updates the timeline search text.
   void changeTimelineSearch(String value) {
     emit(state.copyWith(timelineSearch: value));
