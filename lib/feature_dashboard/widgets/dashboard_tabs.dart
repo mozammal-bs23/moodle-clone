@@ -51,41 +51,54 @@ class _TabItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = TextStyle(
+      fontSize: AppFontSize.tab.sp,
+      fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+      color: isActive ? AppColors.black87 : AppColors.grey700,
+    );
     return Expanded(
       child: InkWell(
         onTap: onTap,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 14.h),
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: AppFontSize.tab.sp,
-                  fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-                  color: isActive ? AppColors.black87 : AppColors.grey700,
-                ),
-              ),
-            ),
-            // Underline is ~60% of tab width and centered, matching the design
-            // where the orange indicator sits under the tab label rather than
-            // stretching the full tab width.
-            SizedBox(
-              height: 3.h,
-              width: double.infinity,
-              child: FractionallySizedBox(
-                widthFactor: 0.6,
-                child: Container(
-                  height: 3.h,
-                  decoration: BoxDecoration(
-                    color:
-                        isActive ? AppColors.moodleOrange : Colors.transparent,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(3.r),
-                      topRight: Radius.circular(3.r),
+            // Wrap text + underline together so the underline widths itself
+            // to the text. IntrinsicWidth inside Expanded is fine: it sizes
+            // the inner Column to the text's intrinsic width, and the
+            // Expanded lets the outer InkWell still fill the tab cell.
+            IntrinsicWidth(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    child: Text(title, style: textStyle),
+                  ),
+                  // Underline at ~60% of the text width, centered. This
+                  // matches the design where "Dashboard" gets a short bar
+                  // and "Site home" gets a longer one (both ~60% of their
+                  // label widths).
+                  SizedBox(
+                    height: 3.h,
+                    child: FractionallySizedBox(
+                      widthFactor: 0.6,
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 3.h,
+                        decoration: BoxDecoration(
+                          color: isActive
+                              ? AppColors.moodleOrange
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(3.r),
+                            topRight: Radius.circular(3.r),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ],
