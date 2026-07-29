@@ -247,7 +247,7 @@ class TimelineCard extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: AppSpacing.std.w,
-                    vertical: AppSpacing.xs.h,
+                    vertical: 8.h,
                   ),
                   decoration: BoxDecoration(
                     color: AppColors.grey100,
@@ -275,9 +275,9 @@ class TimelineCard extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(width: AppSpacing.sm.w),
+            _buildViewModeButton(context, state, safeSp),
             const Spacer(),
-            _buildViewModeToggle(context, state, safeSp),
-            SizedBox(width: AppSpacing.xs.w),
             Theme(
               data: Theme.of(context).copyWith(
                 hoverColor: Colors.transparent,
@@ -330,65 +330,38 @@ class TimelineCard extends StatelessWidget {
     );
   }
 
-  Widget _buildViewModeToggle(
+  /// Static icon button that toggles the timeline between list and grid
+  /// layouts. The icon shows the *destination* view, so when the timeline
+  /// is in list mode the icon is the grid glyph (tap to switch to grid),
+  /// and vice versa.
+  Widget _buildViewModeButton(
     BuildContext context,
     DashboardState state,
     double Function(double) safeSp,
   ) {
     final cubit = context.read<DashboardCubit>();
     final isList = state.timelineViewMode == TimelineViewMode.list;
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.grey100,
-        borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildViewModeButton(
-            context: context,
-            icon: Icons.view_list_rounded,
-            isSelected: isList,
-            onTap: () => cubit.changeTimelineViewMode(TimelineViewMode.list),
-            safeSp: safeSp,
-          ),
-          _buildViewModeButton(
-            context: context,
-            icon: Icons.grid_view_rounded,
-            isSelected: !isList,
-            onTap: () => cubit.changeTimelineViewMode(TimelineViewMode.grid),
-            safeSp: safeSp,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildViewModeButton({
-    required BuildContext context,
-    required IconData icon,
-    required bool isSelected,
-    required VoidCallback onTap,
-    required double Function(double) safeSp,
-  }) {
+    final icon =
+        isList ? Icons.grid_view_rounded : Icons.view_list_rounded;
     return Material(
-      color: isSelected
-          ? AppColors.moodleOrange.withValues(alpha: 0.12)
-          : Colors.transparent,
-      borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+      color: AppColors.grey100,
+      borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
       child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
+        onTap: () => cubit.changeTimelineViewMode(
+          isList ? TimelineViewMode.grid : TimelineViewMode.list,
+        ),
+        borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
         child: Container(
           constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
           padding: EdgeInsets.symmetric(
             horizontal: AppSpacing.sm.w,
             vertical: AppSpacing.xs.h,
           ),
+          alignment: Alignment.center,
           child: Icon(
             icon,
+            color: AppColors.grey800,
             size: safeSp(AppSize.iconSmMd),
-            color: isSelected ? AppColors.moodleOrange : AppColors.grey600,
           ),
         ),
       ),
@@ -485,18 +458,14 @@ class TimelineCard extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 2.h),
-              Builder(
-                builder: (context) {
-                  final days =
-                      activity.dueDate.difference(DateTime.now()).inDays.abs();
-                  return Text(
-                    '${activity.type} • due in $days days',
-                    style: TextStyle(
-                      fontSize: safeSp(AppFontSize.sm),
-                      color: AppColors.grey600,
-                    ),
-                  );
-                },
+              Text(
+                '${activity.type} • due in '
+                '${activity.dueDate.difference(DateTime.now()).inDays.abs()} '
+                'days',
+                style: TextStyle(
+                  fontSize: safeSp(AppFontSize.sm),
+                  color: AppColors.grey600,
+                ),
               ),
             ],
           ),
