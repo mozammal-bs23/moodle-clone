@@ -51,4 +51,15 @@ class AppColors {
   static const Color infoBannerBlue = Color(0xFFE3F2FD);
   static const Color infoBannerIcon = Color(0xFF0D47A1);
   static const Color infoBannerText = Color(0xFF0D47A1);
+
+  /// Darker shade of [moodleOrange] used for the active bottom-nav indicator
+  /// and selected popover rows so the highlight reads as a distinct accent.
+  static const Color moodleOrangeDark = Color(0xFFE76F00);
+
+  /// Soft peach used for selected popover rows / pill backgrounds.
+  static const Color peachBackground = Color(0xFFFAD7B2);
+
+  /// Lavender placeholder used for course thumbnails when no imageUrl is set.
+  /// Matches the Moodle Mobile reference design.
+  static const Color courseThumbLavender = Color(0xFFC5CAE9);
 }

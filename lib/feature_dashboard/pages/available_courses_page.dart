@@ -230,6 +230,8 @@ class AvailableCoursesPage extends StatelessWidget {
           value: state.onlyMyCourses,
           onChanged: cubit.toggleOnlyMyCourses,
           activeThumbColor: AppColors.moodleOrange,
+          activeTrackColor:
+              AppColors.moodleOrange.withValues(alpha: 0.5),
         ),
       ],
     );

@@ -113,16 +113,23 @@ class CourseListItem extends StatelessWidget {
                 ),
               ),
             ),
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
+            InkResponse(
               onTap:
                   onToggleLock == null ? null : () => onToggleLock!(course.id),
-              child: Padding(
-                padding: EdgeInsets.only(left: AppSpacing.xs.w, top: 2.h),
-                child: Icon(
-                  course.isLocked ? Icons.lock_rounded : Icons.lock_open_rounded,
-                  size: safeSp(AppSize.iconSmMd),
-                  color: course.isLocked ? AppColors.grey700 : AppColors.grey400,
+              radius: 22,
+              child: SizedBox(
+                width: 44.w,
+                height: 44.h,
+                child: Center(
+                  child: Icon(
+                    course.isLocked
+                        ? Icons.lock_rounded
+                        : Icons.lock_open_rounded,
+                    size: safeSp(AppSize.iconSmMd),
+                    color: course.isLocked
+                        ? AppColors.grey700
+                        : AppColors.grey400,
+                  ),
                 ),
               ),
             ),
