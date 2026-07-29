@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
-import 'package:flutter_boilerplate/feature_reconnect/pages/reconnect_page.dart';
+import 'package:flutter_boilerplate/feature_set_base_url/pages/set_base_url_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
 import 'package:go_router/go_router.dart';
 
-/// GoRouter configuration for the application
-///
-/// Handles routing, navigation guards, deep linking, and error handling
 class AppRouter {
   /// Private constructor
   AppRouter._();
@@ -21,7 +17,7 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: '/reconnect',
+      initialLocation: '/',
       debugLogDiagnostics: true,
 
       // Route observers for analytics and logging
@@ -32,20 +28,10 @@ class AppRouter {
           _buildErrorPage(context, state.error, state.uri.toString()),
 
       routes: <GoRoute>[
-        // Reconnect Page Route
         GoRoute(
-          path: '/reconnect',
-          name: 'reconnect',
+          path: '/',
           pageBuilder: (context, state) =>
-          const NoTransitionPage(child: ReconnectPage()),
-        ),
-
-        // Posts Routes (JSONPlaceholder CRUD demo)
-        GoRoute(
-          path: AppRoutes.posts,
-          name: AppRoutes.posts,
-          pageBuilder: (context, state) =>
-          const NoTransitionPage(child: PostsPage()),
+              const NoTransitionPage(child: SetBaseUrlPage()),
         ),
       ],
     );
@@ -53,10 +39,10 @@ class AppRouter {
 
   /// Build error page for routing errors
   static Widget _buildErrorPage(
-      BuildContext context,
-      Exception? error,
-      String location,
-      ) {
+    BuildContext context,
+    Exception? error,
+    String location,
+  ) {
     return Scaffold(
       appBar: AppBar(title: const Text('Error')),
       body: Center(
@@ -70,7 +56,7 @@ class AppRouter {
             ],
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () => context.go('/reconnect'),
+              onPressed: () => context.go(AppRoutes.posts),
               child: const Text('Go Home'),
             ),
           ],

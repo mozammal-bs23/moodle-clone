@@ -112,35 +112,13 @@ class AppStrings {
   /// Offline status label
   static const String connectivityOffline = 'Offline';
 
-  /// Reconnect screen
-  static const String lostPassword = 'Lost password?';
-
-  /// Login
-  static const String login = 'Log in';
-
-  /// Password field
-  static const String password = 'Password';
-
-  /// Reconnect title
-  static const String reconnect = 'Reconnect';
-
-  /// Reconnect site name
-  static const String siteName = 'eLearning23';
-
-  /// Reconnect site URL
-  static const String siteUrl = 'https://lmsmobile.ahnafmuttaki.com';
-
-  /// OR label
-  static const String or = 'Or';
-
-  /// QR button label
+  /// Connect to Moodle screen
+  static const String connectToMoodle = 'Connect to Moodle';
+  static const String yourSite = 'Your site';
+  static const String siteHint = 'https://campus.example.edu';
+  static const String needHelp = 'Need help?';
   static const String scanQrCode = 'Scan QR code';
-
-  /// User initials
-  static const String userInitials = 'SU';
-
-  /// User name
-  static const String userName = 'Student User';
+  static const String or = 'OR';
 }
 
 /// Spacing constants for consistent padding/margins
@@ -169,24 +147,13 @@ class AppSpacing {
   /// Extra extra large spacing (48)
   static const double xxl = 48;
 
-  /// Custom spacing (20)
-  static const double mdLg = 20;
-
-  /// Custom spacing (28)
-  static const double lgMd = 28;
-
-  /// Custom spacing (30)
-  static const double lgXs = 30;
-
-  /// Custom spacing (36)
-  static const double xlSm = 36;
-  static const double xxs = 1.5;
-
-  /// Tiny spacing (0.2)
-  static const double tiny = 0.2;
-
-  /// Medium-small spacing (10)
+  /// Custom spacing
+  static const double xxs = 5;
   static const double mdSm = 10;
+  static const double mdLg = 12;
+  static const double xlSm = 22;
+  static const double xlMd = 34;
+  static const double xxlSm = 44;
 }
 
 /// App size constants
@@ -229,72 +196,38 @@ class AppSize {
   /// Large elevation (8)
   static const double elevationLg = 8;
 
-  /// Tiny border radius (2)
-  static const double radiusXs = 2;
+  /// Font sizes
+  static const double fontXs = 12;
+  static const double fontSm = 14;
+  static const double fontMd = 16;
+  static const double fontLg = 20;
 
-  /// Forgot password underline width (98)
-  static const double forgotPasswordUnderlineWidth = 98;
+  /// Layout sizes
+  static const double headerHeight = 40;
+  static const double logoHeight = 80;
+  static const double logoWidth = 550;
 
-  /// Divider thickness (1)
-  static const double dividerThickness = 1;
-
-  /// Body text size (16)
-  static const double textMd = 16;
-
-  /// Login button height (44)
-  static const double buttonHeight = 44;
-
-  /// Small text size (15)
-  static const double textSm = 15;
-
-  /// Small letter spacing (1)
-  static const double letterSpacingSm = 1;
-
-  /// No elevation
-  static const double elevationNone = 0;
-
-  /// Password field minimum suffix icon size (36)
-  static const double suffixIconMinSize = 36;
-
-  /// Icon splash radius (18)
-  static const double iconSplashRadius = 18;
-
-  /// Password underline width
-  static const double passwordUnderlineWidth = 0.7;
-
-  /// Password focused underline width
-  static const double passwordFocusedUnderlineWidth = 1.1;
-
-  /// Header height (48)
-  static const double headerHeight = 48;
-
-  /// Header icon button size (32)
-  static const double headerIconButtonSize = 32;
-
-  /// Header icon size (22)
-  static const double headerIconSize = 22;
-
-  /// Header title font size (20)
-  static const double headerTitleSize = 20;
-
-  /// Header title letter spacing (-0.2)
-  static const double headerLetterSpacing = -0.2;
-
-  /// Logo title font size (19)
-  static const double logoTitleSize = 19;
-
-  /// No letter spacing
+  /// Common values
+  static const double lineHeight = 1;
+  static const double dividerThickness = .8;
   static const double letterSpacingNone = 0;
+  static const double letterSpacingTight = -.2;
+  static const double splashRadius = 18;
+  static const double iconSettings = 25;
+  static const double iconButtonMinSize = 32;
+  static const double helpBorderRadius = 5;
+  static const double helpVerticalPadding = 2;
 
-  /// Small text size (14)
-  static const double textXs = 14;
+  static const double helpFontSize = 15;
 
-  /// Standard border width (1)
-  static const double borderWidth = 1;
-
-  /// Avatar size (78)
-  static const double avatarSize = 78;
-
-  /// Avatar initials font size (24)
-  static const double avatarInitialSize = 24;
+  static const double helpDividerWidth = 72;
+  static const double helpDividerHeight = .5;
+  static const double helpDividerThickness = .5;
+  static const double qrButtonHeight = 42;
+  static const double qrIconSize = 22;
+  static const double qrButtonFontSize = 13;
+  static const double qrButtonLetterSpacing = 1;
+  static const double qrButtonRadius = 3;
+  static const double borderWidthNone = 0;
+  static const double horizontalPaddingNone = 0;
 }
