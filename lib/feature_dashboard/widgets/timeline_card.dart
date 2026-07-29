@@ -57,7 +57,7 @@ class TimelineCard extends StatelessWidget {
                     crossAxisCount: 2,
                     mainAxisSpacing: AppSpacing.md,
                     crossAxisSpacing: AppSpacing.md,
-                    childAspectRatio: 1.4,
+                    childAspectRatio: 1.05,
                   ),
                   itemCount: visible.length,
                   itemBuilder: (context, index) {
@@ -122,15 +122,10 @@ class TimelineCard extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.timelineSearch != current.timelineSearch,
       builder: (context, state) {
-        return Container(
+        return SizedBox(
           height: 44.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
-            border: Border.all(color: AppColors.border),
-          ),
           child: Row(
             children: [
-              SizedBox(width: AppSpacing.md.w),
               Expanded(
                 child: TextField(
                   onChanged: cubit.changeTimelineSearch,
@@ -142,7 +137,12 @@ class TimelineCard extends StatelessWidget {
                       fontSize: safeSp(AppFontSize.md),
                     ),
                     border: InputBorder.none,
-                    isDense: true,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    isCollapsed: true,
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: AppSpacing.md.h,
+                    ),
                   ),
                 ),
               ),
@@ -151,21 +151,30 @@ class TimelineCard extends StatelessWidget {
                 color: AppColors.grey600,
                 size: safeSp(AppSize.iconMd - 2),
               ),
-              if (state.timelineSearch.isNotEmpty)
+              if (state.timelineSearch.isNotEmpty) ...[
+                SizedBox(width: AppSpacing.sm.w),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => cubit.changeTimelineSearch(''),
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: AppSpacing.sm.w),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm.w,
+                      vertical: AppSpacing.xs.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.grey200,
+                      borderRadius:
+                          BorderRadius.circular(AppSize.radiusSm.r),
+                    ),
                     child: Icon(
-                      Icons.backspace_outlined,
-                      color: AppColors.grey600,
-                      size: safeSp(AppFontSize.xl),
+                      Icons.close_rounded,
+                      color: AppColors.grey700,
+                      size: safeSp(AppFontSize.md),
                     ),
                   ),
                 ),
-              SizedBox(width: AppSpacing.md.w),
+              ],
+              SizedBox(width: AppSpacing.xs.w),
             ],
           ),
         );
@@ -275,8 +284,6 @@ class TimelineCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: AppSpacing.sm.w),
-            _buildViewModeButton(context, state, safeSp),
             const Spacer(),
             Theme(
               data: Theme.of(context).copyWith(
@@ -324,6 +331,8 @@ class TimelineCard extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(width: AppSpacing.sm.w),
+            _buildViewModeButton(context, state, safeSp),
           ],
         );
       },

@@ -32,7 +32,7 @@ class TimelineActivityGridCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
         child: Container(
-          padding: EdgeInsets.all(AppSpacing.md.w),
+          padding: EdgeInsets.all(AppSpacing.sm.w),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
             border: Border.all(color: AppColors.divider),
@@ -42,55 +42,39 @@ class TimelineActivityGridCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 36.w,
-                height: 36.w,
+                width: 32.w,
+                height: 32.w,
                 decoration: BoxDecoration(
                   color: AppColors.moodleLightOrange,
                   borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
                 ),
                 child: Icon(
                   _iconForActivityType(activity.type),
-                  size: safeSp(AppSize.iconMd),
+                  size: safeSp(AppSize.iconSmMd),
                   color: AppColors.moodleOrange,
                 ),
               ),
-              SizedBox(height: AppSpacing.sm.h),
+              SizedBox(height: AppSpacing.xs.h),
               Text(
                 activity.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: safeSp(AppFontSize.md),
+                  fontSize: safeSp(AppFontSize.sm),
                   fontWeight: FontWeight.w500,
                   color: AppColors.black87,
-                  height: 1.25,
+                  height: 1.2,
                 ),
               ),
-              SizedBox(height: AppSpacing.xs.h),
+              const Spacer(),
               Text(
-                activity.type,
+                _subtitle(activity),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: safeSp(AppFontSize.sm),
                   color: AppColors.grey600,
                 ),
-              ),
-              SizedBox(height: 2.h),
-              Builder(
-                builder: (context) {
-                  final days =
-                      activity.dueDate.difference(DateTime.now()).inDays.abs();
-                  return Text(
-                    'due in $days day${days == 1 ? '' : 's'}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: safeSp(AppFontSize.sm),
-                      color: AppColors.grey600,
-                    ),
-                  );
-                },
               ),
             ],
           ),
@@ -110,5 +94,10 @@ class TimelineActivityGridCard extends StatelessWidget {
       default:
         return Icons.assignment_outlined;
     }
+  }
+
+  String _subtitle(TimelineActivityEntity a) {
+    final days = a.dueDate.difference(DateTime.now()).inDays.abs();
+    return '${a.type} \u2022 due in $days day${days == 1 ? '' : 's'}';
   }
 }
