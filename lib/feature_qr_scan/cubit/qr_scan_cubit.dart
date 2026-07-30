@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -35,6 +37,10 @@ class QrScanCubit extends Cubit<QrScanState> {
   /// Called from the page once mounted. Requests camera permission and
   /// transitions the state into either [QrScanStatus.scanning] or
   /// [QrScanStatus.permissionDenied] / [QrScanStatus.cameraError].
+  ///
+  /// Wraps [controller.start] in a timeout so a hung camera daemon does
+  /// not leave the user staring at a blank screen — it falls through to
+  /// [QrScanStatus.cameraError] where a retry button is offered.
   Future<void> initialize() async {
     final status = await Permission.camera.request();
     if (status.isPermanentlyDenied) {
@@ -46,7 +52,12 @@ class QrScanCubit extends Cubit<QrScanState> {
       return;
     }
     try {
-      await controller.start();
+      await controller.start().timeout(
+            const Duration(seconds: 8),
+            onTimeout: () => throw TimeoutException(
+              'Camera failed to start within 8 seconds',
+            ),
+          );
       emit(state.copyWith(status: QrScanStatus.scanning));
     } catch (_) {
       emit(state.copyWith(status: QrScanStatus.cameraError));
