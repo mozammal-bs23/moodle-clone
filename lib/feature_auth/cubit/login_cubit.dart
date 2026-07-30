@@ -31,7 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
     required String password,
   }) async {
     if (username.isEmpty || password.isEmpty) {
-      emit(const LoginError(message: loginEmptyCredentialsMessage));
+      _emitValidationError(loginEmptyCredentialsMessage);
       return;
     }
 
@@ -47,6 +47,18 @@ class LoginCubit extends Cubit<LoginState> {
 
     await _persistToken(token);
     emit(const LoginSuccess());
+  }
+
+  /// Emits a [LoginError] for client-side validation failures.
+  ///
+  /// Resets to [LoginInitial] first so each empty-attempt is a real state
+  /// change. Without the reset, two consecutive empty submissions would
+  /// emit the same `LoginError` value back-to-back, and bloc would
+  /// deduplicate the second one — the SnackBar in `LoginPageScaffold`
+  /// would only fire on the first tap.
+  void _emitValidationError(String message) {
+    emit(const LoginInitial());
+    emit(LoginError(message: message));
   }
 
   /// Persists the obtained token (if any) under [AppConstants.tokenKey].
