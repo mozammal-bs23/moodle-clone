@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
+/// URL field for "Your site" on the Set Base URL page.
+///
+/// Holds its own focus tracking but receives an externally-owned
+/// [TextEditingController] from the page so the parent can fill it with
+/// the value returned by the QR scanner.
 class SiteInfo extends StatefulWidget {
-  const SiteInfo({super.key});
+  const SiteInfo({super.key, required this.controller});
+
+  final TextEditingController controller;
 
   @override
   State<SiteInfo> createState() => _SiteInfoState();
@@ -10,7 +17,6 @@ class SiteInfo extends StatefulWidget {
 
 class _SiteInfoState extends State<SiteInfo> {
   final FocusNode _focusNode = FocusNode();
-  final TextEditingController _controller = TextEditingController();
 
   bool _isFocused = false;
 
@@ -28,7 +34,6 @@ class _SiteInfoState extends State<SiteInfo> {
   @override
   void dispose() {
     _focusNode.dispose();
-    _controller.dispose();
     super.dispose();
   }
 
@@ -53,7 +58,7 @@ class _SiteInfoState extends State<SiteInfo> {
           enableSuggestions: false,
           autocorrect: false,
           selectionControls: null,
-          controller: _controller,
+          controller: widget.controller,
           focusNode: _focusNode,
           cursorColor: const Color(0xFFFF0000),
           style: const TextStyle(

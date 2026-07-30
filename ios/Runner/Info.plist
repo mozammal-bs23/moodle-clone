@@ -18,6 +18,8 @@
 	<string>flutter_boilerplate</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app uses the camera to scan QR codes that connect you to your Moodle site.</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

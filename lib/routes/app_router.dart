@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_qr_scan/pages/qr_scan_page.dart';
 import 'package:flutter_boilerplate/feature_set_base_url/pages/set_base_url_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
@@ -32,6 +33,13 @@ class AppRouter {
           path: '/',
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: SetBaseUrlPage()),
+        ),
+        GoRoute(
+          path: AppRoutes.qrScan,
+          pageBuilder: (context, state) => const MaterialPage(
+            fullscreenDialog: true,
+            child: QrScanPage(),
+          ),
         ),
       ],
     );

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_core/utils/constants/app_constants.dart';
 
+/// Outlined button that opens the QR scanner. Lives on the Set Base URL
+/// page and pushes [QrScanPage] when tapped.
 class QrScanButton extends StatelessWidget {
-  const QrScanButton({super.key});
+  const QrScanButton({super.key, required this.onPressed});
+
+  /// Called when the user taps the button.
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +15,7 @@ class QrScanButton extends StatelessWidget {
       width: double.infinity,
       height: AppSize.qrButtonHeight,
       child: OutlinedButton.icon(
-        onPressed: () {},
+        onPressed: onPressed,
         icon: const Icon(
           Icons.qr_code_2,
           size: AppSize.qrIconSize,

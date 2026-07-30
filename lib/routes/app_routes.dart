@@ -33,4 +33,7 @@ abstract class AppRoutes {
 
   /// Server error route
   static const String serverError = '/server-error';
+
+  /// QR code scanner route (pushed from the Set Base URL page).
+  static const String qrScan = '/qr-scan';
 }
