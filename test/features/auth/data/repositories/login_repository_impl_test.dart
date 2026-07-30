@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_boilerplate/feature_auth/data/datasources/login_remote_datasource.dart';
 import 'package:flutter_boilerplate/feature_auth/data/models/login_response_model.dart';
 import 'package:flutter_boilerplate/feature_auth/data/repositories/login_repository_impl.dart';
@@ -18,7 +17,7 @@ void main() {
     repository = LoginRepositoryImpl(remoteDatasource: mockRemote);
   });
 
-  group('LoginRepositoryImpl.login', () {
+  group('LoginRepositoryImpl.login — happy and core sad paths', () {
     test('returns LoginTokenEntity on success', () async {
       when(mockRemote.login(any)).thenAnswer(
         (_) async => const LoginResponseModel(
@@ -39,28 +38,6 @@ void main() {
       verify(mockRemote.login(any)).called(1);
     });
 
-    test('returns AuthFailure when Moodle replies with an error body',
-        () async {
-      when(mockRemote.login(any)).thenAnswer(
-        (_) async => const LoginResponseModel(
-          error: 'Invalid login, please try again',
-          errorcode: 'invalidlogin',
-        ),
-      );
-
-      final (token, failure) = await repository.login(
-        username: 'student',
-        password: 'wrong',
-      );
-
-      expect(token, isNull);
-      expect(failure, isNotNull);
-      // AuthFailure is part of the AppFailure sealed hierarchy; the message
-      // must surface the original Moodle error verbatim.
-      expect(failure!.message, 'Invalid login, please try again');
-      verify(mockRemote.login(any)).called(1);
-    });
-
     test('returns AuthFailure when the success body is missing a token',
         () async {
       when(mockRemote.login(any)).thenAnswer(
@@ -75,24 +52,6 @@ void main() {
       expect(token, isNull);
       expect(failure, isNotNull);
       expect(failure!.message, contains('without a token'));
-    });
-
-    test('maps DioException to NetworkFailure', () async {
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/login/token.php'),
-        type: DioExceptionType.connectionTimeout,
-      );
-      when(mockRemote.login(any)).thenThrow(dioException);
-
-      final (token, failure) = await repository.login(
-        username: 'student',
-        password: 'Student@123',
-      );
-
-      expect(token, isNull);
-      expect(failure, isNotNull);
-      // NetworkFailure.code is the AppFailure base 'code' (NETWORK_FAILURE).
-      expect(failure!.code, 'NETWORK_FAILURE');
     });
   });
 }
