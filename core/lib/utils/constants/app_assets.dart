@@ -15,5 +15,7 @@ class AppAssets {
   /// Moodle logo for splash screen
   static const String moodleSplashLogo = '$imagesPath/moodle_splash_logo.png';
 
+  static const String moodleLogo = '$imagesPath/moodle_logo.png';
+
   // Icons
 }

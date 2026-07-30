@@ -85,16 +85,22 @@ class AppStrings {
   /// Generic labels
   /// Loading label
   static const String labelLoading = 'Loading...';
+
   /// Error label
   static const String labelError = 'Error';
+
   /// Retry label
   static const String labelRetry = 'Retry';
+
   /// Try Again label
   static const String labelTryAgain = 'Try Again';
+
   /// Cancel label
   static const String labelCancel = 'Cancel';
+
   /// OK label
   static const String labelOk = 'OK';
+
   /// Post labels
   static const String labelPosts = 'Posts';
   static const String labelPostsDemo = 'Posts (JSONPlaceholder demo)';
@@ -113,10 +119,13 @@ class AppStrings {
 
   /// Save label
   static const String labelSave = 'Save';
+
   /// Delete label
   static const String labelDelete = 'Delete';
+
   /// Edit label
   static const String labelEdit = 'Edit';
+
   /// Submit label
   static const String labelSubmit = 'Submit';
   /// Go Home label
@@ -139,18 +148,30 @@ class AppStrings {
   /// Empty states
   /// No data message
   static const String emptyNoData = 'No data available';
+
   /// No search results message
   static const String emptySearch = 'No results found';
+
   /// No favorites message
   static const String emptyFavorites = 'No favorites yet';
 
   /// Connectivity
   /// Connectivity status label
   static const String connectivityStatus = 'Connectivity status';
+
   /// Online status label
   static const String connectivityOnline = 'Online';
+
   /// Offline status label
   static const String connectivityOffline = 'Offline';
+
+  /// Connect to Moodle screen
+  static const String connectToMoodle = 'Connect to Moodle';
+  static const String yourSite = 'Your site';
+  static const String siteHint = 'https://campus.example.edu';
+  static const String needHelp = 'Need help?';
+  static const String scanQrCode = 'Scan QR code';
+  static const String or = 'OR';
 }
 
 /// Spacing constants for consistent padding/margins
@@ -162,7 +183,7 @@ class AppSpacing {
   const AppSpacing._();
 
   /// Extra extra small spacing (2)
-  static const double xxs = 2;
+  static const double xxs_old = 2; // Conflict resolution: keeping both for safety if used
 
   /// Extra small spacing (4)
   static const double xs = 4;
@@ -190,6 +211,14 @@ class AppSpacing {
 
   /// Extra extra large spacing (48)
   static const double xxl = 48;
+
+  /// Custom spacing from origin/main or HEAD
+  static const double xxs = 5;
+  static const double mdSm = 10;
+  static const double mdLg = 12;
+  static const double xlSm = 22;
+  static const double xlMd = 34;
+  static const double xxlSm = 44;
 }
 
 /// App size constants
@@ -225,7 +254,7 @@ class AppSize {
   static const double splashLogoErrorSize = 100;
 
   /// Logo width (380)
-  static const double logoWidth = 380;
+  static const double logoWidthDefault = 380;
 
   /// Button height (44)
   static const double buttonHeight = 44;
@@ -253,4 +282,39 @@ class AppSize {
 
   /// Large elevation (8)
   static const double elevationLg = 8;
+
+  /// Font sizes
+  static const double fontXs = 12;
+  static const double fontSm = 14;
+  static const double fontMd = 16;
+  static const double fontLg = 20;
+
+  /// Layout sizes
+  static const double headerHeight = 40;
+  static const double logoHeight = 80;
+  static const double logoWidth = 550;
+
+  /// Common values
+  static const double lineHeight = 1;
+  static const double dividerThickness = .8;
+  static const double letterSpacingNone = 0;
+  static const double letterSpacingTight = -.2;
+  static const double splashRadius = 18;
+  static const double iconSettings = 25;
+  static const double iconButtonMinSize = 32;
+  static const double helpBorderRadius = 5;
+  static const double helpVerticalPadding = 2;
+
+  static const double helpFontSize = 15;
+
+  static const double helpDividerWidth = 72;
+  static const double helpDividerHeight = .5;
+  static const double helpDividerThickness = .5;
+  static const double qrButtonHeight = 42;
+  static const double qrIconSize = 22;
+  static const double qrButtonFontSize = 13;
+  static const double qrButtonLetterSpacing = 1;
+  static const double qrButtonRadius = 3;
+  static const double borderWidthNone = 0;
+  static const double horizontalPaddingNone = 0;
 }
