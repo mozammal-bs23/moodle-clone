@@ -140,7 +140,7 @@ class _LoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
+    return Material(
       color: Colors.black,
       child: Center(
         child: Column(
@@ -164,7 +164,7 @@ class _PermissionDeniedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
+    return Material(
       color: Colors.white,
       child: SafeArea(
         child: Padding(
@@ -218,7 +218,7 @@ class _CameraErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
+    return Material(
       color: Colors.white,
       child: SafeArea(
         child: Padding(
