@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/feature_auth/cubit/login_cubit.dart';
 import 'package:flutter_boilerplate/feature_auth/widgets/login_button.dart';
 import 'package:flutter_boilerplate/feature_auth/widgets/login_text_field.dart';
+import 'package:flutter_boilerplate/feature_auth/widgets/lost_password_link.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -50,7 +51,7 @@ class _LoginFormState extends State<LoginForm> {
         SizedBox(height: AppSpacing.xl.h),
         LoginButton(onPressed: _onLoginPressed),
         SizedBox(height: AppSpacing.lg.h),
-        _buildLostPasswordLink(),
+        const LostPasswordLink(),
       ],
     );
   }
@@ -60,21 +61,5 @@ class _LoginFormState extends State<LoginForm> {
           username: _usernameController.text.trim(),
           password: _passwordController.text,
         );
-  }
-
-  Widget _buildLostPasswordLink() {
-    return InkWell(
-      onTap: () {},
-      child: Text(
-        AppStrings.labelLostPassword,
-        style: TextStyle(
-          color: AppTheme.moodleLinkGrey,
-          decoration: TextDecoration.underline,
-          decorationThickness: 1.2,
-          fontSize: 14.5.sp,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
   }
 }
