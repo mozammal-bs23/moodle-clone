@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_boilerplate/feature_qr_scan/cubit/qr_scan_cubit.dart';
 import 'package:flutter_boilerplate/feature_qr_scan/cubit/qr_scan_state.dart';
 import 'package:flutter_boilerplate/feature_qr_scan/utils/qr_strings.dart';
+import 'package:flutter_boilerplate/feature_qr_scan/widgets/scan_result_overlay.dart';
 import 'package:flutter_boilerplate/feature_qr_scan/widgets/scanner_app_bar.dart';
 import 'package:flutter_boilerplate/feature_qr_scan/widgets/scanner_controls.dart';
 import 'package:flutter_boilerplate/feature_qr_scan/widgets/scanner_overlay.dart';
@@ -15,7 +16,7 @@ import 'package:flutter_boilerplate/feature_qr_scan/widgets/scanner_viewfinder.d
 ///
 /// Pushed onto the navigator by [SetBaseUrlPage] via
 /// `Navigator.push<String>`. Pops back with a parsed base URL when the
-/// user successfully scans a code, or with `null` if they cancel.
+/// user accepts a scan, or with `null` if they cancel.
 class QrScanPage extends StatelessWidget {
   const QrScanPage({super.key});
 
@@ -47,13 +48,13 @@ class _QrScanView extends StatelessWidget {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     backgroundColor: Colors.black87,
                     content: Text(
                       QrStrings.invalidQrBody,
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white),
                     ),
-                    duration: const Duration(seconds: 2),
+                    duration: Duration(seconds: 2),
                   ),
                 );
               // Allow scanning again after the user sees the message.
@@ -61,14 +62,35 @@ class _QrScanView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return switch (state.status) {
-              QrScanStatus.initial => const _LoadingView(),
-              QrScanStatus.permissionDenied => const _PermissionDeniedView(),
-              QrScanStatus.cameraError => const _CameraErrorView(),
-              QrScanStatus.scanning ||
-              QrScanStatus.detected =>
-                _ScannerBody(state: state),
-            };
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                // Layered status body (scanner / loading / permission / error).
+                switch (state.status) {
+                  QrScanStatus.initial => const _LoadingView(),
+                  QrScanStatus.permissionDenied =>
+                    const _PermissionDeniedView(),
+                  QrScanStatus.cameraError => const _CameraErrorView(),
+                  QrScanStatus.scanning ||
+                  QrScanStatus.detected =>
+                    _ScannerBody(state: state),
+                },
+                // Result overlay pinned on top whenever we have a parsed URL.
+                if (state.parsedUrl != null)
+                  ScanResultOverlay(
+                    parsedUrl: state.parsedUrl!,
+                    rawValue: state.lastRawValue ?? state.parsedUrl!,
+                    onUse: () {
+                      final parsed = state.parsedUrl!;
+                      HapticFeedback.mediumImpact();
+                      Navigator.of(context).pop(parsed);
+                    },
+                    onScanAgain: () {
+                      context.read<QrScanCubit>().resumeScanning();
+                    },
+                  ),
+              ],
+            );
           },
         ),
       ),
@@ -93,12 +115,12 @@ class _ScannerBody extends StatelessWidget {
             final parsed = cubit.onDetect(capture);
             if (parsed != null) {
               HapticFeedback.mediumImpact();
-              Navigator.of(context).pop(parsed);
+              // Don't pop yet — let the user choose between Copy and Use
+              // from the result overlay. Popping happens in onUse.
             }
           },
           overlay: const ScannerOverlay(),
         ),
-        // Bottom controls.
         Positioned(
           left: 0,
           right: 0,

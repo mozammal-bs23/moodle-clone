@@ -14,7 +14,7 @@ enum QrScanStatus {
   /// Camera is up and we are waiting for a code.
   scanning,
 
-  /// A code was detected; the page is finishing up and about to pop.
+  /// A code was detected; the result overlay is visible.
   detected,
 }
 
@@ -26,6 +26,7 @@ class QrScanState extends Equatable {
     this.usingFrontCamera = false,
     this.lastRawValue,
     this.errorMessage,
+    this.parsedUrl,
   });
 
   /// Current status of the scanner.
@@ -43,14 +44,20 @@ class QrScanState extends Equatable {
   /// Optional human-readable error message (used for the snackbar).
   final String? errorMessage;
 
+  /// The parsed, normalized base URL extracted from the most recent
+  /// successful scan. Non-null while the result overlay is shown.
+  final String? parsedUrl;
+
   QrScanState copyWith({
     QrScanStatus? status,
     bool? torchEnabled,
     bool? usingFrontCamera,
     String? lastRawValue,
     String? errorMessage,
+    String? parsedUrl,
     bool clearError = false,
     bool clearLastValue = false,
+    bool clearParsedUrl = false,
   }) {
     return QrScanState(
       status: status ?? this.status,
@@ -59,6 +66,7 @@ class QrScanState extends Equatable {
       lastRawValue:
           clearLastValue ? null : (lastRawValue ?? this.lastRawValue),
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
+      parsedUrl: clearParsedUrl ? null : (parsedUrl ?? this.parsedUrl),
     );
   }
 
@@ -69,5 +77,6 @@ class QrScanState extends Equatable {
         usingFrontCamera,
         lastRawValue,
         errorMessage,
+        parsedUrl,
       ];
 }

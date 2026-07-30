@@ -35,4 +35,15 @@ class QrStrings {
   static const String invalidQrTitle = 'Invalid QR code';
   static const String invalidQrBody =
       'The scanned QR code does not look like a Moodle site URL.';
+
+  /// Result overlay shown after a successful scan.
+  static const String resultTitle = 'Scanned';
+  static const String resultParsedLabel = 'Site URL';
+  static const String resultRawLabel = 'Raw code';
+  static const String resultCopy = 'Copy';
+  static const String resultUse = 'Use this URL';
+  static const String resultScanAgain = 'Scan again';
+
+  /// Snackbar confirmation after Copy.
+  static const String copied = 'Copied to clipboard';
 }

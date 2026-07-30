@@ -87,9 +87,13 @@ class QrScanCubit extends Cubit<QrScanState> {
         return null;
       }
       _settled = true;
+      // Pause the camera while the result overlay is on screen so we
+      // do not keep firing scans for the same code.
+      unawaitedSafe(controller.stop());
       emit(state.copyWith(
         status: QrScanStatus.detected,
         lastRawValue: raw,
+        parsedUrl: parsed,
         clearError: true,
       ));
       return parsed;
@@ -98,15 +102,17 @@ class QrScanCubit extends Cubit<QrScanState> {
   }
 
   /// Reset the "we already accepted a scan" latch so the user can rescan
-  /// after an invalid detection or after returning from a denied
-  /// permission flow.
-  void resumeScanning() {
+  /// after an invalid detection, after dismissing the result overlay, or
+  /// after returning from a denied permission flow.
+  Future<void> resumeScanning() async {
     _settled = false;
     emit(state.copyWith(
       status: QrScanStatus.scanning,
       clearError: true,
       clearLastValue: true,
+      clearParsedUrl: true,
     ));
+    await controller.start();
   }
 
   /// Clear the transient error message (used after the snackbar dismisses).
@@ -120,4 +126,12 @@ class QrScanCubit extends Cubit<QrScanState> {
     await controller.dispose();
     return super.close();
   }
+}
+
+/// Tiny helper that mirrors Dart's `unawaited` without the `dart:async`
+/// import noise. The camera pause/restart calls are fire-and-forget from
+/// the cubit's perspective; surfacing them as unawaited keeps the analyzer
+/// happy without changing observable behavior.
+void unawaitedSafe(Future<void> future) {
+  future.then((_) {}, onError: (_) {});
 }
