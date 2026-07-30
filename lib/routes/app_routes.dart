@@ -28,6 +28,12 @@ abstract class AppRoutes {
   /// Profile route
   static const String profile = '/profile';
 
+  /// More route
+  static const String more = '/more';
+
+  /// App settings route
+  static const String appSettings = '/app-settings';
+
   /// Error routes
   static const String notFound = '/not-found';
 
