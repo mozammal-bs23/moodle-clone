@@ -32,6 +32,12 @@ class LoginResponseModel with _$LoginResponseModel {
     /// failure).
     String? errorcode,
 
+    /// Alternative human-readable message — some Moodle installs return
+    /// `{"message":"..."}` without a top-level `error` field, particularly
+    /// in older REST plugins. Captured here as a fallback so the repository
+    /// can still surface a useful message to the user.
+    String? message,
+
     /// Stack trace (populated only in debug builds on failure).
     String? stacktrace,
 

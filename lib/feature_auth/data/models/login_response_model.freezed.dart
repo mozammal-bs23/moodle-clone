@@ -34,6 +34,12 @@ mixin _$LoginResponseModel {
   /// failure).
   String? get errorcode => throw _privateConstructorUsedError;
 
+  /// Alternative human-readable message — some Moodle installs return
+  /// `{"message":"..."}` without a top-level `error` field, particularly
+  /// in older REST plugins. Captured here as a fallback so the repository
+  /// can still surface a useful message to the user.
+  String? get message => throw _privateConstructorUsedError;
+
   /// Stack trace (populated only in debug builds on failure).
   String? get stacktrace => throw _privateConstructorUsedError;
 
@@ -65,6 +71,7 @@ abstract class $LoginResponseModelCopyWith<$Res> {
     String? privatetoken,
     String? error,
     String? errorcode,
+    String? message,
     String? stacktrace,
     String? debuginfo,
     String? reproductionlink,
@@ -90,6 +97,7 @@ class _$LoginResponseModelCopyWithImpl<$Res, $Val extends LoginResponseModel>
     Object? privatetoken = freezed,
     Object? error = freezed,
     Object? errorcode = freezed,
+    Object? message = freezed,
     Object? stacktrace = freezed,
     Object? debuginfo = freezed,
     Object? reproductionlink = freezed,
@@ -111,6 +119,10 @@ class _$LoginResponseModelCopyWithImpl<$Res, $Val extends LoginResponseModel>
             errorcode: freezed == errorcode
                 ? _value.errorcode
                 : errorcode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            message: freezed == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
                       as String?,
             stacktrace: freezed == stacktrace
                 ? _value.stacktrace
@@ -144,6 +156,7 @@ abstract class _$$LoginResponseModelImplCopyWith<$Res>
     String? privatetoken,
     String? error,
     String? errorcode,
+    String? message,
     String? stacktrace,
     String? debuginfo,
     String? reproductionlink,
@@ -168,6 +181,7 @@ class __$$LoginResponseModelImplCopyWithImpl<$Res>
     Object? privatetoken = freezed,
     Object? error = freezed,
     Object? errorcode = freezed,
+    Object? message = freezed,
     Object? stacktrace = freezed,
     Object? debuginfo = freezed,
     Object? reproductionlink = freezed,
@@ -189,6 +203,10 @@ class __$$LoginResponseModelImplCopyWithImpl<$Res>
         errorcode: freezed == errorcode
             ? _value.errorcode
             : errorcode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        message: freezed == message
+            ? _value.message
+            : message // ignore: cast_nullable_to_non_nullable
                   as String?,
         stacktrace: freezed == stacktrace
             ? _value.stacktrace
@@ -215,6 +233,7 @@ class _$LoginResponseModelImpl implements _LoginResponseModel {
     this.privatetoken,
     this.error,
     this.errorcode,
+    this.message,
     this.stacktrace,
     this.debuginfo,
     this.reproductionlink,
@@ -240,6 +259,13 @@ class _$LoginResponseModelImpl implements _LoginResponseModel {
   @override
   final String? errorcode;
 
+  /// Alternative human-readable message — some Moodle installs return
+  /// `{"message":"..."}` without a top-level `error` field, particularly
+  /// in older REST plugins. Captured here as a fallback so the repository
+  /// can still surface a useful message to the user.
+  @override
+  final String? message;
+
   /// Stack trace (populated only in debug builds on failure).
   @override
   final String? stacktrace;
@@ -254,7 +280,7 @@ class _$LoginResponseModelImpl implements _LoginResponseModel {
 
   @override
   String toString() {
-    return 'LoginResponseModel(token: $token, privatetoken: $privatetoken, error: $error, errorcode: $errorcode, stacktrace: $stacktrace, debuginfo: $debuginfo, reproductionlink: $reproductionlink)';
+    return 'LoginResponseModel(token: $token, privatetoken: $privatetoken, error: $error, errorcode: $errorcode, message: $message, stacktrace: $stacktrace, debuginfo: $debuginfo, reproductionlink: $reproductionlink)';
   }
 
   @override
@@ -268,6 +294,7 @@ class _$LoginResponseModelImpl implements _LoginResponseModel {
             (identical(other.error, error) || other.error == error) &&
             (identical(other.errorcode, errorcode) ||
                 other.errorcode == errorcode) &&
+            (identical(other.message, message) || other.message == message) &&
             (identical(other.stacktrace, stacktrace) ||
                 other.stacktrace == stacktrace) &&
             (identical(other.debuginfo, debuginfo) ||
@@ -284,6 +311,7 @@ class _$LoginResponseModelImpl implements _LoginResponseModel {
     privatetoken,
     error,
     errorcode,
+    message,
     stacktrace,
     debuginfo,
     reproductionlink,
@@ -312,6 +340,7 @@ abstract class _LoginResponseModel implements LoginResponseModel {
     final String? privatetoken,
     final String? error,
     final String? errorcode,
+    final String? message,
     final String? stacktrace,
     final String? debuginfo,
     final String? reproductionlink,
@@ -336,6 +365,13 @@ abstract class _LoginResponseModel implements LoginResponseModel {
   /// failure).
   @override
   String? get errorcode;
+
+  /// Alternative human-readable message — some Moodle installs return
+  /// `{"message":"..."}` without a top-level `error` field, particularly
+  /// in older REST plugins. Captured here as a fallback so the repository
+  /// can still surface a useful message to the user.
+  @override
+  String? get message;
 
   /// Stack trace (populated only in debug builds on failure).
   @override

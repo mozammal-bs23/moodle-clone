@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_auth/widgets/password_visibility_toggle.dart';
 import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -62,7 +63,6 @@ class _LoginTextFieldState extends State<LoginTextField> {
         color: Theme.of(context).colorScheme.onSurface,
       ),
       decoration: InputDecoration(
-        // Background text disappears whenever the field is tapped (focused)
         hintText: _isFocused ? null : widget.label,
         hintStyle: TextStyle(
           color: AppTheme.moodleLabelGrey,
@@ -82,21 +82,14 @@ class _LoginTextFieldState extends State<LoginTextField> {
             width: 1.5.h,
           ),
         ),
-        // Ensures the hint text is vertically centered in the left middle
         contentPadding: EdgeInsets.fromLTRB(0, 12.h, 0, 12.h),
-        suffixIcon: widget.isPassword ? _buildVisibilityToggle() : null,
+        suffixIcon: widget.isPassword
+            ? PasswordVisibilityToggle(
+                isVisible: _isVisible,
+                onChanged: (v) => setState(() => _isVisible = v),
+              )
+            : null,
       ),
-    );
-  }
-
-  Widget _buildVisibilityToggle() {
-    return IconButton(
-      icon: Icon(
-        _isVisible ? Icons.visibility_outlined : Icons.visibility_sharp,
-        color: Theme.of(context).colorScheme.onSurface,
-        size: 20.r,
-      ),
-      onPressed: () => setState(() => _isVisible = !_isVisible),
     );
   }
 }
