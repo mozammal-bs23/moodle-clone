@@ -34,6 +34,9 @@ abstract class AppRoutes {
   /// App settings route
   static const String appSettings = '/app-settings';
 
+  /// About route
+  static const String about = '/about';
+
   /// Error routes
   static const String notFound = '/not-found';
 

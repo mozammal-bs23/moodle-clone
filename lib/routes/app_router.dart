@@ -3,6 +3,7 @@ import 'package:flutter_boilerplate/feature_app_settings/pages/app_settings_page
 import 'package:flutter_boilerplate/feature_more/pages/more_page.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/feature_set_base_url/pages/set_base_url_page.dart';
+import 'package:flutter_boilerplate/feature_webview_about/pages/about_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
 import 'package:go_router/go_router.dart';
@@ -59,6 +60,13 @@ class AppRouter {
           path: AppRoutes.appSettings,
           name: AppRoutes.appSettings,
           builder: (context, state) => const AppSettingsPage(),
+        ),
+
+        // About Route
+        GoRoute(
+          path: AppRoutes.about,
+          name: AppRoutes.about,
+          builder: (context, state) => const AboutPage(),
         ),
       ],
     );
