@@ -36,4 +36,11 @@ abstract class AppRoutes {
 
   /// QR code scanner route (pushed from the Set Base URL page).
   static const String qrScan = '/qr-scan';
+
+  /// My Courses route (post-login landing for the courses tab).
+  static const String myCourses = '/my-courses';
+
+  /// Course detail route. Pushed from a My Courses card; receives the
+  /// [MyCourseItem] via `state.extra`.
+  static const String courseDetail = '/course-detail';
 }

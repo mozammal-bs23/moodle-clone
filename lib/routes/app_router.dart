@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature_my_courses/cubit/my_courses_state.dart';
+import 'package:flutter_boilerplate/feature_my_courses/pages/my_course_detail_page.dart';
+import 'package:flutter_boilerplate/feature_my_courses/pages/my_courses_page.dart';
 import 'package:flutter_boilerplate/feature_qr_scan/pages/qr_scan_page.dart';
 import 'package:flutter_boilerplate/feature_set_base_url/pages/set_base_url_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
@@ -18,7 +21,7 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: '/',
+      initialLocation: AppRoutes.myCourses,
       debugLogDiagnostics: true,
 
       // Route observers for analytics and logging
@@ -29,6 +32,26 @@ class AppRouter {
           _buildErrorPage(context, state.error, state.uri.toString()),
 
       routes: <GoRoute>[
+        // My Courses is the post-login landing screen.
+        GoRoute(
+          path: AppRoutes.myCourses,
+          pageBuilder: (context, state) => const MaterialPage(
+            child: MyCoursesPage(),
+          ),
+        ),
+        // Course detail page receives the MyCourseItem via state.extra
+        // so we don't have to fetch it again. Falls back to a sane empty
+        // page if the extra is missing (deep link).
+        GoRoute(
+          path: AppRoutes.courseDetail,
+          pageBuilder: (context, state) {
+            final extra = state.extra;
+            final course = extra is MyCourseItem ? extra : null;
+            return MaterialPage(
+              child: MyCourseDetailPage(course: course),
+            );
+          },
+        ),
         GoRoute(
           path: '/',
           pageBuilder: (context, state) =>

@@ -6,8 +6,18 @@
 /// manually here.
 library;
 
+import 'package:dio/dio.dart';
+import 'package:flutter_boilerplate/feature_my_courses/cubit/course_contents_cubit.dart';
+import 'package:flutter_boilerplate/feature_my_courses/cubit/my_courses_cubit.dart';
 import 'package:flutter_boilerplate/feature_post/cubit/post_cubit.dart';
 import 'package:flutter_boilerplate_core/utils/injection/di.dart' as core_di;
+import 'package:flutter_boilerplate_core/utils/storage/local_storage.dart';
+import 'package:flutter_boilerplate_data/feature_my_courses/datasources/course_categories_remote_datasource.dart';
+import 'package:flutter_boilerplate_data/feature_my_courses/datasources/course_contents_remote_datasource.dart';
+import 'package:flutter_boilerplate_data/feature_my_courses/datasources/my_courses_remote_datasource.dart';
+import 'package:flutter_boilerplate_data/feature_my_courses/repositories/course_categories_repository_impl.dart';
+import 'package:flutter_boilerplate_data/feature_my_courses/repositories/course_contents_repository_impl.dart';
+import 'package:flutter_boilerplate_data/feature_my_courses/repositories/my_courses_repository_impl.dart';
 import 'package:flutter_boilerplate_data/feature_post/datasources/post_remote_datasource.dart';
 import 'package:flutter_boilerplate_data/feature_post/repositories/post_repository_impl.dart';
 import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
@@ -26,6 +36,10 @@ Future<void> configureDependencies([String? environment]) async {
   await core_di.configureDependencies(environment);
 
   getIt
+    ..registerSingleton<String>(
+      'https://lmsmobile.ahnafmuttaki.com/webservice/rest/server.php',
+      instanceName: 'moodleBaseUrl',
+    )
     ..registerLazySingleton<PostRepository>(
       () => PostRepositoryImpl(
         remoteDatasource: getIt<PostRemoteDatasource>(),
@@ -56,6 +70,83 @@ Future<void> configureDependencies([String? environment]) async {
         updatePostUseCase: getIt<UpdatePostUseCase>(),
         patchPostUseCase: getIt<PatchPostUseCase>(),
         deletePostUseCase: getIt<DeletePostUseCase>(),
+      ),
+    )
+
+    // ---- Feature: My Courses ----
+    // The injectable generator cannot see @LazySingleton annotations
+    // across package boundaries, so we wire the data layer up manually
+    // here — same pattern as PostRepository above.
+    ..registerLazySingleton<MyCoursesRemoteDatasource>(
+      () => MyCoursesRemoteDatasource(
+        getIt<Dio>(),
+        baseUrl: getIt<String>(instanceName: 'moodleBaseUrl'),
+      ),
+    )
+    ..registerLazySingleton<MyCoursesRepository>(
+      () => MyCoursesRepositoryImpl(
+        remoteDatasource: getIt<MyCoursesRemoteDatasource>(),
+      ),
+    )
+    ..registerFactory<GetMyCoursesUseCase>(
+      () => GetMyCoursesUseCase(
+        getIt<MyCoursesRepository>(),
+        getIt<LocalStorage>(),
+      ),
+    )
+    ..registerFactory<MyCoursesCubit>(
+      () => MyCoursesCubit(
+        getMyCoursesUseCase: getIt<GetMyCoursesUseCase>(),
+        getCourseCategoriesUseCase: getIt<GetCourseCategoriesUseCase>(),
+      ),
+    )
+
+    // Course categories: same wiring pattern as the MyCourses block
+    // above. The data layer's @LazySingleton annotations don't get
+    // scanned across packages, so we register the datasource +
+    // repository here too.
+    ..registerLazySingleton<CourseCategoriesRemoteDatasource>(
+      () => CourseCategoriesRemoteDatasource(
+        getIt<Dio>(),
+        baseUrl: getIt<String>(instanceName: 'moodleBaseUrl'),
+      ),
+    )
+    ..registerLazySingleton<CourseCategoriesRepository>(
+      () => CourseCategoriesRepositoryImpl(
+        remoteDatasource: getIt<CourseCategoriesRemoteDatasource>(),
+      ),
+    )
+    ..registerFactory<GetCourseCategoriesUseCase>(
+      () => GetCourseCategoriesUseCase(
+        getIt<CourseCategoriesRepository>(),
+        getIt<LocalStorage>(),
+      ),
+    )
+
+    // Course contents: same wiring pattern as the MyCourses block
+    // above. The data layer's @LazySingleton annotations don't get
+    // scanned across packages, so we register the datasource +
+    // repository here too.
+    ..registerLazySingleton<CourseContentsRemoteDatasource>(
+      () => CourseContentsRemoteDatasource(
+        getIt<Dio>(),
+        baseUrl: getIt<String>(instanceName: 'moodleBaseUrl'),
+      ),
+    )
+    ..registerLazySingleton<CourseContentsRepository>(
+      () => CourseContentsRepositoryImpl(
+        remoteDatasource: getIt<CourseContentsRemoteDatasource>(),
+        localStorage: getIt<LocalStorage>(),
+      ),
+    )
+    ..registerFactory<GetCourseContentsUseCase>(
+      () =>
+          GetCourseContentsUseCase(getIt<CourseContentsRepository>()),
+    )
+    ..registerFactory<CourseContentsCubit>(
+      () => CourseContentsCubit(
+        getCourseContentsUseCase: getIt<GetCourseContentsUseCase>(),
+        localStorage: getIt<LocalStorage>(),
       ),
     );
 }
