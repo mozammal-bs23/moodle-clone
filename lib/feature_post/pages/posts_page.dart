@@ -8,9 +8,12 @@ import 'package:flutter_boilerplate_domain/flutter_boilerplate_domain.dart';
 /// Posts page - demonstrates full CRUD against JSONPlaceholder's
 /// `/posts` resource (GET, POST, PUT, PATCH, DELETE).
 ///
-/// JSONPlaceholder is a fake API: writes are accepted but never actually
-/// persisted, so every mutation here triggers a refetch of the list to
-/// honestly reflect that behavior.
+/// JSONPlaceholder is a fake API: writes are accepted but never
+/// actually persisted. To keep the demo usable, the cubit applies
+/// optimistic local updates after every mutation and remembers them
+/// across refetches (see [PostCubit]). Pull-to-refresh still
+/// re-hydrates from the server, and any local edits that the server
+/// doesn't know about stay visible on top.
 class PostsPage extends StatelessWidget {
   /// Creates an instance of [PostsPage]
   const PostsPage({super.key});
@@ -84,8 +87,8 @@ class _DemoBanner extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.sm),
       child: Text(
         'Demo API: creates/edits/deletes are accepted by the server but '
-        'never actually persist. The list resets to the original 100 '
-        'posts on every refresh.',
+        'never actually persist. Local edits stay visible across refreshes '
+        'thanks to optimistic updates.',
         style: Theme.of(context).textTheme.bodySmall,
       ),
     );
