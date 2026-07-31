@@ -6,6 +6,9 @@ class AppTheme {
   /// Private constructor to prevent instantiation
   AppTheme._();
 
+  /// Brand colors
+  static const Color brandOrange = Color(0xFFF98012);
+
   /// Moodle branding orange color
   static const Color moodleOrange = Color(0xFFF98012);
 

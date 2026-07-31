@@ -39,6 +39,18 @@ abstract class DIModule {
         BaseOptions(contentType: 'application/json; charset=UTF-8'),
       );
 
+  /// Default connection timeout
+  @lazySingleton
+  Duration get connectTimeout => const Duration(seconds: 30);
+
+  /// Default receive timeout (reusing connectTimeout's value for simplicity)
+  @Named('receiveTimeout')
+  Duration get receiveTimeout => const Duration(seconds: 30);
+
+  /// Default retry count
+  @lazySingleton
+  int get maxRetries => 3;
+
   /// Base URL for the JSONPlaceholder demo API (feature_post only)
   @Named('jsonPlaceholderBaseUrl')
   String get jsonPlaceholderBaseUrl => 'https://jsonplaceholder.typicode.com';

@@ -5,8 +5,13 @@ import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/feature_set_base_url/pages/set_base_url_page.dart';
 import 'package:flutter_boilerplate/feature_webview_about/pages/about_page.dart';
 import 'package:flutter_boilerplate/feature_webview_about/pages/web_view_page.dart';
+import 'package:flutter_boilerplate/feature_auth/pages/login_page.dart';
+import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
+import 'package:flutter_boilerplate/feature_set_base_url/pages/set_base_url_page.dart';
+import 'package:flutter_boilerplate/feature_splash/pages/splash_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -22,15 +27,32 @@ class AppRouter {
     String? redirectLocation,
   }) {
     return GoRouter(
-      initialLocation: AppRoutes.more,
+      initialLocation: AppRoutes.splash,
       debugLogDiagnostics: true,
-
-      // Route observers for analytics and logging
       observers: [routeObserver],
-
-      // Error handling
       errorBuilder: (context, state) =>
           _buildErrorPage(context, state.error, state.uri.toString()),
+      routes: <RouteBase>[
+        // Splash Route
+        GoRoute(
+          path: AppRoutes.splash,
+          builder: (context, state) => const SplashPage(),
+        ),
+
+        // Auth Routes
+        GoRoute(
+          path: AppRoutes.login,
+          name: AppRoutes.login,
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: LoginPage()),
+        ),
+
+        // Posts Routes (JSONPlaceholder CRUD demo)
+        GoRoute(
+          path: AppRoutes.posts,
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: PostsPage()),
+        ),
 
       routes: <GoRoute>[
         // More Routes
@@ -50,6 +72,7 @@ class AppRouter {
         ),
 
         // Set base URL screen (added on main)
+        // Set Base URL Route (Connect to Moodle)
         GoRoute(
           path: '/',
           pageBuilder: (context, state) =>
@@ -93,20 +116,24 @@ class AppRouter {
     String location,
   ) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Error')),
+      appBar: AppBar(title: const Text(AppStrings.labelError)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Navigation error occurred'),
+            const Text(AppStrings.errorNavigation),
             if (error != null) ...[
-              const SizedBox(height: 16),
-              Text(error.toString()),
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                error.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.red),
+              ),
             ],
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
             ElevatedButton(
-              onPressed: () => context.go(AppRoutes.posts),
-              child: const Text('Go Home'),
+              onPressed: () => context.go(AppRoutes.splash),
+              child: const Text('Back to Splash'),
             ),
           ],
         ),

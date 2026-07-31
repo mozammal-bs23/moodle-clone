@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Screen displayed when an unhandled error occurs
@@ -22,57 +23,56 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const redColor = Color(0xFFB71C1C);
-    const bgColor = Color(0xFFFFEBEE);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Material(
-      color: bgColor,
+      color: colorScheme.errorContainer,
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(16.w),
+        padding: EdgeInsets.all(AppSpacing.md.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 24.h),
-            const Icon(
+            SizedBox(height: AppSpacing.lg.h),
+            Icon(
               Icons.error_outline,
-              size: 64,
-              color: redColor,
+              size: AppSize.iconXl * 1.5,
+              color: colorScheme.error,
             ),
-            SizedBox(height: 24.h),
+            SizedBox(height: AppSpacing.lg.h),
             Text(
-              'Oops! Something went wrong',
+              AppStrings.errorSomethingWentWrong,
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFF7F0000),
+                color: colorScheme.onErrorContainer,
               ),
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: AppSpacing.md.h),
             Text(
-              'An unexpected error occurred. Our team has been notified.',
+              AppStrings.errorUnexpectedNotify,
               style: TextStyle(
                 fontSize: 14.sp,
-                color: redColor,
+                color: colorScheme.error,
               ),
             ),
-            SizedBox(height: 24.h),
+            SizedBox(height: AppSpacing.lg.h),
             Container(
-              padding: EdgeInsets.all(12.w),
+              padding: EdgeInsets.all(AppSpacing.md.w),
               decoration: BoxDecoration(
-                color: const Color(0xFFFFCDD2),
-                borderRadius: BorderRadius.circular(8.r),
+                color: colorScheme.surface,
+                borderRadius: BorderRadius.circular(AppSize.radiusMd.r),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Error Details:',
+                    AppStrings.errorDetails,
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: AppSpacing.sm.h),
                   SelectableText(
                     error,
                     style: TextStyle(
@@ -81,15 +81,15 @@ class ErrorScreen extends StatelessWidget {
                     ),
                   ),
                   if (stackTrace != null) ...[
-                    SizedBox(height: 16.h),
+                    SizedBox(height: AppSpacing.md.h),
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: redColor),
-                        borderRadius: BorderRadius.circular(4.r),
+                        border: Border.all(color: colorScheme.error),
+                        borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
                       ),
                       child: ExpansionTile(
                         title: Text(
-                          'Stack Trace',
+                          AppStrings.errorStackTrace,
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
@@ -97,7 +97,7 @@ class ErrorScreen extends StatelessWidget {
                         ),
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(12.w),
+                            padding: EdgeInsets.all(AppSpacing.sm.w),
                             child: SelectableText(
                               stackTrace!,
                               style: TextStyle(
@@ -113,12 +113,12 @@ class ErrorScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 32.h),
+            SizedBox(height: AppSpacing.xl.h),
             SizedBox(
               width: double.infinity,
               child: Material(
-                color: redColor,
-                borderRadius: BorderRadius.circular(4.r),
+                color: colorScheme.error,
+                borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
                 child: InkWell(
                   onTap: onRetry,
                   child: Padding(
@@ -126,11 +126,11 @@ class ErrorScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.refresh, color: Colors.white),
-                        SizedBox(width: 8.w),
-                        const Text(
-                          'Try Again',
-                          style: TextStyle(color: Colors.white),
+                        Icon(Icons.refresh, color: colorScheme.onError),
+                        SizedBox(width: AppSpacing.sm.w),
+                        Text(
+                          AppStrings.labelTryAgain,
+                          style: TextStyle(color: colorScheme.onError),
                         ),
                       ],
                     ),
@@ -138,16 +138,16 @@ class ErrorScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 12.h),
+            SizedBox(height: AppSpacing.md.h),
             SizedBox(
               width: double.infinity,
               child: Material(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.circular(4.r),
+                borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: redColor),
-                    borderRadius: BorderRadius.circular(4.r),
+                    border: Border.all(color: colorScheme.error),
+                    borderRadius: BorderRadius.circular(AppSize.radiusSm.r),
                   ),
                   child: InkWell(
                     onTap: () => Navigator.of(context).pop(),
@@ -156,11 +156,11 @@ class ErrorScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.home, color: redColor),
-                          SizedBox(width: 8.w),
-                          const Text(
-                            'Go Home',
-                            style: TextStyle(color: redColor),
+                          Icon(Icons.home, color: colorScheme.error),
+                          SizedBox(width: AppSpacing.sm.w),
+                          Text(
+                            AppStrings.labelGoHome,
+                            style: TextStyle(color: colorScheme.error),
                           ),
                         ],
                       ),

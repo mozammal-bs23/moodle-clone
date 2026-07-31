@@ -30,7 +30,7 @@ class _PostsPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Posts (JSONPlaceholder demo)')),
+      appBar: AppBar(title: const Text(AppStrings.labelPostsDemo)),
       body: Column(
         children: [
           const _DemoBanner(),
@@ -66,7 +66,7 @@ class _PostsPageBody extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showEditDialog(context),
-        tooltip: 'Create post',
+        tooltip: AppStrings.labelCreatePost,
         child: const Icon(Icons.add),
       ),
     );
@@ -83,9 +83,7 @@ class _DemoBanner extends StatelessWidget {
       color: Theme.of(context).colorScheme.secondaryContainer,
       padding: const EdgeInsets.all(AppSpacing.sm),
       child: Text(
-        'Demo API: creates/edits/deletes are accepted by the server but '
-        'never actually persist. The list resets to the original 100 '
-        'posts on every refresh.',
+        AppStrings.bannerDemo,
         style: Theme.of(context).textTheme.bodySmall,
       ),
     );
@@ -99,8 +97,9 @@ class _PostList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     if (posts.isEmpty) {
-      return const Center(child: Text('No posts'));
+      return const Center(child: Text(AppStrings.emptyNoPosts));
     }
     return ListView.builder(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -111,10 +110,10 @@ class _PostList extends StatelessWidget {
           key: ValueKey(post.id),
           direction: DismissDirection.endToStart,
           background: Container(
-            color: Colors.red,
+            color: colorScheme.error,
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: const Icon(Icons.delete, color: Colors.white),
+            child: Icon(Icons.delete, color: colorScheme.onError),
           ),
           onDismissed: (_) =>
               context.read<PostCubit>().deletePost(post.id!),
@@ -150,13 +149,18 @@ class _ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.error_outline, size: 64, color: Colors.red),
+            Icon(
+              Icons.error_outline,
+              size: AppSize.iconXXl,
+              color: colorScheme.error,
+            ),
             const SizedBox(height: AppSpacing.md),
             Text(message, textAlign: TextAlign.center),
             if (canRetry) ...[
@@ -164,7 +168,7 @@ class _ErrorView extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () => context.read<PostCubit>().fetchPosts(),
                 icon: const Icon(Icons.refresh),
-                label: const Text('Try Again'),
+                label: const Text(AppStrings.labelTryAgain),
               ),
             ],
           ],
@@ -184,17 +188,17 @@ Future<void> _showEditDialog(BuildContext context, {PostEntity? post}) async {
   final result = await showDialog<bool>(
     context: context,
     builder: (dialogContext) => AlertDialog(
-      title: Text(post == null ? 'Create post' : 'Edit post (PUT)'),
+      title: Text(post == null ? AppStrings.labelCreatePost : AppStrings.labelEditPost),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: titleController,
-            decoration: const InputDecoration(labelText: 'Title'),
+            decoration: const InputDecoration(labelText: AppStrings.labelTitle),
           ),
           TextField(
             controller: bodyController,
-            decoration: const InputDecoration(labelText: 'Body'),
+            decoration: const InputDecoration(labelText: AppStrings.labelBody),
             maxLines: 3,
           ),
         ],
@@ -202,11 +206,11 @@ Future<void> _showEditDialog(BuildContext context, {PostEntity? post}) async {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('Cancel'),
+          child: const Text(AppStrings.labelCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.of(dialogContext).pop(true),
-          child: Text(post == null ? 'Create' : 'Save'),
+          child: Text(post == null ? AppStrings.labelCreate : AppStrings.labelSave),
         ),
       ],
     ),
@@ -236,20 +240,20 @@ Future<void> _showPatchTitleDialog(
   final result = await showDialog<bool>(
     context: context,
     builder: (dialogContext) => AlertDialog(
-      title: const Text('Quick patch title (PATCH)'),
+      title: const Text(AppStrings.labelPatchTitle),
       content: TextField(
         controller: titleController,
-        decoration: const InputDecoration(labelText: 'Title'),
+        decoration: const InputDecoration(labelText: AppStrings.labelTitle),
         autofocus: true,
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('Cancel'),
+          child: const Text(AppStrings.labelCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.of(dialogContext).pop(true),
-          child: const Text('Patch'),
+          child: const Text(AppStrings.labelPatch),
         ),
       ],
     ),

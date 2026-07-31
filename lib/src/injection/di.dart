@@ -6,6 +6,12 @@
 /// manually here.
 library;
 
+import 'package:dio/dio.dart';
+import 'package:flutter_boilerplate/feature_auth/cubit/login_cubit.dart';
+import 'package:flutter_boilerplate/feature_auth/data/datasources/login_remote_datasource.dart';
+import 'package:flutter_boilerplate/feature_auth/data/repositories/login_repository_impl.dart';
+import 'package:flutter_boilerplate/feature_auth/domain/repositories/login_repository.dart';
+import 'package:flutter_boilerplate/feature_auth/domain/usecases/login_usecase.dart';
 import 'package:flutter_boilerplate/feature_post/cubit/post_cubit.dart';
 import 'package:flutter_boilerplate_core/utils/injection/di.dart' as core_di;
 import 'package:flutter_boilerplate_data/feature_post/datasources/post_remote_datasource.dart';
@@ -18,6 +24,14 @@ export 'package:flutter_boilerplate_core/utils/injection/di.dart'
 
 /// Global service locator instance
 final GetIt getIt = core_di.getIt;
+
+/// Base URL of the Moodle web service used by the login flow.
+///
+/// The core package owns the shared `Dio` and the `ApiClient` that mutates
+/// its `baseUrl` for the JSONPlaceholder-backed `feature_post`. Because we
+/// cannot change `core/`, the login feature uses a fully-qualified URL built
+/// from this constant — the shared Dio's `baseUrl` is intentionally bypassed.
+const String _moodleBaseUrl = 'https://lmsmobile.ahnafmuttaki.com';
 
 /// Main entry point for configuring dependencies
 ///
@@ -57,5 +71,26 @@ Future<void> configureDependencies([String? environment]) async {
         patchPostUseCase: getIt<PatchPostUseCase>(),
         deletePostUseCase: getIt<DeletePostUseCase>(),
       ),
+    )
+    // ---- Feature Auth (Login) ----
+    // The login datasource is the only auth dependency that needs the shared
+    // Dio instance. Everything else below resolves through it via the
+    // repository and use case, mirroring the feature_post pattern.
+    ..registerLazySingleton<LoginRemoteDatasource>(
+      () => LoginRemoteDatasource(
+        getIt<Dio>(),
+        baseUrl: _moodleBaseUrl,
+      ),
+    )
+    ..registerLazySingleton<LoginRepository>(
+      () => LoginRepositoryImpl(
+        remoteDatasource: getIt<LoginRemoteDatasource>(),
+      ),
+    )
+    ..registerFactory<LoginUseCase>(
+      () => LoginUseCase(getIt<LoginRepository>()),
+    )
+    ..registerFactory<LoginCubit>(
+      () => LoginCubit(loginUseCase: getIt<LoginUseCase>()),
     );
 }
