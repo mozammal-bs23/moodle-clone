@@ -13,10 +13,6 @@ class AboutConstants {
   /// used across the app's secondary screens.
   static const Color pageBackground = Color(0xFFFFFFFF);
 
-
-  /// Size of trailing action icons (chevron / open-in-new).
-  static const double trailingIconSize = 18;
-
   // Strings ------------------------------------------------------------
 
   /// Label for the Open Source Licences row.
@@ -30,4 +26,14 @@ class AboutConstants {
 
   /// Caption shown at the bottom of the page (app version).
   static const String labelAboutFooter = 'Moodle Mobile 5.2.1';
+
+  // URLs ---------------------------------------------------------------
+
+  /// URL opened in the in-app WebView when the user taps Privacy policy.
+  static const String privacyPolicyUrl = 'https://moodle.net/moodle-app-privacy/';
+
+  /// URL opened in the in-app WebView when the user taps
+  /// Accessibility statement.
+  static const String accessibilityStatementUrl =
+      'https://apps.moodle.com/admin/tool/policy/view.php?policyid=5';
 }

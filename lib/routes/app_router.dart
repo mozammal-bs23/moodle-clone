@@ -4,6 +4,7 @@ import 'package:flutter_boilerplate/feature_more/pages/more_page.dart';
 import 'package:flutter_boilerplate/feature_post/pages/posts_page.dart';
 import 'package:flutter_boilerplate/feature_set_base_url/pages/set_base_url_page.dart';
 import 'package:flutter_boilerplate/feature_webview_about/pages/about_page.dart';
+import 'package:flutter_boilerplate/feature_webview_about/pages/web_view_page.dart';
 import 'package:flutter_boilerplate/routes/app_routes.dart';
 import 'package:flutter_boilerplate/routes/route_observer.dart';
 import 'package:go_router/go_router.dart';
@@ -68,6 +69,19 @@ class AppRouter {
           name: AppRoutes.about,
           builder: (context, state) => const AboutPage(),
         ),
+
+        // WebView Route — receives a `url` argument via state.extra.
+        GoRoute(
+          path: AppRoutes.webview,
+          name: AppRoutes.webview,
+          builder: (context, state) {
+            final url = state.extra as String?;
+            if (url == null || url.isEmpty) {
+              return const _MissingWebViewUrlPage();
+            }
+            return WebViewPage(url: url);
+          },
+        ),
       ],
     );
   }
@@ -96,6 +110,27 @@ class AppRouter {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Fallback page shown when [WebViewPage] is pushed without a URL.
+class _MissingWebViewUrlPage extends StatelessWidget {
+  /// Creates an instance of [_MissingWebViewUrlPage].
+  const _MissingWebViewUrlPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop<void>(),
+        ),
+      ),
+      body: const Center(
+        child: Text('No URL provided for the WebView.'),
       ),
     );
   }

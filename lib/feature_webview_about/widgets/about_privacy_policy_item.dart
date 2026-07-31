@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature_webview_about/about_constants.dart';
 import 'package:flutter_boilerplate/feature_webview_about/widgets/about_list_item.dart';
-import 'package:flutter_boilerplate_core/flutter_boilerplate_core.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_boilerplate/routes/app_routes.dart';
+import 'package:go_router/go_router.dart';
 
 /// The "Privacy policy" entry on the About page.
 ///
-/// Trailing open-in-new icon indicates the link opens an external URL
-/// (https://moodle.net/moodle-app-privacy/) in the device browser.
-/// The actual URL launch will be wired later.
+/// Tapping the row opens the privacy policy URL inside an in-app
+/// WebView via [AppRoutes.webview].
 class AboutPrivacyPolicyItem extends StatelessWidget {
   /// Creates an instance of [AboutPrivacyPolicyItem].
   const AboutPrivacyPolicyItem({super.key});
@@ -18,14 +17,10 @@ class AboutPrivacyPolicyItem extends StatelessWidget {
     return AboutListItem(
       icon: Icons.privacy_tip,
       label: AboutConstants.labelPrivacyPolicy,
-      trailing: Icon(
-        Icons.open_in_new,
-        color: AppTheme.moodleMediumGrey,
-        size: AboutConstants.trailingIconSize.r,
+      onTap: () => context.pushNamed(
+        AppRoutes.webview,
+        extra: AboutConstants.privacyPolicyUrl,
       ),
-      onTap: () {
-        // TODO(Nadim): launch https://moodle.net/moodle-app-privacy/.
-      },
     );
   }
 }

@@ -4,17 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A reusable list row used by the About page entries.
 ///
-/// Renders a leading icon, a label, and an optional trailing widget
-/// (e.g. chevron for in-app navigation or open-in-new icon for
-/// external links). Mirrors the visual style of the More page list
-/// items but accepts an arbitrary trailing widget.
+/// Renders a leading icon and a label. By default a chevron is shown
+/// on the right (matching the App Settings page's chevron styling —
+/// same icon, color, and size); callers may override the trailing
+/// widget when needed.
 class AboutListItem extends StatelessWidget {
   /// Creates an instance of [AboutListItem].
   const AboutListItem({
     required this.icon,
     required this.label,
-    required this.trailing,
     required this.onTap,
+    this.trailing,
     super.key,
   });
 
@@ -24,8 +24,9 @@ class AboutListItem extends StatelessWidget {
   /// The text label for the item.
   final String label;
 
-  /// The widget shown at the end of the row (chevron / open icon).
-  final Widget trailing;
+  /// Optional widget shown at the end of the row. Defaults to a
+  /// chevron pointing right when omitted.
+  final Widget? trailing;
 
   /// Callback invoked when the row is tapped.
   final VoidCallback onTap;
@@ -37,7 +38,7 @@ class AboutListItem extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: AppSpacing.md.w,
-          vertical: AppSpacing.sm.h,
+          vertical: AppSpacing.md.h,
         ),
         child: Row(
           children: [
@@ -46,7 +47,7 @@ class AboutListItem extends StatelessWidget {
               size: AppSize.iconMd.r,
               color: AppTheme.moodleDarkGrey,
             ),
-            SizedBox(width: AppSpacing.lg.w),
+            SizedBox(width: AppSpacing.md.w),
             Expanded(
               child: Text(
                 label,
@@ -57,10 +58,30 @@ class AboutListItem extends StatelessWidget {
                 ),
               ),
             ),
-            trailing,
+            trailing ?? const _DefaultTrailingIcon(),
           ],
         ),
       ),
+    );
+  }
+}
+
+/// The default chevron used by [AboutListItem] when no trailing widget
+/// is supplied by the caller.
+///
+/// Visually identical to the trailing chevron on the App Settings
+/// page — same Material `Icons.chevron_right`, same colour, and same
+/// `AppSize.iconMd` size.
+class _DefaultTrailingIcon extends StatelessWidget {
+  /// Creates an instance of [_DefaultTrailingIcon].
+  const _DefaultTrailingIcon();
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      Icons.chevron_right,
+      color: AppTheme.moodleMediumGrey,
+      size: AppSize.iconMd.r,
     );
   }
 }

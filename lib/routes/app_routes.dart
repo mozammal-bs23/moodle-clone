@@ -37,6 +37,9 @@ abstract class AppRoutes {
   /// About route
   static const String about = '/about';
 
+  /// WebView route (used for in-app browser screens).
+  static const String webview = '/webview';
+
   /// Error routes
   static const String notFound = '/not-found';
 
