@@ -61,3 +61,10 @@ pubspec.lock
 devtools_options.yaml
 
 .claude
+
+# Debug/diagnostic artifacts from local dev sessions
+/_logcat_*.txt
+/_ui_dump_*
+/_screenshot_*.png
+/_pr_body.md
+/API_INTEGRATION.md
